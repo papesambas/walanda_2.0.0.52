@@ -22,10 +22,10 @@ class classesEntityListener
 
     public function prePersist(Classes $classes, LifecycleEventArgs $arg): void
     {
-        /*$user = $this->Securty->getUser();
+        $user = $this->Securty->getUser();
         if ($user === null) {
             throw new LogicException('User cannot be null here ...');
-        }*/
+        }
 
         $disponibilite = $classes->getCapacite() - $classes->getEffectif();
 
@@ -38,10 +38,10 @@ class classesEntityListener
 
     public function preUpdate(Classes $classes, LifecycleEventArgs $arg): void
     {
-        /*$user = $this->Securty->getUser();
+        $user = $this->Securty->getUser();
         if ($user === null) {
             throw new LogicException('User cannot be null here ...');
-        }*/
+        }
 
         $disponibilite = $classes->getCapacite() - $classes->getEffectif();
         $classes

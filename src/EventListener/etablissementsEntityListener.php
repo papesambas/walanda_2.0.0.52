@@ -21,10 +21,10 @@ class etablissementsEntityListener
 
     public function prePersist(Etablissements $etablissement, LifecycleEventArgs $arg): void
     {
-        /*$user = $this->Securty->getUser();
+        $user = $this->Securty->getUser();
         if ($user === null) {
             throw new LogicException('User cannot be null here ...');
-        }*/
+        }
 
 
         $etablissement
@@ -34,10 +34,10 @@ class etablissementsEntityListener
 
     public function preUpdate(Etablissements $etablissement, LifecycleEventArgs $arg): void
     {
-        /*$user = $this->Securty->getUser();
+        $user = $this->Securty->getUser();
         if ($user === null) {
             throw new LogicException('User cannot be null here ...');
-        }*/
+        }
 
         $etablissement
             ->setUpdatedAt(new \DateTimeImmutable('now'));

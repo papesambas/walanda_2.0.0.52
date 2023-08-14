@@ -22,10 +22,10 @@ class lieuNaissancesEntityListener
 
     public function prePersist(LieuNaissances $lieu, LifecycleEventArgs $arg): void
     {
-        /*$user = $this->Securty->getUser();
+        $user = $this->Securty->getUser();
         if ($user === null) {
             throw new LogicException('User cannot be null here ...');
-        }*/
+        }
 
 
         $lieu
@@ -35,10 +35,10 @@ class lieuNaissancesEntityListener
 
     public function preUpdate(LieuNaissances $lieu, LifecycleEventArgs $arg): void
     {
-        /*$user = $this->Securty->getUser();
+        $user = $this->Securty->getUser();
         if ($user === null) {
             throw new LogicException('User cannot be null here ...');
-        }*/
+        }
 
         $lieu
             ->setUpdatedAt(new \DateTimeImmutable('now'));

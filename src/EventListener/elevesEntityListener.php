@@ -11,23 +11,23 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 
 class elevesEntityListener
 {
-    private $security;
-    private $slugger;
+    private $Securty;
+    private $Slugger;
     private $entityManager;
 
-    public function __construct(Security $security, SluggerInterface $slugger, EntityManagerInterface $entityManager)
+    public function __construct(Security $security, SluggerInterface $Slugger, EntityManagerInterface $entityManager)
     {
-        $this->security = $security;
-        $this->slugger = $slugger;
+        $this->Securty = $security;
+        $this->Slugger = $Slugger;
         $this->entityManager = $entityManager;
     }
 
     public function prePersist(Eleves $eleves, LifecycleEventArgs $arg): void
     {
-        /*$user = $this->Securty->getUser();
+        $user = $this->Securty->getUser();
         if ($user === null) {
             throw new LogicException('User cannot be null here ...');
-        }*/
+        }
         $format = 'Y';
         $formatJour = 'd';
         $formatMois = 'm';
@@ -64,28 +64,24 @@ class elevesEntityListener
             ->setFullName($eleves->getNom() . ' ' . $eleves->getPrenom())
             ->setMatricule($matricules)
             ->setSlug($this->getElevesSlug($eleves));
-        //->setScolarites(+$scolarite1 + $scolarite2 + $scolarite3);
-        //->setTotalScolarite($eleves->getScolariteCycle1() + $eleves->getScolariteCycle2() + $eleves->getScolariteCycle3());
     }
 
     public function preUpdate(Eleves $eleves, LifecycleEventArgs $arg): void
     {
-        /*$user = $this->Securty->getUser();
+        $user = $this->Securty->getUser();
         if ($user === null) {
             throw new LogicException('User cannot be null here ...');
-        }*/
+        }
 
         $eleves
             ->setUpdatedAt(new \DateTimeImmutable('now'))
             ->setFullName($eleves->getNom() . ' ' . $eleves->getPrenom())
             ->setSlug($this->getElevesSlug($eleves));
-        //->setScolarites(+$scolarite1 + $scolarite2 + $scolarite3);
-        //->setTotalScolarite($eleves->getScolariteCycle1() + $eleves->getScolariteCycle2() + $eleves->getScolariteCycle3());
     }
 
     private function getElevesSlug(Eleves $eleves): string
     {
         $slug = mb_strtolower($eleves->getNom() . '' . $eleves->getMatricule() . '' . $eleves->getId() . '' . $eleves->getPrenom() . '-' . time(), 'UTF-8');
-        return $this->slugger->slug($slug);
+        return $this->Slugger->slug($slug);
     }
 }

@@ -22,10 +22,10 @@ class meresEntityListener
 
     public function prePersist(Meres $meres, LifecycleEventArgs $arg): void
     {
-        /*$user = $this->Securty->getUser();
+        $user = $this->Securty->getUser();
         if ($user === null) {
             throw new LogicException('User cannot be null here ...');
-        }*/
+        }
 
 
         $meres
@@ -36,10 +36,10 @@ class meresEntityListener
 
     public function preUpdate(Meres $meres, LifecycleEventArgs $arg): void
     {
-        /*$user = $this->Securty->getUser();
+        $user = $this->Securty->getUser();
         if ($user === null) {
             throw new LogicException('User cannot be null here ...');
-        }*/
+        }
 
         $meres
             ->setUpdatedAt(new \DateTimeImmutable('now'))

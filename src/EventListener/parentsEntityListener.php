@@ -13,14 +13,21 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 
 class parentsEntityListener
 {
+    private $Securty;
+    private $Slugger;
 
+    public function __construct(Security $security, SluggerInterface $Slugger)
+    {
+        $this->Securty = $security;
+        $this->Slugger = $Slugger;
+    }
 
     public function prePersist(Parents $parents, LifecycleEventArgs $arg): void
     {
-        /*$user = $this->Securty->getUser();
+        $user = $this->Securty->getUser();
         if ($user === null) {
             throw new LogicException('User cannot be null here ...');
-        }*/
+        }
 
 
         $parents
@@ -29,10 +36,10 @@ class parentsEntityListener
 
     public function preUpdate(Parents $parents, LifecycleEventArgs $arg): void
     {
-        /*$user = $this->Securty->getUser();
+        $user = $this->Securty->getUser();
         if ($user === null) {
             throw new LogicException('User cannot be null here ...');
-        }*/
+        }
 
         $parents
             ->setUpdatedAt(new \DateTimeImmutable('now'));

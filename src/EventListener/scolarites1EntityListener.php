@@ -22,10 +22,10 @@ class scolarites1EntityListener
 
     public function prePersist(Scolarites1 $scolarites1, LifecycleEventArgs $arg): void
     {
-        /*$user = $this->Securty->getUser();
+        $user = $this->Securty->getUser();
         if ($user === null) {
             throw new LogicException('User cannot be null here ...');
-        }*/
+        }
 
 
         $scolarites1
@@ -34,10 +34,10 @@ class scolarites1EntityListener
 
     public function preUpdate(Scolarites1 $scolarites1, LifecycleEventArgs $arg): void
     {
-        /*$user = $this->Securty->getUser();
+        $user = $this->Securty->getUser();
         if ($user === null) {
             throw new LogicException('User cannot be null here ...');
-        }*/
+        }
 
         $scolarites1
             ->setUpdatedAt(new \DateTimeImmutable('now'));

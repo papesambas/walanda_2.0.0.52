@@ -21,10 +21,10 @@ class specialitesEntityListener
 
     public function prePersist(Specialites $specialite, LifecycleEventArgs $arg): void
     {
-        /*$user = $this->Securty->getUser();
+        $user = $this->Securty->getUser();
         if ($user === null) {
             throw new LogicException('User cannot be null here ...');
-        }*/
+        }
 
 
         $specialite
@@ -34,10 +34,10 @@ class specialitesEntityListener
 
     public function preUpdate(Specialites $specialite, LifecycleEventArgs $arg): void
     {
-        /*$user = $this->Securty->getUser();
+        $user = $this->Securty->getUser();
         if ($user === null) {
             throw new LogicException('User cannot be null here ...');
-        }*/
+        }
 
         $specialite
             ->setUpdatedAt(new \DateTimeImmutable('now'));

@@ -63,8 +63,8 @@ services:
                 - { name: 'doctrine.orm.entity_listener', event: 'preUpdate', entity: 'App\Entity\EcoleProvenances'}    # add more service definitions when explicit configuration is needed
     App\EventListener\enseignementsEntityListener:
             tags:
-                - { name: 'doctrine.orm.entity_listener', event: 'prePersist', entity: 'App\Entity\TypeEnseignements'}
-                - { name: 'doctrine.orm.entity_listener', event: 'preUpdate', entity: 'App\Entity\TypeEnseignements'}    # add more service definitions when explicit configuration is needed
+                - { name: 'doctrine.orm.entity_listener', event: 'prePersist', entity: 'App\Entity\Enseignements'}
+                - { name: 'doctrine.orm.entity_listener', event: 'preUpdate', entity: 'App\Entity\Enseignements'}    # add more service definitions when explicit configuration is needed
     App\EventListener\etablissementsEntityListener:
             tags:
                 - { name: 'doctrine.orm.entity_listener', event: 'prePersist', entity: 'App\Entity\Etablissements'}

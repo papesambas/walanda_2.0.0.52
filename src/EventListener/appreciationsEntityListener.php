@@ -21,10 +21,10 @@ class appreciationsEntityListener
 
     public function prePersist(Appreciations $appreciations, LifecycleEventArgs $arg): void
     {
-        /*$user = $this->Securty->getUser();
+        $user = $this->Securty->getUser();
         if ($user === null) {
             throw new LogicException('User cannot be null here ...');
-        }*/
+        }
 
 
         $appreciations
@@ -34,10 +34,10 @@ class appreciationsEntityListener
 
     public function preUpdate(Appreciations $appreciations, LifecycleEventArgs $arg): void
     {
-        /*$user = $this->Securty->getUser();
+        $user = $this->Securty->getUser();
         if ($user === null) {
             throw new LogicException('User cannot be null here ...');
-        }*/
+        }
 
         $appreciations
             ->setUpdatedAt(new \DateTimeImmutable('now'));
