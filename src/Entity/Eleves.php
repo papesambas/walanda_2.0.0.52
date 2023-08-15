@@ -126,6 +126,11 @@ class Eleves
         $this->dossier = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->fullname;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

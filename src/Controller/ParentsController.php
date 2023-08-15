@@ -73,28 +73,43 @@ class ParentsController extends AbstractController
                 if ($parents) {
                     $parent = $parents;
                     $entityManager->flush();
-                    return $this->redirectToRoute('app_parents_index', [], Response::HTTP_SEE_OTHER);
+
+                    $parentId = $parent->getId();
+                    $request->getSession()->set('last_parent_id', $parentId); // Stocker l'ID du parent dans la session
+                    return $this->redirectToRoute('app_eleves_new', [], Response::HTTP_SEE_OTHER);
                 } else {
                     $parent->setPere($pere);
                     $parent->setMere($mere);
                     $entityManager->persist($parent);
                     $entityManager->flush();
-                    return $this->redirectToRoute('app_parents_index', [], Response::HTTP_SEE_OTHER);
+
+                    $parentId = $parent->getId();
+                    $request->getSession()->set('last_parent_id', $parentId); // Stocker l'ID du parent dans la session
+                    return $this->redirectToRoute('app_eleves_new', [], Response::HTTP_SEE_OTHER);
                 }
             } elseif (!$pere && $mere) {
                 $parent->setMere($mere);
                 $entityManager->persist($parent);
                 $entityManager->flush();
-                return $this->redirectToRoute('app_parents_index', [], Response::HTTP_SEE_OTHER);
+
+                $parentId = $parent->getId();
+                $request->getSession()->set('last_parent_id', $parentId); // Stocker l'ID du parent dans la session
+                return $this->redirectToRoute('app_eleves_new', [], Response::HTTP_SEE_OTHER);
             } elseif ($pere && !$mere) {
                 $parent->setPere($pere);
                 $entityManager->persist($parent);
                 $entityManager->flush();
-                return $this->redirectToRoute('app_parents_index', [], Response::HTTP_SEE_OTHER);
+
+                $parentId = $parent->getId();
+                $request->getSession()->set('last_parent_id', $parentId); // Stocker l'ID du parent dans la session
+                return $this->redirectToRoute('app_eleves_new', [], Response::HTTP_SEE_OTHER);
             } else {
                 $entityManager->persist($parent);
                 $entityManager->flush();
-                return $this->redirectToRoute('app_parents_index', [], Response::HTTP_SEE_OTHER);
+
+                $parentId = $parent->getId();
+                $request->getSession()->set('last_parent_id', $parentId); // Stocker l'ID du parent dans la session
+                return $this->redirectToRoute('app_eleves_new', [], Response::HTTP_SEE_OTHER);
             }
         }
 

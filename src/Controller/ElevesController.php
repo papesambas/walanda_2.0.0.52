@@ -7,6 +7,7 @@ use App\Form\ElevesType;
 use App\Repository\ElevesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -25,6 +26,8 @@ class ElevesController extends AbstractController
     #[Route('/new', name: 'app_eleves_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
+        $parentId = $request->query->getInt('parent_id', 0);
+        dd($parentId);
         $elefe = new Eleves();
         $form = $this->createForm(ElevesType::class, $elefe);
         $form->handleRequest($request);
@@ -71,11 +74,19 @@ class ElevesController extends AbstractController
     #[Route('/{id}', name: 'app_eleves_delete', methods: ['POST'])]
     public function delete(Request $request, Eleves $elefe, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$elefe->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $elefe->getId(), $request->request->get('_token'))) {
             $entityManager->remove($elefe);
             $entityManager->flush();
         }
 
         return $this->redirectToRoute('app_eleves_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/get/parent/id', name: 'app_get_parent_id', methods: ['GET'])]
+    public function getParentId(Request $request): JsonResponse
+    {
+        $parentId = $request->getSession()->get('last_parent_id'); // Récupérer l'ID du parent depuis la session
+
+        return new JsonResponse(['parent_id' => $parentId]);
     }
 }
