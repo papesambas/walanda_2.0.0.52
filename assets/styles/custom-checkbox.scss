@@ -52,8 +52,4 @@
     opacity: 0;
     transition: opacity 0.2s ease-in-out;
   }
-  
-  .custom-checkbox input[type="checkbox"]:checked + label::after {
-    opacity: 1; /* Afficher la coche lorsque le checkbox est coché */
-  }
-  
+

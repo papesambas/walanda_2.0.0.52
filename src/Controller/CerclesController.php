@@ -7,6 +7,7 @@ use App\Form\CerclesType;
 use App\Repository\CerclesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -71,11 +72,24 @@ class CerclesController extends AbstractController
     #[Route('/{id}', name: 'app_cercles_delete', methods: ['POST'])]
     public function delete(Request $request, Cercles $cercle, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$cercle->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $cercle->getId(), $request->request->get('_token'))) {
             $entityManager->remove($cercle);
             $entityManager->flush();
         }
 
         return $this->redirectToRoute('app_cercles_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route("/ajout/ajax/{label}", name: 'app_cercles_ajout_ajax', methods: ['POST'])]
+    public function ajoutAjax(string $label, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $cercle = new Cercles();
+        $cercle->setDesignation(trim(strip_tags($label)));
+        $entityManager->persist($cercle);
+        $entityManager->flush();
+        //on récupère l'Id qui a été créé
+        $id = $cercle->getId();
+
+        return new JsonResponse(['id' => $id]);
     }
 }

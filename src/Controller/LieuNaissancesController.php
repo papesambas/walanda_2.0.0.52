@@ -7,6 +7,7 @@ use App\Form\LieuNaissancesType;
 use App\Repository\LieuNaissancesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -71,11 +72,24 @@ class LieuNaissancesController extends AbstractController
     #[Route('/{id}', name: 'app_lieu_naissances_delete', methods: ['POST'])]
     public function delete(Request $request, LieuNaissances $lieuNaissance, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$lieuNaissance->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $lieuNaissance->getId(), $request->request->get('_token'))) {
             $entityManager->remove($lieuNaissance);
             $entityManager->flush();
         }
 
         return $this->redirectToRoute('app_lieu_naissances_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route("/ajout/ajax/{label}", name: 'app_lieunaissances_ajout_ajax', methods: ['POST'])]
+    public function ajoutAjax(string $label, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $lieunaissance = new LieuNaissances();
+        $lieunaissance->setDesignation(trim(strip_tags($label)));
+        $entityManager->persist($lieunaissance);
+        $entityManager->flush();
+        //on récupère l'Id qui a été créé
+        $id = $lieunaissance->getId();
+
+        return new JsonResponse(['id' => $id]);
     }
 }

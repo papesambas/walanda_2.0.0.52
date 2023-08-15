@@ -18,3 +18,8 @@ import 'select2/dist/css/select2.min.css';
 // import Jquery
 import $ from 'jquery';
 window.$ = window.jQuery = $;
+
+import './scripts/select2';
+import './scripts/peres/pereTelephone';
+import './scripts/meres/mersTelephone';
+

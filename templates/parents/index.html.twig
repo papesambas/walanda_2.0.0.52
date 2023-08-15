@@ -9,8 +9,12 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>CreatedAt</th>
-                <th>UpdatedAt</th>
+                <th>Père</th>
+                <th>Profession</th>
+                <th>Téléphone</th>
+                <th>Mère</th>
+                <th>Profession</th>
+                <th>Téléphone</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -18,8 +22,12 @@
         {% for parent in parents %}
             <tr>
                 <td>{{ parent.id }}</td>
-                <td>{{ parent.createdAt ? parent.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ parent.updatedAt ? parent.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ parent.pere }}</td>
+                <td>{{ parent.pere.profession }}</td>
+                <td>{{ parent.pere.telephone }}</td>
+                <td>{{ parent.mere }}</td>
+                <td>{{ parent.mere.profession }}</td>
+                <td>{{ parent.mere.telephone }}</td>
                 <td>
                     <a href="{{ path('app_parents_show', {'id': parent.id}) }}">show</a>
                     <a href="{{ path('app_parents_edit', {'id': parent.id}) }}">edit</a>
