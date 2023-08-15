@@ -23,3 +23,9 @@ import './scripts/select2';
 import './scripts/peres/pereTelephone';
 import './scripts/meres/mersTelephone';
 
+import './scripts/eleves/checkbox';
+import './scripts/eleves/deleteDoc';
+import './scripts/eleves/handicap';
+import './scripts/eleves/lieuNaissance';
+import './scripts/eleves/scolarite1';
+

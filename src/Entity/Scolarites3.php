@@ -44,6 +44,11 @@ class Scolarites3
         $this->eleves = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return strval($this->scolarite);
+    }
+
     public function getId(): ?int
     {
         return $this->id;

@@ -43,6 +43,11 @@ class EcoleProvenances
         $this->elevesRecrutement = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->designation;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

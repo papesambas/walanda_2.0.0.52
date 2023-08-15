@@ -13,6 +13,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Cache\Adapter\AdapterInterface;
+use Symfony\Component\HttpKernel\Attribute\Cache;
 
 #[Route('/parents')]
 class ParentsController extends AbstractController
@@ -28,6 +30,7 @@ class ParentsController extends AbstractController
         $this->parentsRepository = $parentsRepository;
     }
     #[Route('/', name: 'app_parents_index', methods: ['GET'])]
+    #[Cache(vary: ['Accept-Encoding'])] // Met en cache le rendu complet de la page
     public function index(ParentsRepository $parentsRepository): Response
     {
         return $this->render('parents/index.html.twig', [
@@ -36,6 +39,7 @@ class ParentsController extends AbstractController
     }
 
     #[Route('/new', name: 'app_parents_new', methods: ['GET', 'POST'])]
+    #[Cache(vary: ['Accept-Encoding'])] // Met en cache le rendu complet de la page
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $parent = new Parents();
@@ -56,6 +60,7 @@ class ParentsController extends AbstractController
     }
 
     #[Route('/new/eleve', name: 'app_parents_new_eleve', methods: ['GET', 'POST'])]
+    #[Cache(vary: ['Accept-Encoding'])] // Met en cache le rendu complet de la page
     public function newEleve(Request $request, EntityManagerInterface $entityManager): Response
     {
         $parent = new Parents();
@@ -73,28 +78,49 @@ class ParentsController extends AbstractController
                 if ($parents) {
                     $parent = $parents;
                     $entityManager->flush();
-                    return $this->redirectToRoute('app_parents_index', [], Response::HTTP_SEE_OTHER);
+
+                    // Récupérer l'ID du parent nouvellement créé
+                    $parentId = $parent->getId();
+
+                    // Rediriger vers app_eleves_new en passant l'ID du parent en paramètre
+                    return $this->redirectToRoute('app_eleves_new', ['parent_id' => $parentId], Response::HTTP_SEE_OTHER);
                 } else {
                     $parent->setPere($pere);
                     $parent->setMere($mere);
                     $entityManager->persist($parent);
                     $entityManager->flush();
-                    return $this->redirectToRoute('app_parents_index', [], Response::HTTP_SEE_OTHER);
+                    // Récupérer l'ID du parent nouvellement créé
+                    $parentId = $parent->getId();
+
+                    // Rediriger vers app_eleves_new en passant l'ID du parent en paramètre
+                    return $this->redirectToRoute('app_eleves_new', ['parent_id' => $parentId], Response::HTTP_SEE_OTHER);
                 }
             } elseif (!$pere && $mere) {
                 $parent->setMere($mere);
                 $entityManager->persist($parent);
                 $entityManager->flush();
-                return $this->redirectToRoute('app_parents_index', [], Response::HTTP_SEE_OTHER);
+                // Récupérer l'ID du parent nouvellement créé
+                $parentId = $parent->getId();
+
+                // Rediriger vers app_eleves_new en passant l'ID du parent en paramètre
+                return $this->redirectToRoute('app_eleves_new', ['parent_id' => $parentId], Response::HTTP_SEE_OTHER);
             } elseif ($pere && !$mere) {
                 $parent->setPere($pere);
                 $entityManager->persist($parent);
                 $entityManager->flush();
-                return $this->redirectToRoute('app_parents_index', [], Response::HTTP_SEE_OTHER);
+                // Récupérer l'ID du parent nouvellement créé
+                $parentId = $parent->getId();
+
+                // Rediriger vers app_eleves_new en passant l'ID du parent en paramètre
+                return $this->redirectToRoute('app_eleves_new', ['parent_id' => $parentId], Response::HTTP_SEE_OTHER);
             } else {
                 $entityManager->persist($parent);
                 $entityManager->flush();
-                return $this->redirectToRoute('app_parents_index', [], Response::HTTP_SEE_OTHER);
+                // Récupérer l'ID du parent nouvellement créé
+                $parentId = $parent->getId();
+
+                // Rediriger vers app_eleves_new en passant l'ID du parent en paramètre
+                return $this->redirectToRoute('app_eleves_new', ['parent_id' => $parentId], Response::HTTP_SEE_OTHER);
             }
         }
 

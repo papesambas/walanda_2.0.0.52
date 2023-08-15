@@ -33,6 +33,11 @@ class Parents
         $this->eleves = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->pere->getFullname() . 'et ' . $this->mere->getFullname();
+    }
+
     public function getId(): ?int
     {
         return $this->id;

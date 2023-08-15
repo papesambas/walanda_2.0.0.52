@@ -145,6 +145,7 @@ class MeresController extends AbstractController
 
             $this->addFlash('danger', 'Le téléphone sollicité pour une mère, est déjà associé à un père');
             $response = new JsonResponse([
+                'errorTel' => '',
                 'mereId' => $mereId,
                 'nomId' => $nomId,
                 'prenomId' => $prenomId,

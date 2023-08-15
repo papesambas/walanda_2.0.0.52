@@ -33,6 +33,11 @@ class Departements
         $this->eleves = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->designation;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

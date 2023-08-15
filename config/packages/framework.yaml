@@ -1,5 +1,7 @@
 # see https://symfony.com/doc/current/reference/configuration/framework.html
 framework:
+    cache:
+        app: cache.adapter.filesystem
     secret: '%env(APP_SECRET)%'
     #csrf_protection: true
     http_method_override: false

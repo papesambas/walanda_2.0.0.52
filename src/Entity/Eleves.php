@@ -126,6 +126,11 @@ class Eleves
         $this->dossier = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->fullname;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -148,7 +153,7 @@ class Eleves
         return $this->sexe;
     }
 
-    public function setSexe(string $sexe): static
+    public function setSexe($sexe): static
     {
         $this->sexe = $sexe;
 
@@ -160,7 +165,7 @@ class Eleves
         return $this->statutFinance;
     }
 
-    public function setStatutFinance(string $statutFinance): static
+    public function setStatutFinance($statutFinance): static
     {
         $this->statutFinance = $statutFinance;
 
@@ -172,7 +177,7 @@ class Eleves
         return $this->dateNaissance;
     }
 
-    public function setDateNaissance(\DateTimeInterface $dateNaissance): static
+    public function setDateNaissance($dateNaissance): static
     {
         $this->dateNaissance = $dateNaissance;
 
@@ -184,7 +189,7 @@ class Eleves
         return $this->dateExtrait;
     }
 
-    public function setDateExtrait(\DateTimeInterface $dateExtrait): static
+    public function setDateExtrait($dateExtrait): static
     {
         $this->dateExtrait = $dateExtrait;
 
@@ -256,7 +261,7 @@ class Eleves
         return $this->dateInscription;
     }
 
-    public function setDateInscription(\DateTimeInterface $dateInscription): static
+    public function setDateInscription($dateInscription): static
     {
         $this->dateInscription = $dateInscription;
 
@@ -268,7 +273,7 @@ class Eleves
         return $this->dateRecrutement;
     }
 
-    public function setDateRecrutement(\DateTimeInterface $dateRecrutement): static
+    public function setDateRecrutement($dateRecrutement): static
     {
         $this->dateRecrutement = $dateRecrutement;
 

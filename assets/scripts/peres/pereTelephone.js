@@ -84,9 +84,11 @@ function select2Function() {
                             $('#parents_recherche_pere_numero').val(data.telephone);
                         }
                     }
-                    setTimeout(function () {
-                        location.reload();
-                    }, 200);
+                    if (data.errorTel) {
+                        setTimeout(function () {
+                            location.reload();
+                        }, 200);
+                    }
                 })
             }
         });

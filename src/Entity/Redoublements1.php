@@ -40,6 +40,11 @@ class Redoublements1
         $this->eleves = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->niveau->getDesignation();
+    }
+
     public function getId(): ?int
     {
         return $this->id;

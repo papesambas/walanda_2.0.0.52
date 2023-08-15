@@ -24,6 +24,11 @@ class DossierEleves
     #[ORM\JoinColumn(nullable: false)]
     private ?Eleves $eleves = null;
 
+    public function __toString()
+    {
+        return $this->designation;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
