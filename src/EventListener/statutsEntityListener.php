@@ -21,11 +21,10 @@ class statutsEntityListener
 
     public function prePersist(Statuts $statut, LifecycleEventArgs $arg): void
     {
-        $user = $this->Securty->getUser();
+        /*$user = $this->Securty->getUser();
         if ($user === null) {
             throw new LogicException('User cannot be null here ...');
-        }
-
+        }*/
 
         $statut
             ->setCreatedAt(new \DateTimeImmutable('now'))
@@ -34,10 +33,10 @@ class statutsEntityListener
 
     public function preUpdate(Statuts $statut, LifecycleEventArgs $arg): void
     {
-        $user = $this->Securty->getUser();
+        /*$user = $this->Securty->getUser();
         if ($user === null) {
             throw new LogicException('User cannot be null here ...');
-        }
+        }*/
 
         $statut
             ->setUpdatedAt(new \DateTimeImmutable('now'));

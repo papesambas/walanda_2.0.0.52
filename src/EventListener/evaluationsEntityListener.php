@@ -22,10 +22,10 @@ class evaluationsEntityListener
 
     public function prePersist(Evaluations $evaluations, LifecycleEventArgs $arg): void
     {
-        $user = $this->Securty->getUser();
+        /*$user = $this->Securty->getUser();
         if ($user === null) {
             throw new LogicException('User cannot be null here ...');
-        }
+        }*/
 
 
         $evaluations
@@ -35,10 +35,10 @@ class evaluationsEntityListener
 
     public function preUpdate(Evaluations $evaluations, LifecycleEventArgs $arg): void
     {
-        $user = $this->Securty->getUser();
+        /*$user = $this->Securty->getUser();
         if ($user === null) {
             throw new LogicException('User cannot be null here ...');
-        }
+        }*/
 
         $evaluations
             ->setUpdatedAt(new \DateTimeImmutable('now'));

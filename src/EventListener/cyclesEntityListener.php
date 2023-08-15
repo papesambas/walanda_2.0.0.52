@@ -21,10 +21,10 @@ class cyclesEntityListener
 
     public function prePersist(Cycles $cycle, LifecycleEventArgs $arg): void
     {
-        $user = $this->Securty->getUser();
+        /*$user = $this->Securty->getUser();
         if ($user === null) {
             throw new LogicException('User cannot be null here ...');
-        }
+        }*/
 
 
         $cycle

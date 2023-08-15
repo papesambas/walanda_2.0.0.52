@@ -5,28 +5,33 @@ namespace App\Controller;
 use App\Entity\Eleves;
 use App\Entity\Parents;
 use App\Form\ElevesType;
+use App\Entity\DossierEleves;
 use App\Repository\ElevesRepository;
+use App\Service\eleveService;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpKernel\Attribute\Cache;
+use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 #[Route('/eleves')]
 class ElevesController extends AbstractController
 {
     #[Route('/', name: 'app_eleves_index', methods: ['GET'])]
     #[Cache(vary: ['Accept-Encoding'])] // Met en cache le rendu complet de la page
-    public function index(ElevesRepository $elevesRepository): Response
+    public function index(eleveService $eleveService): Response
     {
+        $eleves = $eleveService->getPaginatedEleves();
         return $this->render('eleves/index.html.twig', [
-            'eleves' => $elevesRepository->findAll(),
+            'eleves' => $eleves,
         ]);
     }
 
     #[Route('/new', name: 'app_eleves_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {
         $elefe = new Eleves();
 
@@ -44,6 +49,27 @@ class ElevesController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $documents = $form->get('document')->getData();
+            //$extrait = $form->get('extrait')->getData();
+            foreach ($documents as $document) {
+                $originalFilename = pathinfo($document->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $document->guessExtension();
+                $fichier = md5(uniqid()) . '.' . $document->guessExtension();
+
+                //On copie le fichier dans le dossier upload
+                $document->move(
+                    $this->getParameter('documents_eleves_directory'),
+                    $originalFilename
+                );
+
+                //On stock le nom du document dans la base de donnée
+                $docum = new DossierEleves;
+                $docum->setDesignation($originalFilename);
+                $docum->setSlug($fichier);
+                $elefe->addDossier($docum);
+            }
+
             $entityManager->persist($elefe);
             $entityManager->flush();
 
@@ -56,7 +82,7 @@ class ElevesController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_eleves_show', methods: ['GET'])]
+    #[Route('/{slug}', name: 'app_eleves_show', methods: ['GET'])]
     public function show(Eleves $elefe): Response
     {
         return $this->render('eleves/show.html.twig', [
@@ -64,13 +90,34 @@ class ElevesController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_eleves_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Eleves $elefe, EntityManagerInterface $entityManager): Response
+    #[Route('/{slug}/edit', name: 'app_eleves_edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, Eleves $elefe, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {
         $form = $this->createForm(ElevesType::class, $elefe);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $documents = $form->get('document')->getData();
+            //$extrait = $form->get('extrait')->getData();
+            foreach ($documents as $document) {
+                $originalFilename = pathinfo($document->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $document->guessExtension();
+                $fichier = md5(uniqid()) . '.' . $document->guessExtension();
+
+                //On copie le fichier dans le dossier upload
+                $document->move(
+                    $this->getParameter('documents_eleves_directory'),
+                    $originalFilename
+                );
+
+                //On stock le nom du document dans la base de donnée
+                $docum = new DossierEleves;
+                $docum->setDesignation($originalFilename);
+                $docum->setSlug($fichier);
+                $elefe->addDossier($docum);
+            }
+
             $entityManager->flush();
 
             return $this->redirectToRoute('app_eleves_index', [], Response::HTTP_SEE_OTHER);
@@ -91,5 +138,27 @@ class ElevesController extends AbstractController
         }
 
         return $this->redirectToRoute('app_eleves_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/delete/document/{id}', name: 'app_eleve_documents_delete', methods: ['DELETE'])]
+    public function deleteDocument(Request $request, DossierEleves $document, EntityManagerInterface $entityManager)
+    {
+        $data = json_decode($request->getContent(), true);
+        //On vérifie si le token est valide
+        if ($this->isCsrfTokenValid('delete' . $document->getId(), $data['_token'])) {
+            //On récupère le nom du document
+            $designation = $document->getDesignation();
+            //On supprime de la base
+            $entityManager->remove($document);
+            $entityManager->flush();
+
+            //On supprime le fichier
+            unlink($this->getParameter('documents_eleves_directory') . '/' . $designation);
+
+            // On repond en json
+            return new JsonResponse(['success' => 1]);
+        } else {
+            return new JsonResponse(['error' => "Token Invalide"], 400);
+        }
     }
 }

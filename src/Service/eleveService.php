@@ -39,12 +39,12 @@ class eleveService
         return $this->paginator->paginate($eleveQuery, $page, $limit);
     }
 
-    public function getPaginatedEleves()
+    public function getPaginatedEleves(?Classes $classes = null)
     {
         $request = $this->requestStack->getMainRequest();
         $page = $request->query->getInt('page', 1);
         $limit = 12;
-        $eleveQuery = $this->elevesRepos->findAllForPagination();
+        $eleveQuery = $this->elevesRepos->findForPagination($classes);
         return $this->paginator->paginate($eleveQuery, $page, $limit);
     }
 
@@ -63,15 +63,6 @@ class eleveService
         $page = $request->query->getInt('page', 1);
         $limit = 15;
         $eleveQuery = $this->elevesRepos->findForPaginationDepartement($departements);
-        return $this->paginator->paginate($eleveQuery, $page, $limit);
-    }
-
-    public function getPaginatedElevesClasse(?Classes $classes = null)
-    {
-        $request = $this->requestStack->getMainRequest();
-        $page = $request->query->getInt('page', 1);
-        $limit = 15;
-        $eleveQuery = $this->elevesRepos->findForPaginationClasse($classes);
         return $this->paginator->paginate($eleveQuery, $page, $limit);
     }
 

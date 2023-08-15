@@ -42,7 +42,7 @@ class DepartementsController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_departements_show', methods: ['GET'])]
+    #[Route('/{slug}', name: 'app_departements_show', methods: ['GET'])]
     public function show(Departements $departement): Response
     {
         return $this->render('departements/show.html.twig', [
@@ -71,7 +71,7 @@ class DepartementsController extends AbstractController
     #[Route('/{id}', name: 'app_departements_delete', methods: ['POST'])]
     public function delete(Request $request, Departements $departement, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$departement->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $departement->getId(), $request->request->get('_token'))) {
             $entityManager->remove($departement);
             $entityManager->flush();
         }

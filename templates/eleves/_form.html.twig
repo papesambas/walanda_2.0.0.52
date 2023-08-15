@@ -1,4 +1,166 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_widget(form._token) }}
+<div class="row">
+    <div
+        class="col-md-2 mt-2 p-2">
+        {#Si la route est élève edit on affiche les l'image#}
+        {% if app.request.attributes.get('_route')== 'app_eleves_edit' %}
+            {% if elefe.imageName %}
+                <div>
+                    <img style="max-width: 100%;" src="{{ vich_uploader_asset(elefe, 'imageFile') | imagine_filter('photo_identite') }}"/>
+                    {{ form_widget(form.imageFile) }}
+                    {% if form.delete is defined %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                {{ form_row(form.delete) }}
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            {% else %}
+                {{ form_row(form.imageFile, {label: "Photo d'identité" }) }}
+            {% endif %}
+        {% else %}
+            {{ form_row(form.imageFile, {label: "Photo d'identité"}) }}
+        {% endif %}
+    </div>
+    <div class="col-md-10">
+        <div class="row">
+            <div class="col-md-2 mt-1 text-center text-primary-emphasis fst-italic">{{ form_row(form.niveau) }}</div>
+            <div class="col-md-3 mt-1 text-center text-primary-emphasis fst-italic pe-3">{{ form_row(form.classe) }}</div>
+            <div class="col-md-3 mt-1 text-center text-primary-emphasis fst-italic">{{ form_row(form.nom) }}</div>
+            <div class="col-md-4 mt-1 text-center text-primary-emphasis fst-italic">{{ form_row(form.prenom) }}</div>
+
+            <div class="col-md-2 mt-2 text-center text-primary-emphasis fst-italic ps-2">{{ form_row(form.sexe) }}</div>
+            <div class="col-md-2 mt-1 text-center text-primary-emphasis fst-italic">{{ form_row(form.dateNaissance) }}</div>
+            <div class="col-md-2 mt-1 text-center text-primary-emphasis fst-italic">{{ form_row(form.dateExtrait) }}</div>
+            <div class="col-md-2 mt-1 text-center text-primary-emphasis fst-italic">{{ form_row(form.numExtrait) }}</div>
+            <div class="col-md-1 mt-1 text-center text-primary-emphasis fst-italic p-4 border-1">
+                <label class="custom-checkbox">
+                    {{ form_widget(form.isAdmis) }}
+                    <span></span>
+                </label>
+            </div>
+            <div class="col-md-1 mt-1 text-center text-primary-emphasis fst-italic p-4 m-2 border-1">
+                <label class="custom-checkbox">
+                    {{ form_widget(form.isActif) }}
+                    <span></span>
+                </label>
+            </div>
+            <div class="col-md-1 mt-1 text-center text-primary-emphasis fst-italic m-2 p-4 border-1">
+                <label class="custom-checkbox">
+                    {{ form_widget(form.isHandicap) }}
+                    <span></span>
+                </label>
+            </div>
+            <div class="col-md-2 mt-1 text-center text-primary-emphasis fst-italic" id="select-region">
+                {{ form_row(form.region) }}</div>
+            <div class="col-md-3 mt-1 text-center text-primary-emphasis fst-italic" id="select-cercle">{{ form_row(form.cercle) }}</div>
+            <div class="col-md-3 mt-1 text-center text-primary-emphasis fst-italic" id="select-commune">{{ form_row(form.commune) }}</div>
+            <div class="col-md-4 mt-1 text-center text-primary-emphasis fst-italic">{{ form_row(form.lieuNaissance) }}</div>
+
+            <div class="col-md-3 mt-1 text-center text-primary-emphasis fst-italic">{{ form_row(form.natureHandicap) }}</div>
+
+            <div class="col-md-4 mt-1 text-center text-primary-emphasis fst-italic">{{ form_row(form.statutFinance) }}</div>
+            <div class="col-md-2 mt-1 text-center text-primary-emphasis fst-italic">{{ form_row(form.statut) }}</div>
+            <div class="col-md-3 mt-1 text-center text-primary-emphasis fst-italic">{{ form_row(form.departement) }}</div>
+
+        </div>
+    </div>
+</div>
+
+<div class="row mt-3 mx-auto border rounded ">
+    {% if app.request.attributes.get('_route')== 'app_eleves_edit' %}
+        <div class="row mx-auto bg-success bg-opacity-10 mb-2">
+            <div class="col-md-2 pt-2">
+                <h6 class="fst-italic text-center text-primary-emphasis">Documents fournis</h6>
+            </div>
+            <div class="col-md-10 pt-2">
+                {% if elefe.dossier %}
+                    <div class="row">
+                        {% for document in elefe.dossier %}
+                            <div class="col-md-auto mt-1">
+                                <div class="row">
+                                    <div class="fst-italic">
+                                        <a href="{{ asset('uploads/eleves/documents/' ~ document.designation) }}">{{ document.designation }}(PDF)</a>
+                                        <a class="text-danger fst-italic" href="{{ path('app_eleve_documents_delete', {'id': document.id}) }}" data-delete data-token="{{ csrf_token('delete' ~ document.id) }}">supprimer</a>
+
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        {{ form_widget(form.document) }}
+                        {% if form.delete is defined %}
+                            <div class="row">
+                                <div class="col-md-6">
+                                    {{ form_row(form.delete) }}
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                {% else %}
+                    {{ form_widget(form.document) }}
+                {% endif %}
+            </div>
+        </div>
+    {% else %}
+        {{ form_widget(form.document) }}
+    {% endif %}
+</div>
+
+<div class="col-md-12 mt-2 bg-secondary bg-opacity-25 py-1">
+    <div class="row">
+        <div class="col-md-3 mt-2"></div>
+        <div class="col-md-6 mt-2">{{ form_widget(form.adresse) }}</div>
+        <div class="col-md-3 mt-2"></div>
+    </div>
+</div>
+
+<div class="col-md-12 mt-2">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-4 mt-1 text-center text-primary-emphasis fst-italic">{{ form_row(form.scolarite1) }}</div>
+                <div class="col-md-4 mt-1 text-center text-primary-emphasis fst-italic">{{ form_row(form.scolarite2) }}</div>
+                <div class="col-md-4 mt-1 text-center text-primary-emphasis fst-italic">Scolarite3</div>
+                <div class="col-md-4 mt-1 text-center text-primary-emphasis fst-italic">{{ form_row(form.redoublement1) }}</div>
+                <div class="col-md-4 mt-1 text-center text-primary-emphasis fst-italic">{{ form_row(form.redoublement2) }}</div>
+                <div class="col-md-4 mt-1 text-center text-primary-emphasis fst-italic">{{ form_row(form.redoublement3) }}</div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-6 mt-1 text-center text-primary-emphasis fst-italic">{{ form_row(form.ecoleRecrutement) }}</div>
+                <div class="col-md-6 mt-1 text-center text-primary-emphasis fst-italic">{{ form_row(form.ecoleAnDernier) }}</div>
+                <div class="col-md-4 mt-1 text-center text-primary-emphasis fst-italic">{{ form_row(form.dateRecrutement) }}</div>
+                <div class="col-md-4 mt-1 text-center text-primary-emphasis fst-italic">{{ form_row(form.dateInscription) }}</div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row d-grid gap-2 d-md-flex justify-content-md-end">
+    <hr style="height: 1px;background: black;margin: 10px 0;box-shadow: 0px 0px 2px 1px ;">
+        <div class="row">
+            <div class="col-md-2">
+                <div class="row me-1">
+                    <button class="btn btn-primary btn-sm m-1">{{ button_label|default('Save') }}</button>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="row">
+                    <a class="btn btn-secondary btn-sm fw-semibold m-1" href="{{ path('app_eleves_index') }}">back to list</a>
+                </div>
+            </div>
+            {% if app.request.attributes.get('_route')== 'app_eleves_edit' %}
+                <div class="col-md-2">
+                    <div class="row mx-1">
+                        {{ include('eleves/_delete_form.html.twig') }}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </hr>
+</div>
+{#{{ form_widget(form) }}#}
+<button class="btn">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}

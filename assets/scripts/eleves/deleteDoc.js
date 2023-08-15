@@ -1,7 +1,6 @@
-window.onload = () => {
+$(document).ready(function () {
     //Gestion des boutons "supprimer"
     let links = document.querySelectorAll("[data-delete]");
-    console.log(links);
     // On boucle sur links
     for (const link of links) {
         //On écoute le click
@@ -30,7 +29,7 @@ window.onload = () => {
             }
         })
     }
-}
+})
 
 
 

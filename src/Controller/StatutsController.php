@@ -42,7 +42,7 @@ class StatutsController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_statuts_show', methods: ['GET'])]
+    #[Route('/{slug}', name: 'app_statuts_show', methods: ['GET'])]
     public function show(Statuts $statut): Response
     {
         return $this->render('statuts/show.html.twig', [
@@ -71,7 +71,7 @@ class StatutsController extends AbstractController
     #[Route('/{id}', name: 'app_statuts_delete', methods: ['POST'])]
     public function delete(Request $request, Statuts $statut, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$statut->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $statut->getId(), $request->request->get('_token'))) {
             $entityManager->remove($statut);
             $entityManager->flush();
         }

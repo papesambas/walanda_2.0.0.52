@@ -21,10 +21,10 @@ class professionsEntityListener
 
     public function prePersist(Professions $profession, LifecycleEventArgs $arg): void
     {
-        $user = $this->Securty->getUser();
+        /*$user = $this->Securty->getUser();
         if ($user === null) {
             throw new LogicException('User cannot be null here ...');
-        }
+        }*/
 
 
         $profession
@@ -34,10 +34,10 @@ class professionsEntityListener
 
     public function preUpdate(Professions $profession, LifecycleEventArgs $arg): void
     {
-        $user = $this->Securty->getUser();
+        /*$user = $this->Securty->getUser();
         if ($user === null) {
             throw new LogicException('User cannot be null here ...');
-        }
+        }*/
 
         $profession
             ->setUpdatedAt(new \DateTimeImmutable('now'));

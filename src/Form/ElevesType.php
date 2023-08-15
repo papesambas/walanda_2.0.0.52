@@ -68,6 +68,50 @@ class ElevesType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            ->add('imageFile', VichImageType::class, [
+                'label' => "Photo d'identité",
+                //'mapped' => false,
+                'required' => false,
+                'constraints' => [
+                    new File([
+                        'maxSize' => '5M',
+                        'mimeTypes' => [
+                            'image/jpeg',
+                            'image/jpg',
+                            'image/gif',
+                            'image/png',
+                        ]
+                    ])
+                ],
+                'allow_delete' => true,
+                'delete_label' => 'supprimer',
+                'download_uri' => true,
+                'download_label' => 'Télécharger',
+                'image_uri'         => false,
+                'asset_helper' => true,
+            ])
+            ->add('document', FileType::class, [
+                'label' => 'Télécharger Documents (Fichier PDF/Word)',
+                'mapped' => false,
+                'required' => false,
+                'multiple' => true,
+                'constraints' => [
+                    new All([
+                        'constraints' => [
+                            new File([
+                                'maxSize' => '2048k',
+                                'mimeTypes' => [
+                                    'application/pdf',
+                                    'application/x-pdf',
+                                    'application/msword',
+                                    'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                                ],
+                                'mimeTypesMessage' => 'Format valid valid PDF ou word',
+                            ])
+                        ]
+                    ]),
+                ]
+            ])
             ->add('region', EntityType::class, [
                 'class' => Regions::class,
                 'query_builder' => function (EntityRepository $er) {
@@ -110,7 +154,6 @@ class ElevesType extends AbstractType
                 'attr' => [
                     'class' => 'select-nomfamille'
                 ],
-                'required' => false,
                 'error_bubbling' => false,
             ])
             ->add('prenom', EntityType::class, [
@@ -124,7 +167,6 @@ class ElevesType extends AbstractType
                 'attr' => [
                     'class' => 'select-prenom'
                 ],
-                'required' => false,
                 'error_bubbling' => false,
             ])
             ->add('sexe', ChoiceType::class, [
@@ -140,7 +182,6 @@ class ElevesType extends AbstractType
             ])
             ->add('numExtrait', TextType::class, [
                 'attr' => ['placeholder' => "Numéro Extrait de Naissance"],
-                'required' => false,
                 'error_bubbling' => false,
             ])
             ->add('isAdmis', CheckboxType::class, [
@@ -184,20 +225,12 @@ class ElevesType extends AbstractType
                 'attr' => [
                     'class' => 'select-departement'
                 ],
-                'required' => false,
                 'error_bubbling' => false,
             ])
             ->add('adresse', TextareaType::class, [
                 'attr' => ['placeholder' => "Adresse du domicile"],
                 'required' => false,
-            ])
-            //->add('peres', PeresType::class, [
-            //    'mapped' => false,
-            //])
-            //->add('meres', MeresType::class, [
-            //    'mapped' => false,
-            //])
-        ;
+            ]);
 
         $builder->get('niveau')->addEventListener(
             FormEvents::POST_SUBMIT,
@@ -407,7 +440,6 @@ class ElevesType extends AbstractType
             'attr' => [
                 'class' => 'select-classes'
             ],
-            'required' => false,
             'error_bubbling' => false,
         ]);
     }
@@ -427,7 +459,6 @@ class ElevesType extends AbstractType
             'attr' => [
                 'class' => 'select-statut'
             ],
-            //'required' => false,
             'error_bubbling' => false,
         ]);
     }
@@ -440,22 +471,12 @@ class ElevesType extends AbstractType
         if (!$niveau) {
             $form->add('dateNaissance', DateType::class, [
                 'label' => 'Date de Naissance',
-                //'input' => 'datetime_immutable',
-                //'html5' => false,
                 'widget' => 'single_text',
-                /*'attr' => [
-                    'disabled' => 'disabled'
-                ],*/
                 'auto_initialize' => false,
             ])
                 ->add('dateExtrait', DateType::class, [
                     'label' => 'Date / Extrait',
-                    //'input' => 'datetime_immutable',
-                    //'html5' => false,
                     'widget' => 'single_text',
-                    /*'attr' => [
-                    'disabled' => 'disabled'
-                ],*/
                     'auto_initialize' => false,
                 ])
                 ->add('ecoleAnDernier', EntityType::class, [
@@ -494,9 +515,7 @@ class ElevesType extends AbstractType
                 $form->add('dateNaissance', DateType::class, [
                     'label' => 'Date de Naissance',
                     'input' => 'datetime',
-                    //'html5' => false,
                     'widget' => 'single_text',
-                    ////'data'   => new \DateTime(),
                     'attr' => [
                         'min' => (new \DateTime('now -1460 days'))->format('Y-m-d'),
                         'max' => (new \DateTime('now -1095 days'))->format('Y-m-d')
@@ -509,9 +528,7 @@ class ElevesType extends AbstractType
                     ->add('dateExtrait', DateType::class, [
                         'label' => 'Date / Extrait',
                         'input' => 'datetime',
-                        //'html5' => false,
                         'widget' => 'single_text',
-                        ////'data'   => new \DateTime(),
                         'attr' => [
                             'min' => (new \DateTime('now -1460 days'))->format('Y-m-d'),
                             'max' => (new \DateTime('now -1 days'))->format('Y-m-d')
@@ -563,7 +580,6 @@ class ElevesType extends AbstractType
                         'attr' => [
                             'class' => 'select-ecole'
                         ],
-                        'required' => false,
                         'error_bubbling' => false,
                     ]);
             } elseif ($designation == "Moyenne Section") {
@@ -584,9 +600,7 @@ class ElevesType extends AbstractType
                     ->add('dateExtrait', DateType::class, [
                         'label' => 'Date / Extrait',
                         'input' => 'datetime',
-                        //'html5' => false,
                         'widget' => 'single_text',
-                        ////'data'   => new \DateTime(),
                         'attr' => [
                             'min' => (new \DateTime('now -1825 days'))->format('Y-m-d'),
                             'max' => (new \DateTime('now -1 days'))->format('Y-m-d')
@@ -638,14 +652,12 @@ class ElevesType extends AbstractType
                         'attr' => [
                             'class' => 'select-ecole'
                         ],
-                        'required' => false,
                         'error_bubbling' => false,
                     ]);
             } elseif ($designation == "Grande Section") {
                 $form->add('dateNaissance', DateType::class, [
                     'label' => 'Date de Naissance',
                     'input' => 'datetime',
-                    //'html5' => false,
                     'widget' => 'single_text',
                     'constraints' => [
                         new NotBlank(),
@@ -659,9 +671,7 @@ class ElevesType extends AbstractType
                     ->add('dateExtrait', DateType::class, [
                         'label' => 'Date / Extrait',
                         'input' => 'datetime',
-                        //'html5' => false,
                         'widget' => 'single_text',
-                        ////'data'   => new \DateTime(),
                         'attr' => [
                             'min' => (new \DateTime('now -2190 days'))->format('Y-m-d'),
                             'max' => (new \DateTime('now -1 days'))->format('Y-m-d')
@@ -713,14 +723,12 @@ class ElevesType extends AbstractType
                         'attr' => [
                             'class' => 'select-ecole'
                         ],
-                        'required' => false,
                         'error_bubbling' => false,
                     ]);
             } elseif ($designation == "1ère Année") {
                 $form->add('dateNaissance', DateType::class, [
                     'label' => 'Date de Naissance',
                     'input' => 'datetime',
-                    //'html5' => false,
                     'widget' => 'single_text',
                     'constraints' => [
                         new NotBlank(),
@@ -734,9 +742,7 @@ class ElevesType extends AbstractType
                     ->add('dateExtrait', DateType::class, [
                         'label' => 'Date / Extrait',
                         'input' => 'datetime',
-                        //'html5' => false,
                         'widget' => 'single_text',
-                        ////'data'   => new \DateTime(),
                         'attr' => [
                             'min' => (new \DateTime('now -2920 days'))->format('Y-m-d'),
                             'max' => (new \DateTime('now -1 days'))->format('Y-m-d')
@@ -788,14 +794,12 @@ class ElevesType extends AbstractType
                         'attr' => [
                             'class' => 'select-ecole'
                         ],
-                        'required' => false,
                         'error_bubbling' => false,
                     ]);
             } elseif ($designation == "2ème Année") {
                 $form->add('dateNaissance', DateType::class, [
                     'label' => 'Date de Naissance',
                     'input' => 'datetime',
-                    //'html5' => false,
                     'widget' => 'single_text',
 
                     'constraints' => [
@@ -809,9 +813,7 @@ class ElevesType extends AbstractType
                     ->add('dateExtrait', DateType::class, [
                         'label' => 'Date / Extrait',
                         'input' => 'datetime',
-                        //'html5' => false,
                         'widget' => 'single_text',
-                        //'data'   => new \DateTime(),
                         'attr' => [
                             'min' => (new \DateTime('now -3285 days'))->format('Y-m-d'),
                             'max' => (new \DateTime('now -1 days'))->format('Y-m-d')
@@ -866,7 +868,6 @@ class ElevesType extends AbstractType
                 $form->add('dateNaissance', DateType::class, [
                     'label' => 'Date de Naissance',
                     'input' => 'datetime',
-                    //'html5' => false,
                     'widget' => 'single_text',
                     'constraints' => [
                         new NotBlank(),
@@ -880,9 +881,7 @@ class ElevesType extends AbstractType
                     ->add('dateExtrait', DateType::class, [
                         'label' => 'Date / Extrait',
                         'input' => 'datetime',
-                        //'html5' => false,
                         'widget' => 'single_text',
-                        //'data'   => new \DateTime(),
                         'attr' => [
                             'min' => (new \DateTime('now -3650 days'))->format('Y-m-d'),
                             'max' => (new \DateTime('now -1 days'))->format('Y-m-d')
@@ -937,7 +936,6 @@ class ElevesType extends AbstractType
                 $form->add('dateNaissance', DateType::class, [
                     'label' => 'Date de Naissance',
                     'input' => 'datetime',
-                    //'html5' => false,
                     'widget' => 'single_text',
                     'constraints' => [
                         new NotBlank(),
@@ -951,9 +949,7 @@ class ElevesType extends AbstractType
                     ->add('dateExtrait', DateType::class, [
                         'label' => 'Date / Extrait',
                         'input' => 'datetime',
-                        //'html5' => false,
                         'widget' => 'single_text',
-                        //'data'   => new \DateTime(),
                         'attr' => [
                             'min' => (new \DateTime('now -4015 days'))->format('Y-m-d'),
                             'max' => (new \DateTime('now -1 days'))->format('Y-m-d')
@@ -1008,7 +1004,6 @@ class ElevesType extends AbstractType
                 $form->add('dateNaissance', DateType::class, [
                     'label' => 'Date de Naissance',
                     'input' => 'datetime',
-                    //'html5' => false,
                     'widget' => 'single_text',
                     'constraints' => [
                         new NotBlank(),
@@ -1022,9 +1017,7 @@ class ElevesType extends AbstractType
                     ->add('dateExtrait', DateType::class, [
                         'label' => 'Date / Extrait',
                         'input' => 'datetime',
-                        //'html5' => false,
                         'widget' => 'single_text',
-                        //'data'   => new \DateTime(),
                         'attr' => [
                             'min' => (new \DateTime('now -4380 days'))->format('Y-m-d'),
                             'max' => (new \DateTime('now -1 days'))->format('Y-m-d')
@@ -1079,7 +1072,6 @@ class ElevesType extends AbstractType
                 $form->add('dateNaissance', DateType::class, [
                     'label' => 'Date de Naissance',
                     'input' => 'datetime',
-                    //'html5' => false,
                     'widget' => 'single_text',
                     'constraints' => [
                         new NotBlank(),
@@ -1093,9 +1085,7 @@ class ElevesType extends AbstractType
                     ->add('dateExtrait', DateType::class, [
                         'label' => 'Date / Extrait',
                         'input' => 'datetime',
-                        //'html5' => false,
                         'widget' => 'single_text',
-                        //'data'   => new \DateTime(),
                         'attr' => [
                             'min' => (new \DateTime('now -4745 days'))->format('Y-m-d'),
                             'max' => (new \DateTime('now -1 days'))->format('Y-m-d')
@@ -1150,7 +1140,6 @@ class ElevesType extends AbstractType
                 $form->add('dateNaissance', DateType::class, [
                     'label' => 'Date de Naissance',
                     'input' => 'datetime',
-                    //'html5' => false,
                     'widget' => 'single_text',
                     'constraints' => [
                         new NotBlank(),
@@ -1164,9 +1153,7 @@ class ElevesType extends AbstractType
                     ->add('dateExtrait', DateType::class, [
                         'label' => 'Date / Extrait',
                         'input' => 'datetime',
-                        //'html5' => false,
                         'widget' => 'single_text',
-                        //'data'   => new \DateTime(),
                         'attr' => [
                             'min' => (new \DateTime('now -5110 days'))->format('Y-m-d'),
                             'max' => (new \DateTime('now -1 days'))->format('Y-m-d')
@@ -1221,7 +1208,6 @@ class ElevesType extends AbstractType
                 $form->add('dateNaissance', DateType::class, [
                     'label' => 'Date de Naissance',
                     'input' => 'datetime',
-                    //'html5' => false,
                     'widget' => 'single_text',
                     'constraints' => [
                         new NotBlank(),
@@ -1235,9 +1221,7 @@ class ElevesType extends AbstractType
                     ->add('dateExtrait', DateType::class, [
                         'label' => 'Date / Extrait',
                         'input' => 'datetime',
-                        //'html5' => false,
                         'widget' => 'single_text',
-                        //'data'   => new \DateTime(),
                         'attr' => [
                             'min' => (new \DateTime('now -5475 days'))->format('Y-m-d'),
                             'max' => (new \DateTime('now -1 days'))->format('Y-m-d')
@@ -1292,7 +1276,6 @@ class ElevesType extends AbstractType
                 $form->add('dateNaissance', DateType::class, [
                     'label' => 'Date de Naissance',
                     'input' => 'datetime',
-                    //'html5' => false,
                     'widget' => 'single_text',
                     'constraints' => [
                         new NotBlank(),
@@ -1306,9 +1289,7 @@ class ElevesType extends AbstractType
                     ->add('dateExtrait', DateType::class, [
                         'label' => 'Date / Extrait',
                         'input' => 'datetime',
-                        //'html5' => false,
                         'widget' => 'single_text',
-                        //'data'   => new \DateTime(),
                         'attr' => [
                             'min' => (new \DateTime('now -5840 days'))->format('Y-m-d'),
                             'max' => (new \DateTime('now -1 days'))->format('Y-m-d')
@@ -1363,7 +1344,6 @@ class ElevesType extends AbstractType
                 $form->add('dateNaissance', DateType::class, [
                     'label' => 'Date de Naissance',
                     'input' => 'datetime',
-                    //'html5' => false,
                     'widget' => 'single_text',
                     'constraints' => [
                         new NotBlank(),
@@ -1377,9 +1357,7 @@ class ElevesType extends AbstractType
                     ->add('dateExtrait', DateType::class, [
                         'label' => 'Date / Extrait',
                         'input' => 'datetime',
-                        //'html5' => false,
                         'widget' => 'single_text',
-                        //'data'   => new \DateTime(),
                         'attr' => [
                             'min' => (new \DateTime('now -6205 days'))->format('Y-m-d'),
                             'max' => (new \DateTime('now -1 days'))->format('Y-m-d')
@@ -1434,7 +1412,6 @@ class ElevesType extends AbstractType
                 $form->add('dateNaissance', DateType::class, [
                     'label' => 'Date de Naissance',
                     'input' => 'datetime',
-                    //'html5' => false,
                     'widget' => 'single_text',
                     'constraints' => [
                         new NotBlank(),
@@ -1448,9 +1425,7 @@ class ElevesType extends AbstractType
                     ->add('dateExtrait', DateType::class, [
                         'label' => 'Date / Extrait',
                         'input' => 'datetime',
-                        //'html5' => false,
                         'widget' => 'single_text',
-                        //'data'   => new \DateTime(),
                         'attr' => [
                             'min' => (new \DateTime('now -6570 days'))->format('Y-m-d'),
                             'max' => (new \DateTime('now -1 days'))->format('Y-m-d')
@@ -1505,7 +1480,6 @@ class ElevesType extends AbstractType
                 $form->add('dateNaissance', DateType::class, [
                     'label' => 'Date de Naissance',
                     'input' => 'datetime',
-                    //'html5' => false,
                     'widget' => 'single_text',
                     'constraints' => [
                         new NotBlank(),
@@ -1519,9 +1493,7 @@ class ElevesType extends AbstractType
                     ->add('dateExtrait', DateType::class, [
                         'label' => 'Date / Extrait',
                         'input' => 'datetime',
-                        //'html5' => false,
                         'widget' => 'single_text',
-                        //'data'   => new \DateTime(),
                         'attr' => [
                             'min' => (new \DateTime('now -6935 days'))->format('Y-m-d'),
                             'max' => (new \DateTime('now -1 days'))->format('Y-m-d')
@@ -1581,18 +1553,12 @@ class ElevesType extends AbstractType
         if (!$niveau) {
             $form->add('dateRecrutement', DateType::class, [
                 'label' => 'Date de Recrutement',
-                //'input' => 'datetime_immutable',
-                //'html5' => false,
                 'widget' => 'single_text',
-                //'data'   => new \DateTime(),
                 'auto_initialize' => false,
             ])
                 ->add('dateInscription', DateType::class, [
                     'label' => "date d'Incription",
-                    //'input' => 'datetime_immutable',
-                    //'html5' => false,
                     'widget' => 'single_text',
-                    //'data'   => new \DateTime(),
                     'auto_initialize' => false,
                 ]);
         } else {
@@ -1601,9 +1567,7 @@ class ElevesType extends AbstractType
                 $form->add('dateRecrutement', DateType::class, [
                     'label' => 'Date de Recrutement',
                     'input' => 'datetime',
-                    //'html5' => false,
                     'widget' => 'single_text',
-                    //'data'   => new \DateTime(),
                     'attr' => [
                         'min' => (new \DateTime('now -365 days'))->format('Y-m-d'),
                         'max' => (new \DateTime('now -0 days'))->format('Y-m-d')
@@ -1613,9 +1577,7 @@ class ElevesType extends AbstractType
                     ->add('dateInscription', DateType::class, [
                         'label' => "date d'incription",
                         'input' => 'datetime',
-                        //'html5' => false,
                         'widget' => 'single_text',
-                        //'data'   => new \DateTime(),
                         'attr' => [
                             'min' => (new \DateTime('now -365 days'))->format('Y-m-d'),
                             'max' => (new \DateTime('now -0 days'))->format('Y-m-d')
@@ -1654,9 +1616,7 @@ class ElevesType extends AbstractType
                     ->add('dateInscription', DateType::class, [
                         'label' => "date d'incription",
                         'input' => 'datetime',
-                        //'html5' => false,
                         'widget' => 'single_text',
-                        //'data'   => new \DateTime(),
                         'attr' => [
                             'min' => (new \DateTime('now -730 days'))->format('Y-m-d'),
                             'max' => (new \DateTime('now -0 days'))->format('Y-m-d')
@@ -1683,9 +1643,7 @@ class ElevesType extends AbstractType
                 $form->add('dateRecrutement', DateType::class, [
                     'label' => 'Date de Recrutement',
                     'input' => 'datetime',
-                    //'html5' => false,
                     'widget' => 'single_text',
-                    //'data'   => new \DateTime(),
                     'attr' => [
                         'min' => (new \DateTime('now -1095 days'))->format('Y-m-d'),
                         'max' => (new \DateTime('now -0 days'))->format('Y-m-d')
@@ -1695,9 +1653,7 @@ class ElevesType extends AbstractType
                     ->add('dateInscription', DateType::class, [
                         'label' => "date d'incription",
                         'input' => 'datetime',
-                        //'html5' => false,
                         'widget' => 'single_text',
-                        //'data'   => new \DateTime(),
                         'attr' => [
                             'min' => (new \DateTime('now -1095 days'))->format('Y-m-d'),
                             'max' => (new \DateTime('now -0 days'))->format('Y-m-d')
@@ -1724,9 +1680,7 @@ class ElevesType extends AbstractType
                 $form->add('dateRecrutement', DateType::class, [
                     'label' => 'Date de Recrutement',
                     'input' => 'datetime',
-                    //'html5' => false,
                     'widget' => 'single_text',
-                    //'data'   => new \DateTime(),
                     'attr' => [
                         'min' => (new \DateTime('now -1460 days'))->format('Y-m-d'),
                         'max' => (new \DateTime('now -0 days'))->format('Y-m-d')
@@ -1736,9 +1690,7 @@ class ElevesType extends AbstractType
                     ->add('dateInscription', DateType::class, [
                         'label' => "date d'incription",
                         'input' => 'datetime',
-                        //'html5' => false,
                         'widget' => 'single_text',
-                        //'data'   => new \DateTime(),
                         'attr' => [
                             'min' => (new \DateTime('now -1460 days'))->format('Y-m-d'),
                             'max' => (new \DateTime('now -0 days'))->format('Y-m-d')
@@ -1765,9 +1717,7 @@ class ElevesType extends AbstractType
                 $form->add('dateRecrutement', DateType::class, [
                     'label' => 'Date de Recrutement',
                     'input' => 'datetime',
-                    //'html5' => false,
                     'widget' => 'single_text',
-                    //'data'   => new \DateTime(),
                     'attr' => [
                         'min' => (new \DateTime('now -1825 days'))->format('Y-m-d'),
                         'max' => (new \DateTime('now -365 days'))->format('Y-m-d')
@@ -1777,9 +1727,7 @@ class ElevesType extends AbstractType
                     ->add('dateInscription', DateType::class, [
                         'label' => "date d'incription",
                         'input' => 'datetime',
-                        //'html5' => false,
                         'widget' => 'single_text',
-                        //'data'   => new \DateTime(),
                         'attr' => [
                             'min' => (new \DateTime('now -1825 days'))->format('Y-m-d'),
                             'max' => (new \DateTime('now -0 days'))->format('Y-m-d')
@@ -1806,9 +1754,7 @@ class ElevesType extends AbstractType
                 $form->add('dateRecrutement', DateType::class, [
                     'label' => 'Date de Recrutement',
                     'input' => 'datetime',
-                    //'html5' => false,
                     'widget' => 'single_text',
-                    //'data'   => new \DateTime(),
                     'attr' => [
                         'min' => (new \DateTime('now -2190 days'))->format('Y-m-d'),
                         'max' => (new \DateTime('now -730 days'))->format('Y-m-d')
@@ -1818,9 +1764,7 @@ class ElevesType extends AbstractType
                     ->add('dateInscription', DateType::class, [
                         'label' => "date d'incription",
                         'input' => 'datetime',
-                        //'html5' => false,
                         'widget' => 'single_text',
-                        //'data'   => new \DateTime(),
                         'attr' => [
                             'min' => (new \DateTime('now -2190 days'))->format('Y-m-d'),
                             'max' => (new \DateTime('now -0 days'))->format('Y-m-d')
@@ -1847,9 +1791,7 @@ class ElevesType extends AbstractType
                 $form->add('dateRecrutement', DateType::class, [
                     'label' => 'Date de Recrutement',
                     'input' => 'datetime',
-                    //'html5' => false,
                     'widget' => 'single_text',
-                    //'data'   => new \DateTime(),
                     'attr' => [
                         'min' => (new \DateTime('now -2555 days'))->format('Y-m-d'),
                         'max' => (new \DateTime('now -1095 days'))->format('Y-m-d')
@@ -1859,9 +1801,7 @@ class ElevesType extends AbstractType
                     ->add('dateInscription', DateType::class, [
                         'label' => "date d'incription",
                         'input' => 'datetime',
-                        //'html5' => false,
                         'widget' => 'single_text',
-                        //'data'   => new \DateTime(),
                         'attr' => [
                             'min' => (new \DateTime('now -2555 days'))->format('Y-m-d'),
                             'max' => (new \DateTime('now -0 days'))->format('Y-m-d')
@@ -1888,9 +1828,7 @@ class ElevesType extends AbstractType
                 $form->add('dateRecrutement', DateType::class, [
                     'label' => 'Date de Recrutement',
                     'input' => 'datetime',
-                    //'html5' => false,
                     'widget' => 'single_text',
-                    //'data'   => new \DateTime(),
                     'attr' => [
                         'min' => (new \DateTime('now -2920 days'))->format('Y-m-d'),
                         'max' => (new \DateTime('now -1460 days'))->format('Y-m-d')
@@ -1900,9 +1838,7 @@ class ElevesType extends AbstractType
                     ->add('dateInscription', DateType::class, [
                         'label' => "date d'incription",
                         'input' => 'datetime',
-                        //'html5' => false,
                         'widget' => 'single_text',
-                        //'data'   => new \DateTime(),
                         'attr' => [
                             'min' => (new \DateTime('now -2920 days'))->format('Y-m-d'),
                             'max' => (new \DateTime('now -0 days'))->format('Y-m-d')
@@ -1929,9 +1865,7 @@ class ElevesType extends AbstractType
                 $form->add('dateRecrutement', DateType::class, [
                     'label' => 'Date de Recrutement',
                     'input' => 'datetime',
-                    //'html5' => false,
                     'widget' => 'single_text',
-                    //'data'   => new \DateTime(),
                     'attr' => [
                         'min' => (new \DateTime('now -3285 days'))->format('Y-m-d'),
                         'max' => (new \DateTime('now -1825 days'))->format('Y-m-d')
@@ -1941,9 +1875,7 @@ class ElevesType extends AbstractType
                     ->add('dateInscription', DateType::class, [
                         'label' => "date d'incription",
                         'input' => 'datetime',
-                        //'html5' => false,
                         'widget' => 'single_text',
-                        //'data'   => new \DateTime(),
                         'attr' => [
                             'min' => (new \DateTime('now -3285 days'))->format('Y-m-d'),
                             'max' => (new \DateTime('now -0 days'))->format('Y-m-d')
@@ -1970,9 +1902,7 @@ class ElevesType extends AbstractType
                 $form->add('dateRecrutement', DateType::class, [
                     'label' => 'Date de Recrutement',
                     'input' => 'datetime',
-                    //'html5' => false,
                     'widget' => 'single_text',
-                    //'data'   => new \DateTime(),
                     'attr' => [
                         'min' => (new \DateTime('now -3650 days'))->format('Y-m-d'),
                         'max' => (new \DateTime('now -2190 days'))->format('Y-m-d')
@@ -1982,9 +1912,7 @@ class ElevesType extends AbstractType
                     ->add('dateInscription', DateType::class, [
                         'label' => "date d'incription",
                         'input' => 'datetime',
-                        //'html5' => false,
                         'widget' => 'single_text',
-                        //'data'   => new \DateTime(),
                         'attr' => [
                             'min' => (new \DateTime('now -3650 days'))->format('Y-m-d'),
                             'max' => (new \DateTime('now -0 days'))->format('Y-m-d')
@@ -2010,9 +1938,7 @@ class ElevesType extends AbstractType
                 $form->add('dateRecrutement', DateType::class, [
                     'label' => 'Date de Recrutement',
                     'input' => 'datetime',
-                    //'html5' => false,
                     'widget' => 'single_text',
-                    //'data'   => new \DateTime(),
                     'attr' => [
                         'min' => (new \DateTime('now -4015 days'))->format('Y-m-d'),
                         'max' => (new \DateTime('now -2555 days'))->format('Y-m-d')
@@ -2022,9 +1948,7 @@ class ElevesType extends AbstractType
                     ->add('dateInscription', DateType::class, [
                         'label' => "date d'incription",
                         'input' => 'datetime',
-                        //'html5' => false,
                         'widget' => 'single_text',
-                        //'data'   => new \DateTime(),
                         'attr' => [
                             'min' => (new \DateTime('now -4015 days'))->format('Y-m-d'),
                             'max' => (new \DateTime('now -0 days'))->format('Y-m-d')
@@ -2051,9 +1975,7 @@ class ElevesType extends AbstractType
                 $form->add('dateRecrutement', DateType::class, [
                     'label' => 'Date de Recrutement',
                     'input' => 'datetime',
-                    //'html5' => false,
                     'widget' => 'single_text',
-                    //'data'   => new \DateTime(),
                     'attr' => [
                         'min' => (new \DateTime('now -4380 days'))->format('Y-m-d'),
                         'max' => (new \DateTime('now -2920 days'))->format('Y-m-d')
@@ -2063,9 +1985,7 @@ class ElevesType extends AbstractType
                     ->add('dateInscription', DateType::class, [
                         'label' => "date d'incription",
                         'input' => 'datetime',
-                        //'html5' => false,
                         'widget' => 'single_text',
-                        //'data'   => new \DateTime(),
                         'attr' => [
                             'min' => (new \DateTime('now -4380 days'))->format('Y-m-d'),
                             'max' => (new \DateTime('now -0 days'))->format('Y-m-d')
@@ -2092,9 +2012,7 @@ class ElevesType extends AbstractType
                 $form->add('dateRecrutement', DateType::class, [
                     'label' => 'Date de Recrutement',
                     'input' => 'datetime',
-                    //'html5' => false,
                     'widget' => 'single_text',
-                    //'data'   => new \DateTime(),
                     'attr' => [
                         'min' => (new \DateTime('now -4745 days'))->format('Y-m-d'),
                         'max' => (new \DateTime('now -3285 days'))->format('Y-m-d')
@@ -2104,9 +2022,7 @@ class ElevesType extends AbstractType
                     ->add('dateInscription', DateType::class, [
                         'label' => "date d'incription",
                         'input' => 'datetime',
-                        //'html5' => false,
                         'widget' => 'single_text',
-                        //'data'   => new \DateTime(),
                         'attr' => [
                             'min' => (new \DateTime('now -4745 days'))->format('Y-m-d'),
                             'max' => (new \DateTime('now -0 days'))->format('Y-m-d')
@@ -2133,9 +2049,7 @@ class ElevesType extends AbstractType
                 $form->add('dateRecrutement', DateType::class, [
                     'label' => 'Date de Recrutement',
                     'input' => 'datetime',
-                    //'html5' => false,
                     'widget' => 'single_text',
-                    //'data'   => new \DateTime(),
                     'attr' => [
                         'min' => (new \DateTime('now -5110 days'))->format('Y-m-d'),
                         'max' => (new \DateTime('now -3650 days'))->format('Y-m-d')
@@ -2145,9 +2059,7 @@ class ElevesType extends AbstractType
                     ->add('dateInscription', DateType::class, [
                         'label' => "date d'incription",
                         'input' => 'datetime',
-                        //'html5' => false,
                         'widget' => 'single_text',
-                        //'data'   => new \DateTime(),
                         'attr' => [
                             'min' => (new \DateTime('now -5110 days'))->format('Y-m-d'),
                             'max' => (new \DateTime('now -0 days'))->format('Y-m-d')
@@ -2174,9 +2086,7 @@ class ElevesType extends AbstractType
                 $form->add('dateRecrutement', DateType::class, [
                     'label' => 'Date de Recrutement',
                     'input' => 'datetime',
-                    //'html5' => false,
                     'widget' => 'single_text',
-                    //'data'   => new \DateTime(),
                     'attr' => [
                         'min' => (new \DateTime('now -5475 days'))->format('Y-m-d'),
                         'max' => (new \DateTime('now -4015 days'))->format('Y-m-d')
@@ -2186,9 +2096,7 @@ class ElevesType extends AbstractType
                     ->add('dateInscription', DateType::class, [
                         'label' => "date d'incription",
                         'input' => 'datetime',
-                        //'html5' => false,
                         'widget' => 'single_text',
-                        //'data'   => new \DateTime(),
                         'attr' => [
                             'min' => (new \DateTime('now -5475 days'))->format('Y-m-d'),
                             'max' => (new \DateTime('now -0 days'))->format('Y-m-d')
@@ -2256,7 +2164,6 @@ class ElevesType extends AbstractType
                     $form = $event->getForm();
                     $data = $form->getData();
                     $this->addScolarites2Field($form->getParent(), $form->getData());
-                    //$this->addRedoublement1Scol1Field($form->getParent(), $form->getData());
                 }
             );
 
@@ -2291,7 +2198,6 @@ class ElevesType extends AbstractType
                     $form = $event->getForm();
                     $data = $form->getData();
                     $this->addScolarites2Field($form->getParent(), $form->getData());
-                    //$this->addRedoublement1Scol1Field($form->getParent(), $form->getData());
                 }
             );
 

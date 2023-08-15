@@ -21,10 +21,10 @@ class ninasEntityListener
 
     public function prePersist(Ninas $ninas, LifecycleEventArgs $arg): void
     {
-        $user = $this->Securty->getUser();
+        /*$user = $this->Securty->getUser();
         if ($user === null) {
             throw new LogicException('User cannot be null here ...');
-        }
+        }*/
 
 
         $ninas
@@ -34,10 +34,10 @@ class ninasEntityListener
 
     public function preUpdate(Ninas $ninas, LifecycleEventArgs $arg): void
     {
-        $user = $this->Securty->getUser();
+        /*$user = $this->Securty->getUser();
         if ($user === null) {
             throw new LogicException('User cannot be null here ...');
-        }
+        }*/
 
         $ninas
             ->setUpdatedAt(new \DateTimeImmutable('now'));

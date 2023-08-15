@@ -45,7 +45,8 @@ class ElevesFixtures extends Fixture implements DependentFixtureInterface
                 $eleve->setStatut($statut);
                 $eleve->setEcoleAnDernier($ecoleProvenance);
                 $eleve->setEcoleRecrutement($ecoleProvenance);
-                //$eleve->setNina($nina);
+                $eleve->setIsAdmis($faker->randomElement([true, false]));
+                $eleve->setIsActif($faker->randomElement([true, false]));
                 $eleve->setEcoleRecrutement($ecole);
                 $eleve->setParent($parent);
                 $eleve->setAdresse($faker->address());
@@ -79,7 +80,8 @@ class ElevesFixtures extends Fixture implements DependentFixtureInterface
                 $eleve->setStatut($statut);
                 $eleve->setEcoleAnDernier($ecoleProvenance);
                 $eleve->setEcoleRecrutement($ecoleProvenance);
-                //$eleve->setNina($nina);
+                $eleve->setIsAdmis($faker->randomElement([true, false]));
+                $eleve->setIsActif($faker->randomElement([true, false]));
                 $eleve->setEcoleRecrutement($ecole);
                 $eleve->setParent($parent);
                 $eleve->setAdresse($faker->address());
@@ -114,7 +116,8 @@ class ElevesFixtures extends Fixture implements DependentFixtureInterface
                 $eleve->setStatut($statut);
                 $eleve->setEcoleAnDernier($ecoleProvenance);
                 $eleve->setEcoleRecrutement($ecoleProvenance);
-                //$eleve->setNina($nina);
+                $eleve->setIsAdmis($faker->randomElement([true, false]));
+                $eleve->setIsActif($faker->randomElement([true, false]));
                 $eleve->setEcoleRecrutement($ecole);
                 $eleve->setParent($parent);
                 $eleve->setAdresse($faker->address());
@@ -147,7 +150,8 @@ class ElevesFixtures extends Fixture implements DependentFixtureInterface
                 $eleve->setStatut($statut);
                 $eleve->setEcoleAnDernier($ecoleProvenance);
                 $eleve->setEcoleRecrutement($ecoleProvenance);
-                //$eleve->setNina($nina);
+                $eleve->setIsAdmis($faker->randomElement([true, false]));
+                $eleve->setIsActif($faker->randomElement([true, false]));
                 $eleve->setEcoleRecrutement($ecole);
                 $eleve->setParent($parent);
                 $eleve->setAdresse($faker->address());
@@ -179,7 +183,8 @@ class ElevesFixtures extends Fixture implements DependentFixtureInterface
                 $eleve->setStatut($statut);
                 $eleve->setEcoleAnDernier($ecoleProvenance);
                 $eleve->setEcoleRecrutement($ecoleProvenance);
-                //$eleve->setNina($nina);
+                $eleve->setIsAdmis($faker->randomElement([true, false]));
+                $eleve->setIsActif($faker->randomElement([true, false]));
                 $eleve->setEcoleRecrutement($ecole);
                 $eleve->setParent($parent);
                 $eleve->setAdresse($faker->address());
@@ -211,7 +216,8 @@ class ElevesFixtures extends Fixture implements DependentFixtureInterface
                 $eleve->setStatut($statut);
                 $eleve->setEcoleAnDernier($ecoleProvenance);
                 $eleve->setEcoleRecrutement($ecoleProvenance);
-                //$eleve->setNina($nina);
+                $eleve->setIsAdmis($faker->randomElement([true, false]));
+                $eleve->setIsActif($faker->randomElement([true, false]));
                 $eleve->setEcoleRecrutement($ecole);
                 $eleve->setParent($parent);
                 $eleve->setAdresse($faker->address());
@@ -243,7 +249,8 @@ class ElevesFixtures extends Fixture implements DependentFixtureInterface
                 $eleve->setStatut($statut);
                 $eleve->setEcoleAnDernier($ecoleProvenance);
                 $eleve->setEcoleRecrutement($ecoleProvenance);
-                //$eleve->setNina($nina);
+                $eleve->setIsAdmis($faker->randomElement([true, false]));
+                $eleve->setIsActif($faker->randomElement([true, false]));
                 $eleve->setEcoleRecrutement($ecole);
                 $eleve->setParent($parent);
                 $eleve->setAdresse($faker->address());
@@ -271,7 +278,8 @@ class ElevesFixtures extends Fixture implements DependentFixtureInterface
                 $eleve->setClasse($classe);
                 $eleve->setDateInscription($faker->dateTimeBetween('-12 years', '-5 months'));
                 $eleve->setDateRecrutement($faker->dateTimeBetween('-12 years', '-5 years'));
-                //$eleve->setUser($user);
+                $eleve->setIsAdmis($faker->randomElement([true, false]));
+                $eleve->setIsActif($faker->randomElement([true, false]));
                 $eleve->setStatut($statut);
                 $eleve->setEcoleAnDernier($ecoleProvenance);
                 $eleve->setEcoleRecrutement($ecoleProvenance);
@@ -307,7 +315,8 @@ class ElevesFixtures extends Fixture implements DependentFixtureInterface
                 $eleve->setStatut($statut);
                 $eleve->setEcoleAnDernier($ecoleProvenance);
                 $eleve->setEcoleRecrutement($ecoleProvenance);
-                //$eleve->setNina($nina);
+                $eleve->setIsAdmis($faker->randomElement([true, false]));
+                $eleve->setIsActif($faker->randomElement([true, false]));
                 $eleve->setEcoleRecrutement($ecole);
                 $eleve->setParent($parent);
                 $eleve->setAdresse($faker->address());
@@ -335,7 +344,8 @@ class ElevesFixtures extends Fixture implements DependentFixtureInterface
                 $eleve->setClasse($classe);
                 $eleve->setDateInscription($faker->dateTimeBetween('-12 years', '-5 months'));
                 $eleve->setDateRecrutement($faker->dateTimeBetween('-12 years', '-5 years'));
-                //$eleve->setUser($user);
+                $eleve->setIsAdmis($faker->randomElement([true, false]));
+                $eleve->setIsActif($faker->randomElement([true, false]));
                 $eleve->setStatut($statut);
                 $eleve->setEcoleAnDernier($ecoleProvenance);
                 $eleve->setEcoleRecrutement($ecoleProvenance);
@@ -371,7 +381,8 @@ class ElevesFixtures extends Fixture implements DependentFixtureInterface
                 $eleve->setStatut($statut);
                 $eleve->setEcoleAnDernier($ecoleProvenance);
                 $eleve->setEcoleRecrutement($ecoleProvenance);
-                //$eleve->setNina($nina);
+                $eleve->setIsAdmis($faker->randomElement([true, false]));
+                $eleve->setIsActif($faker->randomElement([true, false]));
                 $eleve->setEcoleRecrutement($ecole);
                 $eleve->setParent($parent);
                 $eleve->setAdresse($faker->address());
@@ -404,7 +415,8 @@ class ElevesFixtures extends Fixture implements DependentFixtureInterface
                 $eleve->setStatut($statut);
                 $eleve->setEcoleAnDernier($ecoleProvenance);
                 $eleve->setEcoleRecrutement($ecoleProvenance);
-                //$eleve->setNina($nina);
+                $eleve->setIsAdmis($faker->randomElement([true, false]));
+                $eleve->setIsActif($faker->randomElement([true, false]));
                 $eleve->setEcoleRecrutement($ecole);
                 $eleve->setParent($parent);
                 $eleve->setAdresse($faker->address());
@@ -437,7 +449,8 @@ class ElevesFixtures extends Fixture implements DependentFixtureInterface
                 $eleve->setStatut($statut);
                 $eleve->setEcoleAnDernier($ecoleProvenance);
                 $eleve->setEcoleRecrutement($ecoleProvenance);
-                //$eleve->setNina($nina);
+                $eleve->setIsAdmis($faker->randomElement([true, false]));
+                $eleve->setIsActif($faker->randomElement([true, false]));
                 $eleve->setEcoleRecrutement($ecole);
                 $eleve->setParent($parent);
                 $eleve->setAdresse($faker->address());
@@ -469,7 +482,8 @@ class ElevesFixtures extends Fixture implements DependentFixtureInterface
                 $eleve->setStatut($statut);
                 $eleve->setEcoleAnDernier($ecoleProvenance);
                 $eleve->setEcoleRecrutement($ecoleProvenance);
-                //$eleve->setNina($nina);
+                $eleve->setIsAdmis($faker->randomElement([true, false]));
+                $eleve->setIsActif($faker->randomElement([true, false]));
                 $eleve->setEcoleRecrutement($ecole);
                 $eleve->setParent($parent);
                 $eleve->setAdresse($faker->address());
@@ -501,7 +515,8 @@ class ElevesFixtures extends Fixture implements DependentFixtureInterface
                 $eleve->setStatut($statut);
                 $eleve->setEcoleAnDernier($ecoleProvenance);
                 $eleve->setEcoleRecrutement($ecoleProvenance);
-                //$eleve->setNina($nina);
+                $eleve->setIsAdmis($faker->randomElement([true, false]));
+                $eleve->setIsActif($faker->randomElement([true, false]));
                 $eleve->setEcoleRecrutement($ecole);
                 $eleve->setParent($parent);
                 $eleve->setAdresse($faker->address());
@@ -533,7 +548,8 @@ class ElevesFixtures extends Fixture implements DependentFixtureInterface
                 $eleve->setStatut($statut);
                 $eleve->setEcoleAnDernier($ecoleProvenance);
                 $eleve->setEcoleRecrutement($ecoleProvenance);
-                //$eleve->setNina($nina);
+                $eleve->setIsAdmis($faker->randomElement([true, false]));
+                $eleve->setIsActif($faker->randomElement([true, false]));
                 $eleve->setEcoleRecrutement($ecole);
                 $eleve->setParent($parent);
                 $eleve->setAdresse($faker->address());
@@ -565,7 +581,8 @@ class ElevesFixtures extends Fixture implements DependentFixtureInterface
                 $eleve->setStatut($statut);
                 $eleve->setEcoleAnDernier($ecoleProvenance);
                 $eleve->setEcoleRecrutement($ecoleProvenance);
-                //$eleve->setNina($nina);
+                $eleve->setIsAdmis($faker->randomElement([true, false]));
+                $eleve->setIsActif($faker->randomElement([true, false]));
                 $eleve->setEcoleRecrutement($ecole);
                 $eleve->setParent($parent);
                 $eleve->setAdresse($faker->address());
@@ -597,7 +614,8 @@ class ElevesFixtures extends Fixture implements DependentFixtureInterface
                 $eleve->setStatut($statut);
                 $eleve->setEcoleAnDernier($ecoleProvenance);
                 $eleve->setEcoleRecrutement($ecoleProvenance);
-                //$eleve->setNina($nina);
+                $eleve->setIsAdmis($faker->randomElement([true, false]));
+                $eleve->setIsActif($faker->randomElement([true, false]));
                 $eleve->setEcoleRecrutement($ecole);
                 $eleve->setParent($parent);
                 $eleve->setAdresse($faker->address());
@@ -629,7 +647,8 @@ class ElevesFixtures extends Fixture implements DependentFixtureInterface
                 $eleve->setStatut($statut);
                 $eleve->setEcoleAnDernier($ecoleProvenance);
                 $eleve->setEcoleRecrutement($ecoleProvenance);
-                //$eleve->setNina($nina);
+                $eleve->setIsAdmis($faker->randomElement([true, false]));
+                $eleve->setIsActif($faker->randomElement([true, false]));
                 $eleve->setEcoleRecrutement($ecole);
                 $eleve->setParent($parent);
                 $eleve->setAdresse($faker->address());
@@ -661,7 +680,8 @@ class ElevesFixtures extends Fixture implements DependentFixtureInterface
                 $eleve->setStatut($statut);
                 $eleve->setEcoleAnDernier($ecoleProvenance);
                 $eleve->setEcoleRecrutement($ecoleProvenance);
-                //$eleve->setNina($nina);
+                $eleve->setIsAdmis($faker->randomElement([true, false]));
+                $eleve->setIsActif($faker->randomElement([true, false]));
                 $eleve->setEcoleRecrutement($ecole);
                 $eleve->setParent($parent);
                 $eleve->setAdresse($faker->address());
@@ -693,7 +713,8 @@ class ElevesFixtures extends Fixture implements DependentFixtureInterface
                 $eleve->setStatut($statut);
                 $eleve->setEcoleAnDernier($ecoleProvenance);
                 $eleve->setEcoleRecrutement($ecoleProvenance);
-                //$eleve->setNina($nina);
+                $eleve->setIsAdmis($faker->randomElement([true, false]));
+                $eleve->setIsActif($faker->randomElement([true, false]));
                 $eleve->setEcoleRecrutement($ecole);
                 $eleve->setParent($parent);
                 $eleve->setAdresse($faker->address());
@@ -725,7 +746,8 @@ class ElevesFixtures extends Fixture implements DependentFixtureInterface
                 $eleve->setStatut($statut);
                 $eleve->setEcoleAnDernier($ecoleProvenance);
                 $eleve->setEcoleRecrutement($ecoleProvenance);
-                //$eleve->setNina($nina);
+                $eleve->setIsAdmis($faker->randomElement([true, false]));
+                $eleve->setIsActif($faker->randomElement([true, false]));
                 $eleve->setEcoleRecrutement($ecole);
                 $eleve->setParent($parent);
                 $eleve->setAdresse($faker->address());
@@ -757,7 +779,8 @@ class ElevesFixtures extends Fixture implements DependentFixtureInterface
                 $eleve->setStatut($statut);
                 $eleve->setEcoleAnDernier($ecoleProvenance);
                 $eleve->setEcoleRecrutement($ecoleProvenance);
-                //$eleve->setNina($nina);
+                $eleve->setIsAdmis($faker->randomElement([true, false]));
+                $eleve->setIsActif($faker->randomElement([true, false]));
                 $eleve->setEcoleRecrutement($ecole);
                 $eleve->setParent($parent);
                 $eleve->setAdresse($faker->address());
@@ -789,7 +812,8 @@ class ElevesFixtures extends Fixture implements DependentFixtureInterface
                 $eleve->setStatut($statut);
                 $eleve->setEcoleAnDernier($ecoleProvenance);
                 $eleve->setEcoleRecrutement($ecoleProvenance);
-                //$eleve->setNina($nina);
+                $eleve->setIsAdmis($faker->randomElement([true, false]));
+                $eleve->setIsActif($faker->randomElement([true, false]));
                 $eleve->setEcoleRecrutement($ecole);
                 $eleve->setParent($parent);
                 $eleve->setAdresse($faker->address());
@@ -826,7 +850,8 @@ class ElevesFixtures extends Fixture implements DependentFixtureInterface
                 $eleve->setStatut($statut);
                 $eleve->setEcoleAnDernier($ecoleProvenance);
                 $eleve->setEcoleRecrutement($ecoleProvenance);
-                //$eleve->setNina($nina);
+                $eleve->setIsAdmis($faker->randomElement([true, false]));
+                $eleve->setIsActif($faker->randomElement([true, false]));
                 $eleve->setEcoleRecrutement($ecole);
                 $eleve->setParent($parent);
                 $eleve->setAdresse($faker->address());
@@ -842,10 +867,7 @@ class ElevesFixtures extends Fixture implements DependentFixtureInterface
                 $prenom  = $this->getReference('prenom_' . $faker->numberBetween(1, 100));
                 //$user  = $this->getReference('user_' . $faker->numberBetween(1, 8));
                 $statut = $this->getReference('statut10eme_' . $faker->numberBetween(1, 3));
-
                 $parent = $this->getReference('parent_' . $faker->numberBetween(1, 80));
-
-
                 $ecoleProvenance = $this->getReference('ecole_' . $faker->numberBetween(1, 20));
                 $eleve = new Eleves();
                 $eleve->setDateNaissance($faker->dateTimeBetween('-17 years', '-7 years'));
@@ -863,7 +885,8 @@ class ElevesFixtures extends Fixture implements DependentFixtureInterface
                 $eleve->setStatut($statut);
                 $eleve->setEcoleAnDernier($ecoleProvenance);
                 $eleve->setEcoleRecrutement($ecoleProvenance);
-                //$eleve->setNina($nina);
+                $eleve->setIsAdmis($faker->randomElement([true, false]));
+                $eleve->setIsActif($faker->randomElement([true, false]));
                 $eleve->setEcoleRecrutement($ecole);
                 $eleve->setParent($parent);
                 $eleve->setAdresse($faker->address());
@@ -872,17 +895,13 @@ class ElevesFixtures extends Fixture implements DependentFixtureInterface
                 $this->addReference('eleve_' . $i, $eleve);
             } elseif ($i > 520 && $i <= 540) {
                 $departement = $this->getReference('departement_' . $faker->numberBetween(1, 1));
-
                 $classe = $this->getReference('classe10eme-' . $faker->numberBetween(2, 2));
                 $lieu = $this->getReference('lieu_' . $faker->numberBetween(1, 100));
                 $nom  = $this->getReference('nom_' . $faker->numberBetween(1, 50));
                 $prenom  = $this->getReference('prenom_' . $faker->numberBetween(1, 100));
                 //$user  = $this->getReference('user_' . $faker->numberBetween(1, 8));
                 $statut = $this->getReference('statut10eme_' . $faker->numberBetween(1, 3));
-
                 $parent = $this->getReference('parent_' . $faker->numberBetween(1, 80));
-
-
                 $ecoleProvenance = $this->getReference('ecole_' . $faker->numberBetween(1, 20));
                 $eleve = new Eleves();
                 $eleve->setDateNaissance($faker->dateTimeBetween('-17 years', '-7 years'));
@@ -900,7 +919,8 @@ class ElevesFixtures extends Fixture implements DependentFixtureInterface
                 $eleve->setStatut($statut);
                 $eleve->setEcoleAnDernier($ecoleProvenance);
                 $eleve->setEcoleRecrutement($ecoleProvenance);
-                //$eleve->setNina($nina);
+                $eleve->setIsAdmis($faker->randomElement([true, false]));
+                $eleve->setIsActif($faker->randomElement([true, false]));
                 $eleve->setEcoleRecrutement($ecole);
                 $eleve->setParent($parent);
                 $eleve->setAdresse($faker->address());
@@ -916,10 +936,7 @@ class ElevesFixtures extends Fixture implements DependentFixtureInterface
                 $prenom  = $this->getReference('prenom_' . $faker->numberBetween(1, 100));
                 //$user  = $this->getReference('user_' . $faker->numberBetween(1, 8));
                 $statut = $this->getReference('statut10eme_' . $faker->numberBetween(1, 3));
-
                 $parent = $this->getReference('parent_' . $faker->numberBetween(1, 80));
-
-
                 $ecoleProvenance = $this->getReference('ecole_' . $faker->numberBetween(1, 20));
                 $eleve = new Eleves();
                 $eleve->setDateNaissance($faker->dateTimeBetween('-17 years', '-7 years'));
@@ -937,7 +954,8 @@ class ElevesFixtures extends Fixture implements DependentFixtureInterface
                 $eleve->setStatut($statut);
                 $eleve->setEcoleAnDernier($ecoleProvenance);
                 $eleve->setEcoleRecrutement($ecoleProvenance);
-                //$eleve->setNina($nina);
+                $eleve->setIsAdmis($faker->randomElement([true, false]));
+                $eleve->setIsActif($faker->randomElement([true, false]));
                 $eleve->setEcoleRecrutement($ecole);
                 $eleve->setParent($parent);
                 $eleve->setAdresse($faker->address());
@@ -953,10 +971,7 @@ class ElevesFixtures extends Fixture implements DependentFixtureInterface
                 $prenom  = $this->getReference('prenom_' . $faker->numberBetween(1, 100));
                 //$user  = $this->getReference('user_' . $faker->numberBetween(1, 8));
                 $statut = $this->getReference('statut10eme_' . $faker->numberBetween(1, 3));
-
                 $parent = $this->getReference('parent_' . $faker->numberBetween(1, 80));
-
-
                 $ecoleProvenance = $this->getReference('ecole_' . $faker->numberBetween(1, 20));
                 $eleve = new Eleves();
                 $eleve->setDateNaissance($faker->dateTimeBetween('-17 years', '-7 years'));
@@ -974,7 +989,8 @@ class ElevesFixtures extends Fixture implements DependentFixtureInterface
                 $eleve->setStatut($statut);
                 $eleve->setEcoleAnDernier($ecoleProvenance);
                 $eleve->setEcoleRecrutement($ecoleProvenance);
-                //$eleve->setNina($nina);
+                $eleve->setIsAdmis($faker->randomElement([true, false]));
+                $eleve->setIsActif($faker->randomElement([true, false]));
                 $eleve->setEcoleRecrutement($ecole);
                 $eleve->setParent($parent);
                 $eleve->setAdresse($faker->address());
@@ -990,10 +1006,7 @@ class ElevesFixtures extends Fixture implements DependentFixtureInterface
                 $prenom  = $this->getReference('prenom_' . $faker->numberBetween(1, 100));
                 //$user  = $this->getReference('user_' . $faker->numberBetween(1, 8));
                 $statut = $this->getReference('statut11eme_' . $faker->numberBetween(1, 3));
-
                 $parent = $this->getReference('parent_' . $faker->numberBetween(1, 80));
-
-
                 $ecoleProvenance = $this->getReference('ecole_' . $faker->numberBetween(1, 20));
                 $eleve = new Eleves();
                 $eleve->setDateNaissance($faker->dateTimeBetween('-17 years', '-7 years'));
@@ -1011,7 +1024,8 @@ class ElevesFixtures extends Fixture implements DependentFixtureInterface
                 $eleve->setStatut($statut);
                 $eleve->setEcoleAnDernier($ecoleProvenance);
                 $eleve->setEcoleRecrutement($ecoleProvenance);
-                //$eleve->setNina($nina);
+                $eleve->setIsAdmis($faker->randomElement([true, false]));
+                $eleve->setIsActif($faker->randomElement([true, false]));
                 $eleve->setEcoleRecrutement($ecole);
                 $eleve->setParent($parent);
                 $eleve->setAdresse($faker->address());
@@ -1027,10 +1041,7 @@ class ElevesFixtures extends Fixture implements DependentFixtureInterface
                 $prenom  = $this->getReference('prenom_' . $faker->numberBetween(1, 100));
                 //$user  = $this->getReference('user_' . $faker->numberBetween(1, 8));
                 $statut = $this->getReference('statut11eme_' . $faker->numberBetween(1, 3));
-
                 $parent = $this->getReference('parent_' . $faker->numberBetween(1, 80));
-
-
                 $ecoleProvenance = $this->getReference('ecole_' . $faker->numberBetween(1, 20));
                 $eleve = new Eleves();
                 $eleve->setDateNaissance($faker->dateTimeBetween('-17 years', '-7 years'));
@@ -1048,7 +1059,8 @@ class ElevesFixtures extends Fixture implements DependentFixtureInterface
                 $eleve->setStatut($statut);
                 $eleve->setEcoleAnDernier($ecoleProvenance);
                 $eleve->setEcoleRecrutement($ecoleProvenance);
-                //$eleve->setNina($nina);
+                $eleve->setIsAdmis($faker->randomElement([true, false]));
+                $eleve->setIsActif($faker->randomElement([true, false]));
                 $eleve->setEcoleRecrutement($ecole);
                 $eleve->setParent($parent);
                 $eleve->setAdresse($faker->address());
@@ -1085,7 +1097,8 @@ class ElevesFixtures extends Fixture implements DependentFixtureInterface
                 $eleve->setStatut($statut);
                 $eleve->setEcoleAnDernier($ecoleProvenance);
                 $eleve->setEcoleRecrutement($ecoleProvenance);
-                //$eleve->setNina($nina);
+                $eleve->setIsAdmis($faker->randomElement([true, false]));
+                $eleve->setIsActif($faker->randomElement([true, false]));
                 $eleve->setEcoleRecrutement($ecole);
                 $eleve->setParent($parent);
                 $eleve->setAdresse($faker->address());
@@ -1122,7 +1135,8 @@ class ElevesFixtures extends Fixture implements DependentFixtureInterface
                 $eleve->setStatut($statut);
                 $eleve->setEcoleAnDernier($ecoleProvenance);
                 $eleve->setEcoleRecrutement($ecoleProvenance);
-                //$eleve->setNina($nina);
+                $eleve->setIsAdmis($faker->randomElement([true, false]));
+                $eleve->setIsActif($faker->randomElement([true, false]));
                 $eleve->setEcoleRecrutement($ecole);
                 $eleve->setParent($parent);
                 $eleve->setAdresse($faker->address());
@@ -1159,7 +1173,8 @@ class ElevesFixtures extends Fixture implements DependentFixtureInterface
                 $eleve->setStatut($statut);
                 $eleve->setEcoleAnDernier($ecoleProvenance);
                 $eleve->setEcoleRecrutement($ecoleProvenance);
-                //$eleve->setNina($nina);
+                $eleve->setIsAdmis($faker->randomElement([true, false]));
+                $eleve->setIsActif($faker->randomElement([true, false]));
                 $eleve->setEcoleRecrutement($ecole);
                 $eleve->setParent($parent);
                 $eleve->setAdresse($faker->address());
@@ -1196,7 +1211,8 @@ class ElevesFixtures extends Fixture implements DependentFixtureInterface
                 $eleve->setStatut($statut);
                 $eleve->setEcoleAnDernier($ecoleProvenance);
                 $eleve->setEcoleRecrutement($ecoleProvenance);
-                //$eleve->setNina($nina);
+                $eleve->setIsAdmis($faker->randomElement([true, false]));
+                $eleve->setIsActif($faker->randomElement([true, false]));
                 $eleve->setEcoleRecrutement($ecole);
                 $eleve->setParent($parent);
                 $eleve->setAdresse($faker->address());
@@ -1233,7 +1249,8 @@ class ElevesFixtures extends Fixture implements DependentFixtureInterface
                 $eleve->setStatut($statut);
                 $eleve->setEcoleAnDernier($ecoleProvenance);
                 $eleve->setEcoleRecrutement($ecoleProvenance);
-                //$eleve->setNina($nina);
+                $eleve->setIsAdmis($faker->randomElement([true, false]));
+                $eleve->setIsActif($faker->randomElement([true, false]));
                 $eleve->setEcoleRecrutement($ecole);
                 $eleve->setParent($parent);
                 $eleve->setAdresse($faker->address());
@@ -1270,7 +1287,8 @@ class ElevesFixtures extends Fixture implements DependentFixtureInterface
                 $eleve->setStatut($statut);
                 $eleve->setEcoleAnDernier($ecoleProvenance);
                 $eleve->setEcoleRecrutement($ecoleProvenance);
-                //$eleve->setNina($nina);
+                $eleve->setIsAdmis($faker->randomElement([true, false]));
+                $eleve->setIsActif($faker->randomElement([true, false]));
                 $eleve->setEcoleRecrutement($ecole);
                 $eleve->setParent($parent);
                 $eleve->setAdresse($faker->address());
@@ -1307,7 +1325,8 @@ class ElevesFixtures extends Fixture implements DependentFixtureInterface
                 $eleve->setStatut($statut);
                 $eleve->setEcoleAnDernier($ecoleProvenance);
                 $eleve->setEcoleRecrutement($ecoleProvenance);
-                //$eleve->setNina($nina);
+                $eleve->setIsAdmis($faker->randomElement([true, false]));
+                $eleve->setIsActif($faker->randomElement([true, false]));
                 $eleve->setEcoleRecrutement($ecole);
                 $eleve->setParent($parent);
                 $eleve->setAdresse($faker->address());
@@ -1344,7 +1363,8 @@ class ElevesFixtures extends Fixture implements DependentFixtureInterface
                 $eleve->setStatut($statut);
                 $eleve->setEcoleAnDernier($ecoleProvenance);
                 $eleve->setEcoleRecrutement($ecoleProvenance);
-                //$eleve->setNina($nina);
+                $eleve->setIsAdmis($faker->randomElement([true, false]));
+                $eleve->setIsActif($faker->randomElement([true, false]));
                 $eleve->setEcoleRecrutement($ecole);
                 $eleve->setParent($parent);
                 $eleve->setAdresse($faker->address());
@@ -1381,7 +1401,8 @@ class ElevesFixtures extends Fixture implements DependentFixtureInterface
                 $eleve->setStatut($statut);
                 $eleve->setEcoleAnDernier($ecoleProvenance);
                 $eleve->setEcoleRecrutement($ecoleProvenance);
-                //$eleve->setNina($nina);
+                $eleve->setIsAdmis($faker->randomElement([true, false]));
+                $eleve->setIsActif($faker->randomElement([true, false]));
                 $eleve->setEcoleRecrutement($ecole);
                 $eleve->setParent($parent);
                 $eleve->setAdresse($faker->address());

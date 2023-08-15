@@ -43,7 +43,7 @@ class LieuNaissancesController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_lieu_naissances_show', methods: ['GET'])]
+    #[Route('/{slug}', name: 'app_lieu_naissances_show', methods: ['GET'])]
     public function show(LieuNaissances $lieuNaissance): Response
     {
         return $this->render('lieu_naissances/show.html.twig', [

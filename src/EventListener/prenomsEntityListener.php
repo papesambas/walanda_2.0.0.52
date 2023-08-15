@@ -21,10 +21,10 @@ class prenomsEntityListener
 
     public function prePersist(Prenoms $prenom, LifecycleEventArgs $arg): void
     {
-        $user = $this->Securty->getUser();
+        /*$user = $this->Securty->getUser();
         if ($user === null) {
             throw new LogicException('User cannot be null here ...');
-        }
+        }*/
 
 
         $prenom
@@ -34,10 +34,10 @@ class prenomsEntityListener
 
     public function preUpdate(Prenoms $prenom, LifecycleEventArgs $arg): void
     {
-        $user = $this->Securty->getUser();
+        /*$user = $this->Securty->getUser();
         if ($user === null) {
             throw new LogicException('User cannot be null here ...');
-        }
+        }*/
 
         $prenom
             ->setUpdatedAt(new \DateTimeImmutable('now'));

@@ -21,11 +21,10 @@ class telephonesEntityListener
 
     public function prePersist(Telephones $telephones, LifecycleEventArgs $arg): void
     {
-        $user = $this->Securty->getUser();
+        /*$user = $this->Securty->getUser();
         if ($user === null) {
             throw new LogicException('User cannot be null here ...');
-        }
-
+        }*/
 
         $telephones
             ->setCreatedAt(new \DateTimeImmutable('now'))
@@ -34,10 +33,10 @@ class telephonesEntityListener
 
     public function preUpdate(Telephones $telephones, LifecycleEventArgs $arg): void
     {
-        $user = $this->Securty->getUser();
+        /*$user = $this->Securty->getUser();
         if ($user === null) {
             throw new LogicException('User cannot be null here ...');
-        }
+        }*/
 
         $telephones
             ->setUpdatedAt(new \DateTimeImmutable('now'));

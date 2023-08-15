@@ -22,10 +22,10 @@ class contratsEntityListener
 
     public function prePersist(Contrats $contrat, LifecycleEventArgs $arg): void
     {
-        $user = $this->Securty->getUser();
+        /*$user = $this->Securty->getUser();
         if ($user === null) {
             throw new LogicException('User cannot be null here ...');
-        }
+        }*/
 
 
         $contrat
@@ -36,10 +36,10 @@ class contratsEntityListener
 
     public function preUpdate(Contrats $contrat, LifecycleEventArgs $arg): void
     {
-        $user = $this->Securty->getUser();
+        /*$user = $this->Securty->getUser();
         if ($user === null) {
             throw new LogicException('User cannot be null here ...');
-        }
+        }*/
 
         $contrat
             ->setUpdatedAt(new \DateTimeImmutable('now'));

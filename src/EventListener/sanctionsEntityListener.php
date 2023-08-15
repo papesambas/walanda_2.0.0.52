@@ -22,10 +22,10 @@ class sanctionsEntityListener
 
     public function prePersist(Sanctions $sanctions, LifecycleEventArgs $arg): void
     {
-        $user = $this->Securty->getUser();
+        /*$user = $this->Securty->getUser();
         if ($user === null) {
             throw new LogicException('User cannot be null here ...');
-        }
+        }*/
 
 
         $sanctions
@@ -35,10 +35,10 @@ class sanctionsEntityListener
 
     public function preUpdate(Sanctions $sanctions, LifecycleEventArgs $arg): void
     {
-        $user = $this->Securty->getUser();
+        /*$user = $this->Securty->getUser();
         if ($user === null) {
             throw new LogicException('User cannot be null here ...');
-        }
+        }*/
 
         $sanctions
             ->setUpdatedAt(new \DateTimeImmutable('now'));

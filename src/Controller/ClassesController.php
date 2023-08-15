@@ -42,7 +42,7 @@ class ClassesController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_classes_show', methods: ['GET'])]
+    #[Route('/{slug}', name: 'app_classes_show', methods: ['GET'])]
     public function show(Classes $class): Response
     {
         return $this->render('classes/show.html.twig', [
@@ -71,7 +71,7 @@ class ClassesController extends AbstractController
     #[Route('/{id}', name: 'app_classes_delete', methods: ['POST'])]
     public function delete(Request $request, Classes $class, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$class->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $class->getId(), $request->request->get('_token'))) {
             $entityManager->remove($class);
             $entityManager->flush();
         }

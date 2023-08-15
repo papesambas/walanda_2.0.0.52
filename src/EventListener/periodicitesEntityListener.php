@@ -21,10 +21,10 @@ class periodicitesEntityListener
 
     public function prePersist(Periodicites $periodicite, LifecycleEventArgs $arg): void
     {
-        $user = $this->Securty->getUser();
+        /*$user = $this->Securty->getUser();
         if ($user === null) {
             throw new LogicException('User cannot be null here ...');
-        }
+        }*/
 
 
         $periodicite
@@ -34,10 +34,10 @@ class periodicitesEntityListener
 
     public function preUpdate(Periodicites $periodicite, LifecycleEventArgs $arg): void
     {
-        $user = $this->Securty->getUser();
+        /*$user = $this->Securty->getUser();
         if ($user === null) {
             throw new LogicException('User cannot be null here ...');
-        }
+        }*/
 
         $periodicite
             ->setUpdatedAt(new \DateTimeImmutable('now'));

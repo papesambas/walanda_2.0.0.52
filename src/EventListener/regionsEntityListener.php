@@ -21,10 +21,10 @@ class regionsEntityListener
 
     public function prePersist(Regions $region, LifecycleEventArgs $arg): void
     {
-        $user = $this->Securty->getUser();
+        /*$user = $this->Securty->getUser();
         if ($user === null) {
             throw new LogicException('User cannot be null here ...');
-        }
+        }*/
 
 
         $region
@@ -34,10 +34,10 @@ class regionsEntityListener
 
     public function preUpdate(Regions $region, LifecycleEventArgs $arg): void
     {
-        $user = $this->Securty->getUser();
+        /*$user = $this->Securty->getUser();
         if ($user === null) {
             throw new LogicException('User cannot be null here ...');
-        }
+        }*/
 
         $region
             ->setUpdatedAt(new \DateTimeImmutable('now'));

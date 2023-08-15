@@ -1,4 +1,34 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+<section class="container">
+    <div class="row">
+        <div class="col-md-6 me-1">
+            <div class="row border rounded my-3 py-3 bg-secondary-subtle">
+                <h3>Informations du Père</h3>
+                <div class="col-md-6 mt-2 bg-warning">{{ form_widget(form.SearchPere) }}</div>
+                <div class="col-md-6 mt-2">Recherche par # Nina</div>
+                <div class="col-md-6 mt-2">{{ form_widget(form.pere.nom) }}</div>
+                <div class="col-md-6 mt-2">{{ form_widget(form.pere.prenom) }}</div>
+                <div class="col-md-6 mt-2">{{ form_widget(form.pere.profession) }}</div>
+                <div class="col-md-6 mt-2"></div>
+                <div class="col-md-6 mt-2">{{ form_widget(form.pere.telephone) }}</div>
+                <div class="col-md-6 mt-2">{{ form_widget(form.pere.nina) }}</div>
+            </div>
+
+            <div class="row border rounded my-3 py-3 bg-secondary-subtle">
+                <h3 class="fst-italic text-center">Informations de la Mère</h3>
+                <div class="col-md-6 mt-2 bg-warning">{{ form_widget(form.SearchMere) }}</div>
+                <div class="col-md-6 mt-2">Recherche par # Nina</div>
+                <div class="col-md-6 mt-2">{{ form_widget(form.mere.nom) }}</div>
+                <div class="col-md-6 mt-2">{{ form_widget(form.mere.prenom) }}</div>
+                <div class="col-md-6 mt-2">{{ form_widget(form.mere.profession) }}</div>
+                <div class="col-md-6 mt-2"></div>
+                <div class="col-md-6 mt-2">{{ form_widget(form.mere.telephone) }}</div>
+                <div class="col-md-6 mt-2">{{ form_widget(form.mere.nina) }}</div>
+            </div>
+        </div>
+    </div>
+
+    <button class="btn btn-primary mx-2">{{ button_label|default('Sauvegarder') }}</button>
+    <a class="btn btn-primary" href="{{ path('app_parents_index') }}">back to list</a>
+</section>
 {{ form_end(form) }}

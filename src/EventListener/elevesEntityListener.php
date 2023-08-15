@@ -24,10 +24,10 @@ class elevesEntityListener
 
     public function prePersist(Eleves $eleves, LifecycleEventArgs $arg): void
     {
-        $user = $this->Securty->getUser();
+        /*$user = $this->Securty->getUser();
         if ($user === null) {
             throw new LogicException('User cannot be null here ...');
-        }
+        }*/
         $format = 'Y';
         $formatJour = 'd';
         $formatMois = 'm';
@@ -68,10 +68,10 @@ class elevesEntityListener
 
     public function preUpdate(Eleves $eleves, LifecycleEventArgs $arg): void
     {
-        $user = $this->Securty->getUser();
+        /*$user = $this->Securty->getUser();
         if ($user === null) {
             throw new LogicException('User cannot be null here ...');
-        }
+        }*/
 
         $eleves
             ->setUpdatedAt(new \DateTimeImmutable('now'))
