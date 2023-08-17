@@ -1,0 +1,7 @@
+# Dans votre fichier de configuration de tests (par exemple config/packages/test/twig.yaml)
+twig:
+    default_path: '%kernel.project_dir%/templates'
+    strict_variables: true
+    cache: '%kernel.cache_dir%/twig-test'
+    autoescape_service: name
+    optimizations: -1

@@ -2,6 +2,7 @@
 
 namespace App\Test\Controller;
 
+use App\Entity\Niveaux;
 use App\Entity\Statuts;
 use App\Repository\StatutsRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -27,13 +28,16 @@ class StatutsControllerTest extends WebTestCase
 
     public function testIndex(): void
     {
-        $crawler = $this->client->request('GET', $this->path);
+        $path = '/statuts/'; // Assurez-vous que $this->path contient le bon chemin
+
+        $crawler = $this->client->request('GET', $path);
 
         self::assertResponseStatusCodeSame(200);
-        self::assertPageTitleContains('Statut index');
+        $this->assertResponseIsSuccessful();
+        $this->assertSelectorTextContains('title', 'Statuts index'); // Correction de la chaîne attendue
 
         // Use the $crawler to perform additional assertions e.g.
-        // self::assertSame('Some text on the page', $crawler->filter('.p')->first());
+        // self::assertSame('Some text on the page', $crawler->filter('.p'
     }
 
     public function testNew(): void
@@ -60,13 +64,14 @@ class StatutsControllerTest extends WebTestCase
 
     public function testShow(): void
     {
+        $niveau = new Niveaux();
         $this->markTestIncomplete();
         $fixture = new Statuts();
         $fixture->setDesignation('My Title');
-        $fixture->setCreatedAt('My Title');
-        $fixture->setUpdatedAt('My Title');
+        $fixture->setCreatedAt(new \DateTimeImmutable());
+        $fixture->setUpdatedAt(new \DateTimeImmutable());
         $fixture->setSlug('My Title');
-        $fixture->setNiveau('My Title');
+        $fixture->setNiveau($niveau);
 
         $this->manager->persist($fixture);
         $this->manager->flush();
@@ -81,13 +86,14 @@ class StatutsControllerTest extends WebTestCase
 
     public function testEdit(): void
     {
+        $niveau = new Niveaux();
         $this->markTestIncomplete();
         $fixture = new Statuts();
         $fixture->setDesignation('My Title');
-        $fixture->setCreatedAt('My Title');
-        $fixture->setUpdatedAt('My Title');
+        $fixture->setCreatedAt(new \DateTimeImmutable());
+        $fixture->setUpdatedAt(new \DateTimeImmutable());
         $fixture->setSlug('My Title');
-        $fixture->setNiveau('My Title');
+        $fixture->setNiveau($niveau);
 
         $this->manager->persist($fixture);
         $this->manager->flush();
@@ -115,16 +121,17 @@ class StatutsControllerTest extends WebTestCase
 
     public function testRemove(): void
     {
+        $niveau = new Niveaux();
         $this->markTestIncomplete();
 
         $originalNumObjectsInRepository = count($this->repository->findAll());
 
         $fixture = new Statuts();
         $fixture->setDesignation('My Title');
-        $fixture->setCreatedAt('My Title');
-        $fixture->setUpdatedAt('My Title');
+        $fixture->setCreatedAt(new \DateTimeImmutable());
+        $fixture->setUpdatedAt(new \DateTimeImmutable());
         $fixture->setSlug('My Title');
-        $fixture->setNiveau('My Title');
+        $fixture->setNiveau($niveau);
 
         $this->manager->persist($fixture);
         $this->manager->flush();

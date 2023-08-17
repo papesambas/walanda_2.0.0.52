@@ -5,16 +5,19 @@ namespace App\Controller;
 use App\Entity\Classes;
 use App\Form\ClassesType;
 use App\Repository\ClassesRepository;
+use App\Service\eleveService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpKernel\Attribute\Cache;
 
 #[Route('/classes')]
 class ClassesController extends AbstractController
 {
     #[Route('/', name: 'app_classes_index', methods: ['GET'])]
+    #[Cache(vary: ['Accept-Encoding'])] // Met en cache le rendu complet de la page
     public function index(ClassesRepository $classesRepository): Response
     {
         return $this->render('classes/index.html.twig', [
@@ -23,6 +26,7 @@ class ClassesController extends AbstractController
     }
 
     #[Route('/new', name: 'app_classes_new', methods: ['GET', 'POST'])]
+    #[Cache(vary: ['Accept-Encoding'])] // Met en cache le rendu complet de la page
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $class = new Classes();
@@ -43,14 +47,17 @@ class ClassesController extends AbstractController
     }
 
     #[Route('/{slug}', name: 'app_classes_show', methods: ['GET'])]
-    public function show(Classes $class): Response
+    #[Cache(vary: ['Accept-Encoding'])] // Met en cache le rendu complet de la page
+    public function show(Classes $class, eleveService $eleveService): Response
     {
         return $this->render('classes/show.html.twig', [
             'class' => $class,
+            'eleves' => $eleveService->getPaginatedEleves($class),
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_classes_edit', methods: ['GET', 'POST'])]
+    #[Route('/{slug}/edit', name: 'app_classes_edit', methods: ['GET', 'POST'])]
+    #[Cache(vary: ['Accept-Encoding'])] // Met en cache le rendu complet de la page
     public function edit(Request $request, Classes $class, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(ClassesType::class, $class);

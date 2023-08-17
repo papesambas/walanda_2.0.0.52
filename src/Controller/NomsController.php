@@ -11,11 +11,13 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpKernel\Attribute\Cache;
 
 #[Route('/noms')]
 class NomsController extends AbstractController
 {
     #[Route('/', name: 'app_noms_index', methods: ['GET'])]
+    #[Cache(vary: ['Accept-Encoding'])] // Met en cache le rendu complet de la page
     public function index(NomsRepository $nomsRepository): Response
     {
         return $this->render('noms/index.html.twig', [
@@ -24,6 +26,7 @@ class NomsController extends AbstractController
     }
 
     #[Route('/new', name: 'app_noms_new', methods: ['GET', 'POST'])]
+    #[Cache(vary: ['Accept-Encoding'])] // Met en cache le rendu complet de la page
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $nom = new Noms();
@@ -44,6 +47,7 @@ class NomsController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_noms_show', methods: ['GET'])]
+    #[Cache(vary: ['Accept-Encoding'])] // Met en cache le rendu complet de la page
     public function show(Noms $nom): Response
     {
         return $this->render('noms/show.html.twig', [
@@ -52,6 +56,7 @@ class NomsController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_noms_edit', methods: ['GET', 'POST'])]
+    #[Cache(vary: ['Accept-Encoding'])] // Met en cache le rendu complet de la page
     public function edit(Request $request, Noms $nom, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(NomsType::class, $nom);

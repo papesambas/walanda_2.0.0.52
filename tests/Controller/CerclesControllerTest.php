@@ -3,6 +3,7 @@
 namespace App\Test\Controller;
 
 use App\Entity\Cercles;
+use App\Entity\Regions;
 use App\Repository\CerclesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
@@ -27,13 +28,16 @@ class CerclesControllerTest extends WebTestCase
 
     public function testIndex(): void
     {
-        $crawler = $this->client->request('GET', $this->path);
+        $path = '/cercles/'; // Assurez-vous que $this->path contient le bon chemin
+
+        $crawler = $this->client->request('GET', $path);
 
         self::assertResponseStatusCodeSame(200);
-        self::assertPageTitleContains('Cercle index');
+        $this->assertResponseIsSuccessful();
+        $this->assertSelectorTextContains('title', 'Cercles index'); // Correction de la chaîne attendue
 
         // Use the $crawler to perform additional assertions e.g.
-        // self::assertSame('Some text on the page', $crawler->filter('.p')->first());
+        // self::assertSame('Some text on the page', $crawler->filter('.p'
     }
 
     public function testNew(): void
@@ -60,13 +64,14 @@ class CerclesControllerTest extends WebTestCase
 
     public function testShow(): void
     {
+        $region = new Regions();
         $this->markTestIncomplete();
         $fixture = new Cercles();
         $fixture->setDesignation('My Title');
-        $fixture->setCreatedAt('My Title');
-        $fixture->setUpdatedAt('My Title');
+        $fixture->setCreatedAt(new \DateTimeImmutable());
+        $fixture->setUpdatedAt(new \DateTimeImmutable());
         $fixture->setSlug('My Title');
-        $fixture->setRegion('My Title');
+        $fixture->setRegion($region);
 
         $this->manager->persist($fixture);
         $this->manager->flush();
@@ -81,13 +86,14 @@ class CerclesControllerTest extends WebTestCase
 
     public function testEdit(): void
     {
+        $region = new Regions();
         $this->markTestIncomplete();
         $fixture = new Cercles();
         $fixture->setDesignation('My Title');
-        $fixture->setCreatedAt('My Title');
-        $fixture->setUpdatedAt('My Title');
+        $fixture->setCreatedAt(new \DateTimeImmutable());
+        $fixture->setUpdatedAt(new \DateTimeImmutable());
         $fixture->setSlug('My Title');
-        $fixture->setRegion('My Title');
+        $fixture->setRegion($region);
 
         $this->manager->persist($fixture);
         $this->manager->flush();
@@ -115,16 +121,17 @@ class CerclesControllerTest extends WebTestCase
 
     public function testRemove(): void
     {
+        $region = new Regions();
         $this->markTestIncomplete();
 
         $originalNumObjectsInRepository = count($this->repository->findAll());
 
         $fixture = new Cercles();
         $fixture->setDesignation('My Title');
-        $fixture->setCreatedAt('My Title');
-        $fixture->setUpdatedAt('My Title');
+        $fixture->setCreatedAt(new \DateTimeImmutable());
+        $fixture->setUpdatedAt(new \DateTimeImmutable());
         $fixture->setSlug('My Title');
-        $fixture->setRegion('My Title');
+        $fixture->setRegion($region);
 
         $this->manager->persist($fixture);
         $this->manager->flush();

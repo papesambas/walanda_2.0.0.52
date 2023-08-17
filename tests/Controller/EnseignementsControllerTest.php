@@ -3,6 +3,7 @@
 namespace App\Test\Controller;
 
 use App\Entity\Enseignements;
+use App\Entity\Etablissements;
 use App\Repository\EnseignementsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
@@ -27,13 +28,16 @@ class EnseignementsControllerTest extends WebTestCase
 
     public function testIndex(): void
     {
-        $crawler = $this->client->request('GET', $this->path);
+        $path = '/enseignements/'; // Assurez-vous que $this->path contient le bon chemin
+
+        $crawler = $this->client->request('GET', $path);
 
         self::assertResponseStatusCodeSame(200);
-        self::assertPageTitleContains('Enseignement index');
+        $this->assertResponseIsSuccessful();
+        $this->assertSelectorTextContains('title', 'Enseignements index'); // Correction de la chaîne attendue
 
         // Use the $crawler to perform additional assertions e.g.
-        // self::assertSame('Some text on the page', $crawler->filter('.p')->first());
+        // self::assertSame('Some text on the page', $crawler->filter('.p'
     }
 
     public function testNew(): void
@@ -60,13 +64,14 @@ class EnseignementsControllerTest extends WebTestCase
 
     public function testShow(): void
     {
+        $etablissement = new Etablissements();
         $this->markTestIncomplete();
         $fixture = new Enseignements();
         $fixture->setDesignation('My Title');
-        $fixture->setCreatedAt('My Title');
-        $fixture->setUpdatedAt('My Title');
+        $fixture->setCreatedAt(new \DateTimeImmutable());
+        $fixture->setUpdatedAt(new \DateTimeImmutable());
         $fixture->setSlug('My Title');
-        $fixture->setEtablissement('My Title');
+        $fixture->setEtablissement($etablissement);
 
         $this->manager->persist($fixture);
         $this->manager->flush();
@@ -81,13 +86,14 @@ class EnseignementsControllerTest extends WebTestCase
 
     public function testEdit(): void
     {
+        $etablissement = new Etablissements();
         $this->markTestIncomplete();
         $fixture = new Enseignements();
         $fixture->setDesignation('My Title');
-        $fixture->setCreatedAt('My Title');
-        $fixture->setUpdatedAt('My Title');
+        $fixture->setCreatedAt(new \DateTimeImmutable());
+        $fixture->setUpdatedAt(new \DateTimeImmutable());
         $fixture->setSlug('My Title');
-        $fixture->setEtablissement('My Title');
+        $fixture->setEtablissement($etablissement);
 
         $this->manager->persist($fixture);
         $this->manager->flush();
@@ -115,16 +121,17 @@ class EnseignementsControllerTest extends WebTestCase
 
     public function testRemove(): void
     {
+        $etablissement = new Etablissements();
         $this->markTestIncomplete();
 
         $originalNumObjectsInRepository = count($this->repository->findAll());
 
         $fixture = new Enseignements();
         $fixture->setDesignation('My Title');
-        $fixture->setCreatedAt('My Title');
-        $fixture->setUpdatedAt('My Title');
+        $fixture->setCreatedAt(new \DateTimeImmutable());
+        $fixture->setUpdatedAt(new \DateTimeImmutable());
         $fixture->setSlug('My Title');
-        $fixture->setEtablissement('My Title');
+        $fixture->setEtablissement($etablissement);
 
         $this->manager->persist($fixture);
         $this->manager->flush();

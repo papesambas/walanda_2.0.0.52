@@ -31,6 +31,7 @@ class ElevesController extends AbstractController
     }
 
     #[Route('/new', name: 'app_eleves_new', methods: ['GET', 'POST'])]
+    #[Cache(vary: ['Accept-Encoding'])] // Met en cache le rendu complet de la page
     public function new(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {
         $elefe = new Eleves();
@@ -83,6 +84,7 @@ class ElevesController extends AbstractController
     }
 
     #[Route('/{slug}', name: 'app_eleves_show', methods: ['GET'])]
+    #[Cache(vary: ['Accept-Encoding'])] // Met en cache le rendu complet de la page
     public function show(Eleves $elefe): Response
     {
         return $this->render('eleves/show.html.twig', [
@@ -91,6 +93,7 @@ class ElevesController extends AbstractController
     }
 
     #[Route('/{slug}/edit', name: 'app_eleves_edit', methods: ['GET', 'POST'])]
+    #[Cache(vary: ['Accept-Encoding'])] // Met en cache le rendu complet de la page
     public function edit(Request $request, Eleves $elefe, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {
         $form = $this->createForm(ElevesType::class, $elefe);

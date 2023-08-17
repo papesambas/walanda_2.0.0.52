@@ -131,6 +131,7 @@ class ParentsController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_parents_show', methods: ['GET'])]
+    #[Cache(vary: ['Accept-Encoding'])] // Met en cache le rendu complet de la page
     public function show(Parents $parent): Response
     {
         return $this->render('parents/show.html.twig', [
@@ -139,6 +140,7 @@ class ParentsController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_parents_edit', methods: ['GET', 'POST'])]
+    #[Cache(vary: ['Accept-Encoding'])] // Met en cache le rendu complet de la page
     public function edit(Request $request, Parents $parent, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(ParentsType::class, $parent);

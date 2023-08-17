@@ -2,7 +2,12 @@
 
 namespace App\Test\Controller;
 
+use App\Entity\Noms;
+use App\Entity\Ninas;
 use App\Entity\Peres;
+use App\Entity\Prenoms;
+use App\Entity\Telephones;
+use App\Entity\Professions;
 use App\Repository\PeresRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
@@ -27,13 +32,16 @@ class PeresControllerTest extends WebTestCase
 
     public function testIndex(): void
     {
-        $crawler = $this->client->request('GET', $this->path);
+        $path = '/peres/'; // Assurez-vous que $this->path contient le bon chemin
+
+        $crawler = $this->client->request('GET', $path);
 
         self::assertResponseStatusCodeSame(200);
-        self::assertPageTitleContains('Pere index');
+        $this->assertResponseIsSuccessful();
+        $this->assertSelectorTextContains('title', 'Peres index'); // Correction de la chaîne attendue
 
         // Use the $crawler to perform additional assertions e.g.
-        // self::assertSame('Some text on the page', $crawler->filter('.p')->first());
+        // self::assertSame('Some text on the page', $crawler->filter('.p'
     }
 
     public function testNew(): void
@@ -64,17 +72,23 @@ class PeresControllerTest extends WebTestCase
 
     public function testShow(): void
     {
+        $nom = new Noms();
+        $prenom = new Prenoms();
+        $profession = new Professions();
+        $telephone = new Telephones();
+        $nina = new Ninas();
+
         $this->markTestIncomplete();
         $fixture = new Peres();
         $fixture->setFullname('My Title');
-        $fixture->setCreatedAt('My Title');
-        $fixture->setUpdatedAt('My Title');
+        $fixture->setCreatedAt(new \DateTimeImmutable());
+        $fixture->setUpdatedAt(new \DateTimeImmutable());
         $fixture->setSlug('My Title');
-        $fixture->setNom('My Title');
-        $fixture->setPrenom('My Title');
-        $fixture->setProfession('My Title');
-        $fixture->setTelephone('My Title');
-        $fixture->setNina('My Title');
+        $fixture->setNom($nom);
+        $fixture->setPrenom($prenom);
+        $fixture->setProfession($profession);
+        $fixture->setTelephone($telephone);
+        $fixture->setNina($nina);
 
         $this->manager->persist($fixture);
         $this->manager->flush();
@@ -89,17 +103,23 @@ class PeresControllerTest extends WebTestCase
 
     public function testEdit(): void
     {
+        $nom = new Noms();
+        $prenom = new Prenoms();
+        $profession = new Professions();
+        $telephone = new Telephones();
+        $nina = new Ninas();
+
         $this->markTestIncomplete();
         $fixture = new Peres();
         $fixture->setFullname('My Title');
-        $fixture->setCreatedAt('My Title');
-        $fixture->setUpdatedAt('My Title');
+        $fixture->setCreatedAt(new \DateTimeImmutable());
+        $fixture->setUpdatedAt(new \DateTimeImmutable());
         $fixture->setSlug('My Title');
-        $fixture->setNom('My Title');
-        $fixture->setPrenom('My Title');
-        $fixture->setProfession('My Title');
-        $fixture->setTelephone('My Title');
-        $fixture->setNina('My Title');
+        $fixture->setNom($nom);
+        $fixture->setPrenom($prenom);
+        $fixture->setProfession($profession);
+        $fixture->setTelephone($telephone);
+        $fixture->setNina($nina);
 
         $this->manager->persist($fixture);
         $this->manager->flush();
@@ -135,20 +155,26 @@ class PeresControllerTest extends WebTestCase
 
     public function testRemove(): void
     {
+        $nom = new Noms();
+        $prenom = new Prenoms();
+        $profession = new Professions();
+        $telephone = new Telephones();
+        $nina = new Ninas();
+
         $this->markTestIncomplete();
 
         $originalNumObjectsInRepository = count($this->repository->findAll());
 
         $fixture = new Peres();
         $fixture->setFullname('My Title');
-        $fixture->setCreatedAt('My Title');
-        $fixture->setUpdatedAt('My Title');
+        $fixture->setCreatedAt(new \DateTimeImmutable());
+        $fixture->setUpdatedAt(new \DateTimeImmutable());
         $fixture->setSlug('My Title');
-        $fixture->setNom('My Title');
-        $fixture->setPrenom('My Title');
-        $fixture->setProfession('My Title');
-        $fixture->setTelephone('My Title');
-        $fixture->setNina('My Title');
+        $fixture->setNom($nom);
+        $fixture->setPrenom($prenom);
+        $fixture->setProfession($profession);
+        $fixture->setTelephone($telephone);
+        $fixture->setNina($nina);
 
         $this->manager->persist($fixture);
         $this->manager->flush();

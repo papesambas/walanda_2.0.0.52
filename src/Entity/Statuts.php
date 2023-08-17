@@ -29,9 +29,13 @@ class Statuts
     #[ORM\OneToMany(mappedBy: 'statut', targetEntity: Eleves::class)]
     private Collection $eleves;
 
+    #[ORM\OneToMany(mappedBy: 'statut', targetEntity: FraisScolaires::class)]
+    private Collection $fraisScolaires;
+
     public function __construct()
     {
         $this->eleves = new ArrayCollection();
+        $this->fraisScolaires = new ArrayCollection();
     }
 
     public function __toString()
@@ -92,6 +96,36 @@ class Statuts
             // set the owning side to null (unless already changed)
             if ($elefe->getStatut() === $this) {
                 $elefe->setStatut(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, FraisScolaires>
+     */
+    public function getFraisScolaires(): Collection
+    {
+        return $this->fraisScolaires;
+    }
+
+    public function addFraisScolaire(FraisScolaires $fraisScolaire): static
+    {
+        if (!$this->fraisScolaires->contains($fraisScolaire)) {
+            $this->fraisScolaires->add($fraisScolaire);
+            $fraisScolaire->setStatut($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFraisScolaire(FraisScolaires $fraisScolaire): static
+    {
+        if ($this->fraisScolaires->removeElement($fraisScolaire)) {
+            // set the owning side to null (unless already changed)
+            if ($fraisScolaire->getStatut() === $this) {
+                $fraisScolaire->setStatut(null);
             }
         }
 

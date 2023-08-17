@@ -2,12 +2,13 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Statuts;
-use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Faker;
 use App\Entity\Niveaux;
+use App\Entity\Statuts;
+use App\Entity\FraisScolaires;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
 class Niveaux1erCycleFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -26,36 +27,156 @@ class Niveaux1erCycleFixtures extends Fixture implements DependentFixtureInterfa
                         $statut = new Statuts();
                         $statut->setDesignation('1ère Inscription');
                         $statut->setNiveau($niveau);
+                        for ($a = 1; $a <= 1; $a++) {
+                            $frais = new FraisScolaires();
+                            $frais->setAutres(0);
+                            $frais->setFraisInscription(5000);
+                            $frais->setFraisCarnet(1000);
+                            $frais->setFraisTransfert(0);
+                            $frais->setSeptembre(0);
+                            $frais->setOctobre(10000);
+                            $frais->setNovembre(10000);
+                            $frais->setDecembre(10000);
+                            $frais->setJanvier(10000);
+                            $frais->setFevrier(10000);
+                            $frais->setMars(10000);
+                            $frais->setAvril(5000);
+                            $frais->setMai(0);
+                            $frais->setJuin(0);
+                            $frais->setNiveau($niveau);
+                            $frais->setStatut($statut);
+                            $manager->persist($frais);
+                        }
                         $manager->persist($statut);
                         $this->addReference('statut1ere_' . $i, $statut);
                     } elseif ($i == 2) {
                         $statut = new Statuts();
                         $statut->setDesignation('Passant');
                         $statut->setNiveau($niveau);
+                        for ($a = 1; $a <= 1; $a++) {
+                            $frais = new FraisScolaires();
+                            $frais->setAutres(0);
+                            $frais->setFraisInscription(0);
+                            $frais->setFraisCarnet(0);
+                            $frais->setFraisTransfert(0);
+                            $frais->setSeptembre(0);
+                            $frais->setOctobre(10000);
+                            $frais->setNovembre(10000);
+                            $frais->setDecembre(10000);
+                            $frais->setJanvier(10000);
+                            $frais->setFevrier(10000);
+                            $frais->setMars(10000);
+                            $frais->setAvril(5000);
+                            $frais->setMai(0);
+                            $frais->setJuin(0);
+                            $frais->setNiveau($niveau);
+                            $frais->setStatut($statut);
+                            $manager->persist($frais);
+                        }
                         $manager->persist($statut);
                         $this->addReference('statut1ere_' . $i, $statut);
                     } elseif ($i == 3) {
                         $statut = new Statuts();
                         $statut->setDesignation('Redoublant');
                         $statut->setNiveau($niveau);
+                        for ($a = 1; $a <= 1; $a++) {
+                            $frais = new FraisScolaires();
+                            $frais->setAutres(0);
+                            $frais->setFraisInscription(0);
+                            $frais->setFraisCarnet(0);
+                            $frais->setFraisTransfert(0);
+                            $frais->setSeptembre(0);
+                            $frais->setOctobre(10000);
+                            $frais->setNovembre(10000);
+                            $frais->setDecembre(10000);
+                            $frais->setJanvier(10000);
+                            $frais->setFevrier(10000);
+                            $frais->setMars(10000);
+                            $frais->setAvril(5000);
+                            $frais->setMai(0);
+                            $frais->setJuin(0);
+                            $frais->setNiveau($niveau);
+                            $frais->setStatut($statut);
+                            $manager->persist($frais);
+                        }
                         $manager->persist($statut);
                         $this->addReference('statut1ere_' . $i, $statut);
                     } elseif ($i == 4) {
                         $statut = new Statuts();
                         $statut->setDesignation('Transfert départ');
                         $statut->setNiveau($niveau);
+                        for ($a = 1; $a <= 1; $a++) {
+                            $frais = new FraisScolaires();
+                            $frais->setAutres(0);
+                            $frais->setFraisInscription(0);
+                            $frais->setFraisCarnet(0);
+                            $frais->setFraisTransfert(5000);
+                            $frais->setSeptembre(0);
+                            $frais->setOctobre(0);
+                            $frais->setNovembre(0);
+                            $frais->setDecembre(0);
+                            $frais->setJanvier(0);
+                            $frais->setFevrier(0);
+                            $frais->setMars(0);
+                            $frais->setAvril(0);
+                            $frais->setMai(0);
+                            $frais->setJuin(0);
+                            $frais->setNiveau($niveau);
+                            $frais->setStatut($statut);
+                            $manager->persist($frais);
+                        }
                         $manager->persist($statut);
                         $this->addReference('statut1ere_' . $i, $statut);
                     } elseif ($i == 5) {
                         $statut = new Statuts();
                         $statut->setDesignation('Sans dossier');
                         $statut->setNiveau($niveau);
+                        for ($a = 1; $a <= 1; $a++) {
+                            $frais = new FraisScolaires();
+                            $frais->setAutres(0);
+                            $frais->setFraisInscription(5000);
+                            $frais->setFraisCarnet(1000);
+                            $frais->setFraisTransfert(0);
+                            $frais->setSeptembre(0);
+                            $frais->setOctobre(10000);
+                            $frais->setNovembre(10000);
+                            $frais->setDecembre(10000);
+                            $frais->setJanvier(10000);
+                            $frais->setFevrier(10000);
+                            $frais->setMars(10000);
+                            $frais->setAvril(5000);
+                            $frais->setMai(0);
+                            $frais->setJuin(0);
+                            $frais->setNiveau($niveau);
+                            $frais->setStatut($statut);
+                            $manager->persist($frais);
+                        }
                         $manager->persist($statut);
                         $this->addReference('statut1ere_' . $i, $statut);
                     } elseif ($i == 6) {
                         $statut = new Statuts();
                         $statut->setDesignation('En attente');
                         $statut->setNiveau($niveau);
+                        for ($a = 1; $a <= 1; $a++) {
+                            $frais = new FraisScolaires();
+                            $frais->setAutres(0);
+                            $frais->setFraisInscription(5000);
+                            $frais->setFraisCarnet(1000);
+                            $frais->setFraisTransfert(0);
+                            $frais->setSeptembre(0);
+                            $frais->setOctobre(10000);
+                            $frais->setNovembre(10000);
+                            $frais->setDecembre(10000);
+                            $frais->setJanvier(10000);
+                            $frais->setFevrier(10000);
+                            $frais->setMars(10000);
+                            $frais->setAvril(5000);
+                            $frais->setMai(0);
+                            $frais->setJuin(0);
+                            $frais->setNiveau($niveau);
+                            $frais->setStatut($statut);
+                            $manager->persist($frais);
+                        }
                         $manager->persist($statut);
                         $this->addReference('statut1ere_' . $i, $statut);
                     } elseif ($i == 7) {
@@ -84,36 +205,156 @@ class Niveaux1erCycleFixtures extends Fixture implements DependentFixtureInterfa
                         $statut = new Statuts();
                         $statut->setDesignation('Transfert Arrivé');
                         $statut->setNiveau($niveau);
+                        for ($a = 1; $a <= 1; $a++) {
+                            $frais = new FraisScolaires();
+                            $frais->setAutres(0);
+                            $frais->setFraisInscription(5000);
+                            $frais->setFraisCarnet(0);
+                            $frais->setFraisTransfert(0);
+                            $frais->setSeptembre(0);
+                            $frais->setOctobre(10000);
+                            $frais->setNovembre(10000);
+                            $frais->setDecembre(10000);
+                            $frais->setJanvier(10000);
+                            $frais->setFevrier(10000);
+                            $frais->setMars(10000);
+                            $frais->setAvril(5000);
+                            $frais->setMai(0);
+                            $frais->setJuin(0);
+                            $frais->setNiveau($niveau);
+                            $frais->setStatut($statut);
+                            $manager->persist($frais);
+                        }
                         $manager->persist($statut);
                         $this->addReference('statut2eme_' . $i, $statut);
                     } elseif ($i == 2) {
                         $statut = new Statuts();
                         $statut->setDesignation('Passant');
                         $statut->setNiveau($niveau);
+                        for ($a = 1; $a <= 1; $a++) {
+                            $frais = new FraisScolaires();
+                            $frais->setAutres(0);
+                            $frais->setFraisInscription(0);
+                            $frais->setFraisCarnet(0);
+                            $frais->setFraisTransfert(0);
+                            $frais->setSeptembre(0);
+                            $frais->setOctobre(10000);
+                            $frais->setNovembre(10000);
+                            $frais->setDecembre(10000);
+                            $frais->setJanvier(10000);
+                            $frais->setFevrier(10000);
+                            $frais->setMars(10000);
+                            $frais->setAvril(5000);
+                            $frais->setMai(0);
+                            $frais->setJuin(0);
+                            $frais->setNiveau($niveau);
+                            $frais->setStatut($statut);
+                            $manager->persist($frais);
+                        }
                         $manager->persist($statut);
                         $this->addReference('statut2eme_' . $i, $statut);
                     } elseif ($i == 3) {
                         $statut = new Statuts();
                         $statut->setDesignation('Redoublant');
                         $statut->setNiveau($niveau);
+                        for ($a = 1; $a <= 1; $a++) {
+                            $frais = new FraisScolaires();
+                            $frais->setAutres(0);
+                            $frais->setFraisInscription(0);
+                            $frais->setFraisCarnet(0);
+                            $frais->setFraisTransfert(0);
+                            $frais->setSeptembre(0);
+                            $frais->setOctobre(10000);
+                            $frais->setNovembre(10000);
+                            $frais->setDecembre(10000);
+                            $frais->setJanvier(10000);
+                            $frais->setFevrier(10000);
+                            $frais->setMars(10000);
+                            $frais->setAvril(5000);
+                            $frais->setMai(0);
+                            $frais->setJuin(0);
+                            $frais->setNiveau($niveau);
+                            $frais->setStatut($statut);
+                            $manager->persist($frais);
+                        }
                         $manager->persist($statut);
                         $this->addReference('statut2eme_' . $i, $statut);
                     } elseif ($i == 4) {
                         $statut = new Statuts();
                         $statut->setDesignation('Transfert départ');
                         $statut->setNiveau($niveau);
+                        for ($a = 1; $a <= 1; $a++) {
+                            $frais = new FraisScolaires();
+                            $frais->setAutres(0);
+                            $frais->setFraisInscription(0);
+                            $frais->setFraisCarnet(0);
+                            $frais->setFraisTransfert(5000);
+                            $frais->setSeptembre(0);
+                            $frais->setOctobre(0);
+                            $frais->setNovembre(0);
+                            $frais->setDecembre(0);
+                            $frais->setJanvier(0);
+                            $frais->setFevrier(0);
+                            $frais->setMars(0);
+                            $frais->setAvril(0);
+                            $frais->setMai(0);
+                            $frais->setJuin(0);
+                            $frais->setNiveau($niveau);
+                            $frais->setStatut($statut);
+                            $manager->persist($frais);
+                        }
                         $manager->persist($statut);
                         $this->addReference('statut2eme_' . $i, $statut);
                     } elseif ($i == 5) {
                         $statut = new Statuts();
                         $statut->setDesignation('Sans dossier');
                         $statut->setNiveau($niveau);
+                        for ($a = 1; $a <= 1; $a++) {
+                            $frais = new FraisScolaires();
+                            $frais->setAutres(0);
+                            $frais->setFraisInscription(5000);
+                            $frais->setFraisCarnet(0);
+                            $frais->setFraisTransfert(0);
+                            $frais->setSeptembre(0);
+                            $frais->setOctobre(10000);
+                            $frais->setNovembre(10000);
+                            $frais->setDecembre(10000);
+                            $frais->setJanvier(10000);
+                            $frais->setFevrier(10000);
+                            $frais->setMars(10000);
+                            $frais->setAvril(5000);
+                            $frais->setMai(0);
+                            $frais->setJuin(0);
+                            $frais->setNiveau($niveau);
+                            $frais->setStatut($statut);
+                            $manager->persist($frais);
+                        }
                         $manager->persist($statut);
                         $this->addReference('statut2eme_' . $i, $statut);
                     } elseif ($i == 6) {
                         $statut = new Statuts();
                         $statut->setDesignation('En attente');
                         $statut->setNiveau($niveau);
+                        for ($a = 1; $a <= 1; $a++) {
+                            $frais = new FraisScolaires();
+                            $frais->setAutres(0);
+                            $frais->setFraisInscription(5000);
+                            $frais->setFraisCarnet(0);
+                            $frais->setFraisTransfert(0);
+                            $frais->setSeptembre(0);
+                            $frais->setOctobre(10000);
+                            $frais->setNovembre(10000);
+                            $frais->setDecembre(10000);
+                            $frais->setJanvier(10000);
+                            $frais->setFevrier(10000);
+                            $frais->setMars(10000);
+                            $frais->setAvril(5000);
+                            $frais->setMai(0);
+                            $frais->setJuin(0);
+                            $frais->setNiveau($niveau);
+                            $frais->setStatut($statut);
+                            $manager->persist($frais);
+                        }
                         $manager->persist($statut);
                         $this->addReference('statut2eme_' . $i, $statut);
                     } elseif ($i == 7) {
@@ -142,36 +383,156 @@ class Niveaux1erCycleFixtures extends Fixture implements DependentFixtureInterfa
                         $statut = new Statuts();
                         $statut->setDesignation('Transfert Arrivé');
                         $statut->setNiveau($niveau);
+                        for ($a = 1; $a <= 1; $a++) {
+                            $frais = new FraisScolaires();
+                            $frais->setAutres(0);
+                            $frais->setFraisInscription(5000);
+                            $frais->setFraisCarnet(0);
+                            $frais->setFraisTransfert(0);
+                            $frais->setSeptembre(0);
+                            $frais->setOctobre(10000);
+                            $frais->setNovembre(10000);
+                            $frais->setDecembre(10000);
+                            $frais->setJanvier(10000);
+                            $frais->setFevrier(10000);
+                            $frais->setMars(10000);
+                            $frais->setAvril(5000);
+                            $frais->setMai(0);
+                            $frais->setJuin(0);
+                            $frais->setNiveau($niveau);
+                            $frais->setStatut($statut);
+                            $manager->persist($frais);
+                        }
                         $manager->persist($statut);
                         $this->addReference('statut3eme_' . $i, $statut);
                     } elseif ($i == 2) {
                         $statut = new Statuts();
                         $statut->setDesignation('Passant');
                         $statut->setNiveau($niveau);
+                        for ($a = 1; $a <= 1; $a++) {
+                            $frais = new FraisScolaires();
+                            $frais->setAutres(0);
+                            $frais->setFraisInscription(0);
+                            $frais->setFraisCarnet(0);
+                            $frais->setFraisTransfert(0);
+                            $frais->setSeptembre(0);
+                            $frais->setOctobre(10000);
+                            $frais->setNovembre(10000);
+                            $frais->setDecembre(10000);
+                            $frais->setJanvier(10000);
+                            $frais->setFevrier(10000);
+                            $frais->setMars(10000);
+                            $frais->setAvril(5000);
+                            $frais->setMai(0);
+                            $frais->setJuin(0);
+                            $frais->setNiveau($niveau);
+                            $frais->setStatut($statut);
+                            $manager->persist($frais);
+                        }
                         $manager->persist($statut);
                         $this->addReference('statut3eme_' . $i, $statut);
                     } elseif ($i == 3) {
                         $statut = new Statuts();
                         $statut->setDesignation('Redoublant');
                         $statut->setNiveau($niveau);
+                        for ($a = 1; $a <= 1; $a++) {
+                            $frais = new FraisScolaires();
+                            $frais->setAutres(0);
+                            $frais->setFraisInscription(0);
+                            $frais->setFraisCarnet(0);
+                            $frais->setFraisTransfert(0);
+                            $frais->setSeptembre(0);
+                            $frais->setOctobre(10000);
+                            $frais->setNovembre(10000);
+                            $frais->setDecembre(10000);
+                            $frais->setJanvier(10000);
+                            $frais->setFevrier(10000);
+                            $frais->setMars(10000);
+                            $frais->setAvril(5000);
+                            $frais->setMai(0);
+                            $frais->setJuin(0);
+                            $frais->setNiveau($niveau);
+                            $frais->setStatut($statut);
+                            $manager->persist($frais);
+                        }
                         $manager->persist($statut);
                         $this->addReference('statut3eme_' . $i, $statut);
                     } elseif ($i == 4) {
                         $statut = new Statuts();
                         $statut->setDesignation('Transfert départ');
                         $statut->setNiveau($niveau);
+                        for ($a = 1; $a <= 1; $a++) {
+                            $frais = new FraisScolaires();
+                            $frais->setAutres(0);
+                            $frais->setFraisInscription(0);
+                            $frais->setFraisCarnet(0);
+                            $frais->setFraisTransfert(5000);
+                            $frais->setSeptembre(0);
+                            $frais->setOctobre(0);
+                            $frais->setNovembre(0);
+                            $frais->setDecembre(0);
+                            $frais->setJanvier(0);
+                            $frais->setFevrier(0);
+                            $frais->setMars(0);
+                            $frais->setAvril(0);
+                            $frais->setMai(0);
+                            $frais->setJuin(0);
+                            $frais->setNiveau($niveau);
+                            $frais->setStatut($statut);
+                            $manager->persist($frais);
+                        }
                         $manager->persist($statut);
                         $this->addReference('statut3eme_' . $i, $statut);
                     } elseif ($i == 5) {
                         $statut = new Statuts();
                         $statut->setDesignation('Sans dossier');
                         $statut->setNiveau($niveau);
+                        for ($a = 1; $a <= 1; $a++) {
+                            $frais = new FraisScolaires();
+                            $frais->setAutres(0);
+                            $frais->setFraisInscription(5000);
+                            $frais->setFraisCarnet(0);
+                            $frais->setFraisTransfert(0);
+                            $frais->setSeptembre(0);
+                            $frais->setOctobre(10000);
+                            $frais->setNovembre(10000);
+                            $frais->setDecembre(10000);
+                            $frais->setJanvier(10000);
+                            $frais->setFevrier(10000);
+                            $frais->setMars(10000);
+                            $frais->setAvril(5000);
+                            $frais->setMai(0);
+                            $frais->setJuin(0);
+                            $frais->setNiveau($niveau);
+                            $frais->setStatut($statut);
+                            $manager->persist($frais);
+                        }
                         $manager->persist($statut);
                         $this->addReference('statut3eme_' . $i, $statut);
                     } elseif ($i == 6) {
                         $statut = new Statuts();
                         $statut->setDesignation('En attente');
                         $statut->setNiveau($niveau);
+                        for ($a = 1; $a <= 1; $a++) {
+                            $frais = new FraisScolaires();
+                            $frais->setAutres(0);
+                            $frais->setFraisInscription(5000);
+                            $frais->setFraisCarnet(0);
+                            $frais->setFraisTransfert(0);
+                            $frais->setSeptembre(0);
+                            $frais->setOctobre(10000);
+                            $frais->setNovembre(10000);
+                            $frais->setDecembre(10000);
+                            $frais->setJanvier(10000);
+                            $frais->setFevrier(10000);
+                            $frais->setMars(10000);
+                            $frais->setAvril(5000);
+                            $frais->setMai(0);
+                            $frais->setJuin(0);
+                            $frais->setNiveau($niveau);
+                            $frais->setStatut($statut);
+                            $manager->persist($frais);
+                        }
                         $manager->persist($statut);
                         $this->addReference('statut3eme_' . $i, $statut);
                     } elseif ($i == 7) {
@@ -200,36 +561,156 @@ class Niveaux1erCycleFixtures extends Fixture implements DependentFixtureInterfa
                         $statut = new Statuts();
                         $statut->setDesignation('Transfert Arrivé');
                         $statut->setNiveau($niveau);
+                        for ($a = 1; $a <= 1; $a++) {
+                            $frais = new FraisScolaires();
+                            $frais->setAutres(0);
+                            $frais->setFraisInscription(5000);
+                            $frais->setFraisCarnet(0);
+                            $frais->setFraisTransfert(0);
+                            $frais->setSeptembre(0);
+                            $frais->setOctobre(10000);
+                            $frais->setNovembre(10000);
+                            $frais->setDecembre(10000);
+                            $frais->setJanvier(10000);
+                            $frais->setFevrier(10000);
+                            $frais->setMars(10000);
+                            $frais->setAvril(5000);
+                            $frais->setMai(0);
+                            $frais->setJuin(0);
+                            $frais->setNiveau($niveau);
+                            $frais->setStatut($statut);
+                            $manager->persist($frais);
+                        }
                         $manager->persist($statut);
                         $this->addReference('statut4eme_' . $i, $statut);
                     } elseif ($i == 2) {
                         $statut = new Statuts();
                         $statut->setDesignation('Passant');
                         $statut->setNiveau($niveau);
+                        for ($a = 1; $a <= 1; $a++) {
+                            $frais = new FraisScolaires();
+                            $frais->setAutres(0);
+                            $frais->setFraisInscription(0);
+                            $frais->setFraisCarnet(0);
+                            $frais->setFraisTransfert(0);
+                            $frais->setSeptembre(0);
+                            $frais->setOctobre(10000);
+                            $frais->setNovembre(10000);
+                            $frais->setDecembre(10000);
+                            $frais->setJanvier(10000);
+                            $frais->setFevrier(10000);
+                            $frais->setMars(10000);
+                            $frais->setAvril(5000);
+                            $frais->setMai(0);
+                            $frais->setJuin(0);
+                            $frais->setNiveau($niveau);
+                            $frais->setStatut($statut);
+                            $manager->persist($frais);
+                        }
                         $manager->persist($statut);
                         $this->addReference('statut4eme_' . $i, $statut);
                     } elseif ($i == 3) {
                         $statut = new Statuts();
                         $statut->setDesignation('Redoublant');
                         $statut->setNiveau($niveau);
+                        for ($a = 1; $a <= 1; $a++) {
+                            $frais = new FraisScolaires();
+                            $frais->setAutres(0);
+                            $frais->setFraisInscription(0);
+                            $frais->setFraisCarnet(0);
+                            $frais->setFraisTransfert(0);
+                            $frais->setSeptembre(0);
+                            $frais->setOctobre(10000);
+                            $frais->setNovembre(10000);
+                            $frais->setDecembre(10000);
+                            $frais->setJanvier(10000);
+                            $frais->setFevrier(10000);
+                            $frais->setMars(10000);
+                            $frais->setAvril(5000);
+                            $frais->setMai(0);
+                            $frais->setJuin(0);
+                            $frais->setNiveau($niveau);
+                            $frais->setStatut($statut);
+                            $manager->persist($frais);
+                        }
                         $manager->persist($statut);
                         $this->addReference('statut4eme_' . $i, $statut);
                     } elseif ($i == 4) {
                         $statut = new Statuts();
                         $statut->setDesignation('Transfert départ');
                         $statut->setNiveau($niveau);
+                        for ($a = 1; $a <= 1; $a++) {
+                            $frais = new FraisScolaires();
+                            $frais->setAutres(0);
+                            $frais->setFraisInscription(0);
+                            $frais->setFraisCarnet(0);
+                            $frais->setFraisTransfert(5000);
+                            $frais->setSeptembre(0);
+                            $frais->setOctobre(0);
+                            $frais->setNovembre(0);
+                            $frais->setDecembre(0);
+                            $frais->setJanvier(0);
+                            $frais->setFevrier(0);
+                            $frais->setMars(0);
+                            $frais->setAvril(0);
+                            $frais->setMai(0);
+                            $frais->setJuin(0);
+                            $frais->setNiveau($niveau);
+                            $frais->setStatut($statut);
+                            $manager->persist($frais);
+                        }
                         $manager->persist($statut);
                         $this->addReference('statut4eme_' . $i, $statut);
                     } elseif ($i == 5) {
                         $statut = new Statuts();
                         $statut->setDesignation('Sans dossier');
                         $statut->setNiveau($niveau);
+                        for ($a = 1; $a <= 1; $a++) {
+                            $frais = new FraisScolaires();
+                            $frais->setAutres(0);
+                            $frais->setFraisInscription(5000);
+                            $frais->setFraisCarnet(0);
+                            $frais->setFraisTransfert(0);
+                            $frais->setSeptembre(0);
+                            $frais->setOctobre(10000);
+                            $frais->setNovembre(10000);
+                            $frais->setDecembre(10000);
+                            $frais->setJanvier(10000);
+                            $frais->setFevrier(10000);
+                            $frais->setMars(10000);
+                            $frais->setAvril(5000);
+                            $frais->setMai(0);
+                            $frais->setJuin(0);
+                            $frais->setNiveau($niveau);
+                            $frais->setStatut($statut);
+                            $manager->persist($frais);
+                        }
                         $manager->persist($statut);
                         $this->addReference('statut4eme_' . $i, $statut);
                     } elseif ($i == 6) {
                         $statut = new Statuts();
                         $statut->setDesignation('En attente');
                         $statut->setNiveau($niveau);
+                        for ($a = 1; $a <= 1; $a++) {
+                            $frais = new FraisScolaires();
+                            $frais->setAutres(0);
+                            $frais->setFraisInscription(5000);
+                            $frais->setFraisCarnet(0);
+                            $frais->setFraisTransfert(0);
+                            $frais->setSeptembre(0);
+                            $frais->setOctobre(10000);
+                            $frais->setNovembre(10000);
+                            $frais->setDecembre(10000);
+                            $frais->setJanvier(10000);
+                            $frais->setFevrier(10000);
+                            $frais->setMars(10000);
+                            $frais->setAvril(5000);
+                            $frais->setMai(0);
+                            $frais->setJuin(0);
+                            $frais->setNiveau($niveau);
+                            $frais->setStatut($statut);
+                            $manager->persist($frais);
+                        }
                         $manager->persist($statut);
                         $this->addReference('statut4eme_' . $i, $statut);
                     } elseif ($i == 7) {
@@ -258,36 +739,156 @@ class Niveaux1erCycleFixtures extends Fixture implements DependentFixtureInterfa
                         $statut = new Statuts();
                         $statut->setDesignation('Transfert Arrivé');
                         $statut->setNiveau($niveau);
+                        for ($a = 1; $a <= 1; $a++) {
+                            $frais = new FraisScolaires();
+                            $frais->setAutres(0);
+                            $frais->setFraisInscription(5000);
+                            $frais->setFraisCarnet(0);
+                            $frais->setFraisTransfert(0);
+                            $frais->setSeptembre(0);
+                            $frais->setOctobre(10000);
+                            $frais->setNovembre(10000);
+                            $frais->setDecembre(10000);
+                            $frais->setJanvier(10000);
+                            $frais->setFevrier(10000);
+                            $frais->setMars(10000);
+                            $frais->setAvril(5000);
+                            $frais->setMai(0);
+                            $frais->setJuin(0);
+                            $frais->setNiveau($niveau);
+                            $frais->setStatut($statut);
+                            $manager->persist($frais);
+                        }
                         $manager->persist($statut);
                         $this->addReference('statut5eme_' . $i, $statut);
                     } elseif ($i == 2) {
                         $statut = new Statuts();
                         $statut->setDesignation('Passant');
                         $statut->setNiveau($niveau);
+                        for ($a = 1; $a <= 1; $a++) {
+                            $frais = new FraisScolaires();
+                            $frais->setAutres(0);
+                            $frais->setFraisInscription(0);
+                            $frais->setFraisCarnet(0);
+                            $frais->setFraisTransfert(0);
+                            $frais->setSeptembre(0);
+                            $frais->setOctobre(10000);
+                            $frais->setNovembre(10000);
+                            $frais->setDecembre(10000);
+                            $frais->setJanvier(10000);
+                            $frais->setFevrier(10000);
+                            $frais->setMars(10000);
+                            $frais->setAvril(5000);
+                            $frais->setMai(0);
+                            $frais->setJuin(0);
+                            $frais->setNiveau($niveau);
+                            $frais->setStatut($statut);
+                            $manager->persist($frais);
+                        }
                         $manager->persist($statut);
                         $this->addReference('statut5eme_' . $i, $statut);
                     } elseif ($i == 3) {
                         $statut = new Statuts();
                         $statut->setDesignation('Redoublant');
                         $statut->setNiveau($niveau);
+                        for ($a = 1; $a <= 1; $a++) {
+                            $frais = new FraisScolaires();
+                            $frais->setAutres(0);
+                            $frais->setFraisInscription(0);
+                            $frais->setFraisCarnet(0);
+                            $frais->setFraisTransfert(0);
+                            $frais->setSeptembre(0);
+                            $frais->setOctobre(10000);
+                            $frais->setNovembre(10000);
+                            $frais->setDecembre(10000);
+                            $frais->setJanvier(10000);
+                            $frais->setFevrier(10000);
+                            $frais->setMars(10000);
+                            $frais->setAvril(5000);
+                            $frais->setMai(0);
+                            $frais->setJuin(0);
+                            $frais->setNiveau($niveau);
+                            $frais->setStatut($statut);
+                            $manager->persist($frais);
+                        }
                         $manager->persist($statut);
                         $this->addReference('statut5eme_' . $i, $statut);
                     } elseif ($i == 4) {
                         $statut = new Statuts();
                         $statut->setDesignation('Transfert départ');
                         $statut->setNiveau($niveau);
+                        for ($a = 1; $a <= 1; $a++) {
+                            $frais = new FraisScolaires();
+                            $frais->setAutres(0);
+                            $frais->setFraisInscription(0);
+                            $frais->setFraisCarnet(0);
+                            $frais->setFraisTransfert(5000);
+                            $frais->setSeptembre(0);
+                            $frais->setOctobre(0);
+                            $frais->setNovembre(0);
+                            $frais->setDecembre(0);
+                            $frais->setJanvier(0);
+                            $frais->setFevrier(0);
+                            $frais->setMars(0);
+                            $frais->setAvril(0);
+                            $frais->setMai(0);
+                            $frais->setJuin(0);
+                            $frais->setNiveau($niveau);
+                            $frais->setStatut($statut);
+                            $manager->persist($frais);
+                        }
                         $manager->persist($statut);
                         $this->addReference('statut5eme_' . $i, $statut);
                     } elseif ($i == 5) {
                         $statut = new Statuts();
                         $statut->setDesignation('Sans dossier');
                         $statut->setNiveau($niveau);
+                        for ($a = 1; $a <= 1; $a++) {
+                            $frais = new FraisScolaires();
+                            $frais->setAutres(0);
+                            $frais->setFraisInscription(5000);
+                            $frais->setFraisCarnet(0);
+                            $frais->setFraisTransfert(0);
+                            $frais->setSeptembre(0);
+                            $frais->setOctobre(10000);
+                            $frais->setNovembre(10000);
+                            $frais->setDecembre(10000);
+                            $frais->setJanvier(10000);
+                            $frais->setFevrier(10000);
+                            $frais->setMars(10000);
+                            $frais->setAvril(5000);
+                            $frais->setMai(0);
+                            $frais->setJuin(0);
+                            $frais->setNiveau($niveau);
+                            $frais->setStatut($statut);
+                            $manager->persist($frais);
+                        }
                         $manager->persist($statut);
                         $this->addReference('statut5eme_' . $i, $statut);
                     } elseif ($i == 6) {
                         $statut = new Statuts();
                         $statut->setDesignation('En attente');
                         $statut->setNiveau($niveau);
+                        for ($a = 1; $a <= 1; $a++) {
+                            $frais = new FraisScolaires();
+                            $frais->setAutres(0);
+                            $frais->setFraisInscription(5000);
+                            $frais->setFraisCarnet(0);
+                            $frais->setFraisTransfert(0);
+                            $frais->setSeptembre(0);
+                            $frais->setOctobre(10000);
+                            $frais->setNovembre(10000);
+                            $frais->setDecembre(10000);
+                            $frais->setJanvier(10000);
+                            $frais->setFevrier(10000);
+                            $frais->setMars(10000);
+                            $frais->setAvril(5000);
+                            $frais->setMai(0);
+                            $frais->setJuin(0);
+                            $frais->setNiveau($niveau);
+                            $frais->setStatut($statut);
+                            $manager->persist($frais);
+                        }
                         $manager->persist($statut);
                         $this->addReference('statut5eme_' . $i, $statut);
                     } elseif ($i == 7) {
@@ -316,36 +917,156 @@ class Niveaux1erCycleFixtures extends Fixture implements DependentFixtureInterfa
                         $statut = new Statuts();
                         $statut->setDesignation('Transfert Arrivé');
                         $statut->setNiveau($niveau);
+                        for ($a = 1; $a <= 1; $a++) {
+                            $frais = new FraisScolaires();
+                            $frais->setAutres(0);
+                            $frais->setFraisInscription(5000);
+                            $frais->setFraisCarnet(0);
+                            $frais->setFraisTransfert(0);
+                            $frais->setSeptembre(0);
+                            $frais->setOctobre(10000);
+                            $frais->setNovembre(10000);
+                            $frais->setDecembre(10000);
+                            $frais->setJanvier(10000);
+                            $frais->setFevrier(10000);
+                            $frais->setMars(10000);
+                            $frais->setAvril(5000);
+                            $frais->setMai(0);
+                            $frais->setJuin(0);
+                            $frais->setNiveau($niveau);
+                            $frais->setStatut($statut);
+                            $manager->persist($frais);
+                        }
                         $manager->persist($statut);
                         $this->addReference('statut6eme_' . $i, $statut);
                     } elseif ($i == 2) {
                         $statut = new Statuts();
                         $statut->setDesignation('Passant');
                         $statut->setNiveau($niveau);
+                        for ($a = 1; $a <= 1; $a++) {
+                            $frais = new FraisScolaires();
+                            $frais->setAutres(0);
+                            $frais->setFraisInscription(0);
+                            $frais->setFraisCarnet(0);
+                            $frais->setFraisTransfert(0);
+                            $frais->setSeptembre(0);
+                            $frais->setOctobre(10000);
+                            $frais->setNovembre(10000);
+                            $frais->setDecembre(10000);
+                            $frais->setJanvier(10000);
+                            $frais->setFevrier(10000);
+                            $frais->setMars(10000);
+                            $frais->setAvril(5000);
+                            $frais->setMai(0);
+                            $frais->setJuin(0);
+                            $frais->setNiveau($niveau);
+                            $frais->setStatut($statut);
+                            $manager->persist($frais);
+                        }
                         $manager->persist($statut);
                         $this->addReference('statut6eme_' . $i, $statut);
                     } elseif ($i == 3) {
                         $statut = new Statuts();
                         $statut->setDesignation('Redoublant');
                         $statut->setNiveau($niveau);
+                        for ($a = 1; $a <= 1; $a++) {
+                            $frais = new FraisScolaires();
+                            $frais->setAutres(0);
+                            $frais->setFraisInscription(0);
+                            $frais->setFraisCarnet(0);
+                            $frais->setFraisTransfert(0);
+                            $frais->setSeptembre(0);
+                            $frais->setOctobre(10000);
+                            $frais->setNovembre(10000);
+                            $frais->setDecembre(10000);
+                            $frais->setJanvier(10000);
+                            $frais->setFevrier(10000);
+                            $frais->setMars(10000);
+                            $frais->setAvril(5000);
+                            $frais->setMai(0);
+                            $frais->setJuin(0);
+                            $frais->setNiveau($niveau);
+                            $frais->setStatut($statut);
+                            $manager->persist($frais);
+                        }
                         $manager->persist($statut);
                         $this->addReference('statut6eme_' . $i, $statut);
                     } elseif ($i == 4) {
                         $statut = new Statuts();
                         $statut->setDesignation('Transfert départ');
                         $statut->setNiveau($niveau);
+                        for ($a = 1; $a <= 1; $a++) {
+                            $frais = new FraisScolaires();
+                            $frais->setAutres(0);
+                            $frais->setFraisInscription(0);
+                            $frais->setFraisCarnet(0);
+                            $frais->setFraisTransfert(5000);
+                            $frais->setSeptembre(0);
+                            $frais->setOctobre(0);
+                            $frais->setNovembre(0);
+                            $frais->setDecembre(0);
+                            $frais->setJanvier(0);
+                            $frais->setFevrier(0);
+                            $frais->setMars(0);
+                            $frais->setAvril(0);
+                            $frais->setMai(0);
+                            $frais->setJuin(0);
+                            $frais->setNiveau($niveau);
+                            $frais->setStatut($statut);
+                            $manager->persist($frais);
+                        }
                         $manager->persist($statut);
                         $this->addReference('statut6eme_' . $i, $statut);
                     } elseif ($i == 5) {
                         $statut = new Statuts();
                         $statut->setDesignation('Sans dossier');
                         $statut->setNiveau($niveau);
+                        for ($a = 1; $a <= 1; $a++) {
+                            $frais = new FraisScolaires();
+                            $frais->setAutres(0);
+                            $frais->setFraisInscription(5000);
+                            $frais->setFraisCarnet(0);
+                            $frais->setFraisTransfert(0);
+                            $frais->setSeptembre(0);
+                            $frais->setOctobre(10000);
+                            $frais->setNovembre(10000);
+                            $frais->setDecembre(10000);
+                            $frais->setJanvier(10000);
+                            $frais->setFevrier(10000);
+                            $frais->setMars(10000);
+                            $frais->setAvril(5000);
+                            $frais->setMai(0);
+                            $frais->setJuin(0);
+                            $frais->setNiveau($niveau);
+                            $frais->setStatut($statut);
+                            $manager->persist($frais);
+                        }
                         $manager->persist($statut);
                         $this->addReference('statut6eme_' . $i, $statut);
                     } elseif ($i == 6) {
                         $statut = new Statuts();
                         $statut->setDesignation('En attente');
                         $statut->setNiveau($niveau);
+                        for ($a = 1; $a <= 1; $a++) {
+                            $frais = new FraisScolaires();
+                            $frais->setAutres(0);
+                            $frais->setFraisInscription(0);
+                            $frais->setFraisCarnet(0);
+                            $frais->setFraisTransfert(0);
+                            $frais->setSeptembre(0);
+                            $frais->setOctobre(10000);
+                            $frais->setNovembre(10000);
+                            $frais->setDecembre(10000);
+                            $frais->setJanvier(10000);
+                            $frais->setFevrier(10000);
+                            $frais->setMars(10000);
+                            $frais->setAvril(5000);
+                            $frais->setMai(0);
+                            $frais->setJuin(0);
+                            $frais->setNiveau($niveau);
+                            $frais->setStatut($statut);
+                            $manager->persist($frais);
+                        }
                         $manager->persist($statut);
                         $this->addReference('statut6eme_' . $i, $statut);
                     } elseif ($i == 7) {

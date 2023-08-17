@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Cercles index{% endblock %}
+{% block title %}Cercles index
+{% endblock %}
 
 {% block body %}
     <h1>Cercles index</h1>
@@ -17,23 +18,23 @@
             </tr>
         </thead>
         <tbody>
-        {% for cercle in cercles %}
-            <tr>
-                <td>{{ cercle.id }}</td>
-                <td>{{ cercle.designation }}</td>
-                <td>{{ cercle.createdAt ? cercle.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ cercle.updatedAt ? cercle.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ cercle.slug }}</td>
-                <td>
-                    <a href="{{ path('app_cercles_show', {'id': cercle.id}) }}">show</a>
-                    <a href="{{ path('app_cercles_edit', {'id': cercle.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="6">no records found</td>
-            </tr>
-        {% endfor %}
+            {% for cercle in cercles %}
+                <tr>
+                    <td>{{ cercle.id }}</td>
+                    <td>{{ cercle.designation }}</td>
+                    <td>{{ cercle.createdAt ? cercle.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                    <td>{{ cercle.updatedAt ? cercle.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                    <td>{{ cercle.slug }}</td>
+                    <td>
+                        <a href="{{ path('app_cercles_show', {'id': cercle.id}) }}">show</a>
+                        <a href="{{ path('app_cercles_edit', {'id': cercle.id}) }}">edit</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="6">no records found</td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
 

@@ -27,13 +27,16 @@ class NomsControllerTest extends WebTestCase
 
     public function testIndex(): void
     {
-        $crawler = $this->client->request('GET', $this->path);
+        $path = '/noms/'; // Assurez-vous que $this->path contient le bon chemin
+
+        $crawler = $this->client->request('GET', $path);
 
         self::assertResponseStatusCodeSame(200);
-        self::assertPageTitleContains('Nom index');
+        $this->assertResponseIsSuccessful();
+        $this->assertSelectorTextContains('title', 'Noms index'); // Correction de la chaîne attendue
 
         // Use the $crawler to perform additional assertions e.g.
-        // self::assertSame('Some text on the page', $crawler->filter('.p')->first());
+        // self::assertSame('Some text on the page', $crawler->filter('.p'
     }
 
     public function testNew(): void
@@ -62,8 +65,8 @@ class NomsControllerTest extends WebTestCase
         $this->markTestIncomplete();
         $fixture = new Noms();
         $fixture->setDesignation('My Title');
-        $fixture->setCreatedAt('My Title');
-        $fixture->setUpdatedAt('My Title');
+        $fixture->setCreatedAt(new \DateTimeImmutable());
+        $fixture->setUpdatedAt(new \DateTimeImmutable());
         $fixture->setSlug('My Title');
 
         $this->manager->persist($fixture);
@@ -82,8 +85,8 @@ class NomsControllerTest extends WebTestCase
         $this->markTestIncomplete();
         $fixture = new Noms();
         $fixture->setDesignation('My Title');
-        $fixture->setCreatedAt('My Title');
-        $fixture->setUpdatedAt('My Title');
+        $fixture->setCreatedAt(new \DateTimeImmutable());
+        $fixture->setUpdatedAt(new \DateTimeImmutable());
         $fixture->setSlug('My Title');
 
         $this->manager->persist($fixture);
@@ -116,8 +119,8 @@ class NomsControllerTest extends WebTestCase
 
         $fixture = new Noms();
         $fixture->setDesignation('My Title');
-        $fixture->setCreatedAt('My Title');
-        $fixture->setUpdatedAt('My Title');
+        $fixture->setCreatedAt(new \DateTimeImmutable());
+        $fixture->setUpdatedAt(new \DateTimeImmutable());
         $fixture->setSlug('My Title');
 
         $this->manager->persist($fixture);

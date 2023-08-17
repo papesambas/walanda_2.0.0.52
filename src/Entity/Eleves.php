@@ -211,7 +211,7 @@ class Eleves
         return $this->numExtrait;
     }
 
-    public function setNumExtrait(string $numExtrait): static
+    public function setNumExtrait($numExtrait): static
     {
         $this->numExtrait = $numExtrait;
 

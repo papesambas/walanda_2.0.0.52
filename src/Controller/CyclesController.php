@@ -10,11 +10,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpKernel\Attribute\Cache;
 
 #[Route('/cycles')]
 class CyclesController extends AbstractController
 {
     #[Route('/', name: 'app_cycles_index', methods: ['GET'])]
+    #[Cache(vary: ['Accept-Encoding'])] // Met en cache le rendu complet de la page
     public function index(CyclesRepository $cyclesRepository): Response
     {
         return $this->render('cycles/index.html.twig', [
@@ -23,6 +25,7 @@ class CyclesController extends AbstractController
     }
 
     #[Route('/new', name: 'app_cycles_new', methods: ['GET', 'POST'])]
+    #[Cache(vary: ['Accept-Encoding'])] // Met en cache le rendu complet de la page
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $cycle = new Cycles();
@@ -43,6 +46,7 @@ class CyclesController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_cycles_show', methods: ['GET'])]
+    #[Cache(vary: ['Accept-Encoding'])] // Met en cache le rendu complet de la page
     public function show(Cycles $cycle): Response
     {
         return $this->render('cycles/show.html.twig', [
@@ -51,6 +55,7 @@ class CyclesController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_cycles_edit', methods: ['GET', 'POST'])]
+    #[Cache(vary: ['Accept-Encoding'])] // Met en cache le rendu complet de la page
     public function edit(Request $request, Cycles $cycle, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(CyclesType::class, $cycle);
@@ -71,7 +76,7 @@ class CyclesController extends AbstractController
     #[Route('/{id}', name: 'app_cycles_delete', methods: ['POST'])]
     public function delete(Request $request, Cycles $cycle, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$cycle->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $cycle->getId(), $request->request->get('_token'))) {
             $entityManager->remove($cycle);
             $entityManager->flush();
         }

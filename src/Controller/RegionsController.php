@@ -11,11 +11,13 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpKernel\Attribute\Cache;
 
 #[Route('/regions')]
 class RegionsController extends AbstractController
 {
     #[Route('/', name: 'app_regions_index', methods: ['GET'])]
+    #[Cache(vary: ['Accept-Encoding'])] // Met en cache le rendu complet de la page
     public function index(RegionsRepository $regionsRepository): Response
     {
         return $this->render('regions/index.html.twig', [
@@ -24,6 +26,7 @@ class RegionsController extends AbstractController
     }
 
     #[Route('/new', name: 'app_regions_new', methods: ['GET', 'POST'])]
+    #[Cache(vary: ['Accept-Encoding'])] // Met en cache le rendu complet de la page
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $region = new Regions();
@@ -44,6 +47,7 @@ class RegionsController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_regions_show', methods: ['GET'])]
+    #[Cache(vary: ['Accept-Encoding'])] // Met en cache le rendu complet de la page
     public function show(Regions $region): Response
     {
         return $this->render('regions/show.html.twig', [
@@ -52,6 +56,7 @@ class RegionsController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_regions_edit', methods: ['GET', 'POST'])]
+    #[Cache(vary: ['Accept-Encoding'])] // Met en cache le rendu complet de la page
     public function edit(Request $request, Regions $region, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(RegionsType::class, $region);

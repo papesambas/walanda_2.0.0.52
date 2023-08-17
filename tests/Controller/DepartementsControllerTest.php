@@ -2,6 +2,7 @@
 
 namespace App\Test\Controller;
 
+use App\Entity\Cycles;
 use App\Entity\Departements;
 use App\Repository\DepartementsRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -27,13 +28,16 @@ class DepartementsControllerTest extends WebTestCase
 
     public function testIndex(): void
     {
-        $crawler = $this->client->request('GET', $this->path);
+        $path = '/departements/'; // Assurez-vous que $this->path contient le bon chemin
+
+        $crawler = $this->client->request('GET', $path);
 
         self::assertResponseStatusCodeSame(200);
-        self::assertPageTitleContains('Departement index');
+        $this->assertResponseIsSuccessful();
+        $this->assertSelectorTextContains('title', 'Departements index'); // Correction de la chaîne attendue
 
         // Use the $crawler to perform additional assertions e.g.
-        // self::assertSame('Some text on the page', $crawler->filter('.p')->first());
+        // self::assertSame('Some text on the page', $crawler->filter('.p'
     }
 
     public function testNew(): void
@@ -60,13 +64,14 @@ class DepartementsControllerTest extends WebTestCase
 
     public function testShow(): void
     {
+        $cycle = new Cycles();
         $this->markTestIncomplete();
         $fixture = new Departements();
         $fixture->setDesignation('My Title');
-        $fixture->setCreatedAt('My Title');
-        $fixture->setUpdatedAt('My Title');
+        $fixture->setCreatedAt(new \DateTimeImmutable());
+        $fixture->setUpdatedAt(new \DateTimeImmutable());
         $fixture->setSlug('My Title');
-        $fixture->setCycle('My Title');
+        $fixture->setCycle($cycle);
 
         $this->manager->persist($fixture);
         $this->manager->flush();
@@ -81,13 +86,14 @@ class DepartementsControllerTest extends WebTestCase
 
     public function testEdit(): void
     {
+        $cycle = new Cycles();
         $this->markTestIncomplete();
         $fixture = new Departements();
         $fixture->setDesignation('My Title');
-        $fixture->setCreatedAt('My Title');
-        $fixture->setUpdatedAt('My Title');
+        $fixture->setCreatedAt(new \DateTimeImmutable());
+        $fixture->setUpdatedAt(new \DateTimeImmutable());
         $fixture->setSlug('My Title');
-        $fixture->setCycle('My Title');
+        $fixture->setCycle($cycle);
 
         $this->manager->persist($fixture);
         $this->manager->flush();
@@ -115,16 +121,17 @@ class DepartementsControllerTest extends WebTestCase
 
     public function testRemove(): void
     {
+        $cycle = new Cycles();
         $this->markTestIncomplete();
 
         $originalNumObjectsInRepository = count($this->repository->findAll());
 
         $fixture = new Departements();
         $fixture->setDesignation('My Title');
-        $fixture->setCreatedAt('My Title');
-        $fixture->setUpdatedAt('My Title');
+        $fixture->setCreatedAt(new \DateTimeImmutable());
+        $fixture->setUpdatedAt(new \DateTimeImmutable());
         $fixture->setSlug('My Title');
-        $fixture->setCycle('My Title');
+        $fixture->setCycle($cycle);
 
         $this->manager->persist($fixture);
         $this->manager->flush();

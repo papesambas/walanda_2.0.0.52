@@ -2,7 +2,12 @@
 
 namespace App\Test\Controller;
 
+use App\Entity\Niveaux;
+use App\Entity\Redoublements2;
 use App\Entity\Redoublements3;
+use App\Entity\Scolarites1;
+use App\Entity\Scolarites2;
+use App\Entity\Scolarites3;
 use App\Repository\Redoublements3Repository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
@@ -60,13 +65,19 @@ class Redoublements3ControllerTest extends WebTestCase
 
     public function testShow(): void
     {
+        $niveau = new Niveaux();
+        $scolarite1 = new Scolarites1();
+        $scolarite2 = new Scolarites2();
+        $scolarite3 = new Scolarites3();
+        $redoublement2 = new Redoublements2();
+
         $this->markTestIncomplete();
         $fixture = new Redoublements3();
-        $fixture->setNiveau('My Title');
-        $fixture->setRedoublement2('My Title');
-        $fixture->setScolarite1('My Title');
-        $fixture->setScolarite2('My Title');
-        $fixture->setScolarite3('My Title');
+        $fixture->setNiveau($niveau);
+        $fixture->setRedoublement2($redoublement2);
+        $fixture->setScolarite1($scolarite1);
+        $fixture->setScolarite2($scolarite2);
+        $fixture->setScolarite3($scolarite3);
 
         $this->manager->persist($fixture);
         $this->manager->flush();
@@ -81,13 +92,19 @@ class Redoublements3ControllerTest extends WebTestCase
 
     public function testEdit(): void
     {
+        $niveau = new Niveaux();
+        $scolarite1 = new Scolarites1();
+        $scolarite2 = new Scolarites2();
+        $scolarite3 = new Scolarites3();
+        $redoublement2 = new Redoublements2();
+
         $this->markTestIncomplete();
         $fixture = new Redoublements3();
-        $fixture->setNiveau('My Title');
-        $fixture->setRedoublement2('My Title');
-        $fixture->setScolarite1('My Title');
-        $fixture->setScolarite2('My Title');
-        $fixture->setScolarite3('My Title');
+        $fixture->setNiveau($niveau);
+        $fixture->setRedoublement2($redoublement2);
+        $fixture->setScolarite1($scolarite1);
+        $fixture->setScolarite2($scolarite2);
+        $fixture->setScolarite3($scolarite3);
 
         $this->manager->persist($fixture);
         $this->manager->flush();
@@ -115,16 +132,22 @@ class Redoublements3ControllerTest extends WebTestCase
 
     public function testRemove(): void
     {
+        $niveau = new Niveaux();
+        $scolarite1 = new Scolarites1();
+        $scolarite2 = new Scolarites2();
+        $scolarite3 = new Scolarites3();
+        $redoublement2 = new Redoublements2();
+
         $this->markTestIncomplete();
 
         $originalNumObjectsInRepository = count($this->repository->findAll());
 
         $fixture = new Redoublements3();
-        $fixture->setNiveau('My Title');
-        $fixture->setRedoublement2('My Title');
-        $fixture->setScolarite1('My Title');
-        $fixture->setScolarite2('My Title');
-        $fixture->setScolarite3('My Title');
+        $fixture->setNiveau($niveau);
+        $fixture->setRedoublement2($redoublement2);
+        $fixture->setScolarite1($scolarite1);
+        $fixture->setScolarite2($scolarite2);
+        $fixture->setScolarite3($scolarite3);
 
         $this->manager->persist($fixture);
         $this->manager->flush();

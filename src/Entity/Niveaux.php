@@ -50,6 +50,9 @@ class Niveaux
     #[ORM\OneToMany(mappedBy: 'niveau', targetEntity: Redoublements3::class)]
     private Collection $redoublements3s;
 
+    #[ORM\OneToMany(mappedBy: 'niveau', targetEntity: FraisScolaires::class)]
+    private Collection $fraisScolaires;
+
     public function __construct()
     {
         $this->statuts = new ArrayCollection();
@@ -60,6 +63,7 @@ class Niveaux
         $this->redoublements1s = new ArrayCollection();
         $this->redoublements2s = new ArrayCollection();
         $this->redoublements3s = new ArrayCollection();
+        $this->fraisScolaires = new ArrayCollection();
     }
 
     public function __toString()
@@ -330,6 +334,36 @@ class Niveaux
             // set the owning side to null (unless already changed)
             if ($redoublements3->getNiveau() === $this) {
                 $redoublements3->setNiveau(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, FraisScolaires>
+     */
+    public function getFraisScolaires(): Collection
+    {
+        return $this->fraisScolaires;
+    }
+
+    public function addFraisScolaire(FraisScolaires $fraisScolaire): static
+    {
+        if (!$this->fraisScolaires->contains($fraisScolaire)) {
+            $this->fraisScolaires->add($fraisScolaire);
+            $fraisScolaire->setNiveau($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFraisScolaire(FraisScolaires $fraisScolaire): static
+    {
+        if ($this->fraisScolaires->removeElement($fraisScolaire)) {
+            // set the owning side to null (unless already changed)
+            if ($fraisScolaire->getNiveau() === $this) {
+                $fraisScolaire->setNiveau(null);
             }
         }
 

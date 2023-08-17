@@ -2,7 +2,9 @@
 
 namespace App\Test\Controller;
 
+use App\Entity\Meres;
 use App\Entity\Parents;
+use App\Entity\Peres;
 use App\Repository\ParentsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
@@ -27,13 +29,16 @@ class ParentsControllerTest extends WebTestCase
 
     public function testIndex(): void
     {
-        $crawler = $this->client->request('GET', $this->path);
+        $path = '/parents/'; // Assurez-vous que $this->path contient le bon chemin
+
+        $crawler = $this->client->request('GET', $path);
 
         self::assertResponseStatusCodeSame(200);
-        self::assertPageTitleContains('Parent index');
+        $this->assertResponseIsSuccessful();
+        $this->assertSelectorTextContains('title', 'Parents index'); // Correction de la chaîne attendue
 
         // Use the $crawler to perform additional assertions e.g.
-        // self::assertSame('Some text on the page', $crawler->filter('.p')->first());
+        // self::assertSame('Some text on the page', $crawler->filter('.p'
     }
 
     public function testNew(): void
@@ -59,12 +64,14 @@ class ParentsControllerTest extends WebTestCase
 
     public function testShow(): void
     {
+        $pere = new Peres();
+        $mere = new Meres();
         $this->markTestIncomplete();
         $fixture = new Parents();
-        $fixture->setCreatedAt('My Title');
-        $fixture->setUpdatedAt('My Title');
-        $fixture->setPere('My Title');
-        $fixture->setMere('My Title');
+        $fixture->setCreatedAt(new \DateTimeImmutable());
+        $fixture->setUpdatedAt(new \DateTimeImmutable());
+        $fixture->setPere($pere);
+        $fixture->setMere($mere);
 
         $this->manager->persist($fixture);
         $this->manager->flush();
@@ -79,12 +86,14 @@ class ParentsControllerTest extends WebTestCase
 
     public function testEdit(): void
     {
+        $pere = new Peres();
+        $mere = new Meres();
         $this->markTestIncomplete();
         $fixture = new Parents();
-        $fixture->setCreatedAt('My Title');
-        $fixture->setUpdatedAt('My Title');
-        $fixture->setPere('My Title');
-        $fixture->setMere('My Title');
+        $fixture->setCreatedAt(new \DateTimeImmutable());
+        $fixture->setUpdatedAt(new \DateTimeImmutable());
+        $fixture->setPere($pere);
+        $fixture->setMere($mere);
 
         $this->manager->persist($fixture);
         $this->manager->flush();
@@ -110,15 +119,17 @@ class ParentsControllerTest extends WebTestCase
 
     public function testRemove(): void
     {
+        $pere = new Peres();
+        $mere = new Meres();
         $this->markTestIncomplete();
 
         $originalNumObjectsInRepository = count($this->repository->findAll());
 
         $fixture = new Parents();
-        $fixture->setCreatedAt('My Title');
-        $fixture->setUpdatedAt('My Title');
-        $fixture->setPere('My Title');
-        $fixture->setMere('My Title');
+        $fixture->setCreatedAt(new \DateTimeImmutable());
+        $fixture->setUpdatedAt(new \DateTimeImmutable());
+        $fixture->setPere($pere);
+        $fixture->setMere($mere);
 
         $this->manager->persist($fixture);
         $this->manager->flush();

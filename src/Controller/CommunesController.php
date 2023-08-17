@@ -11,11 +11,13 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use symfony\component\HttpKernel\Attribute\Cache;
 
 #[Route('/communes')]
 class CommunesController extends AbstractController
 {
     #[Route('/', name: 'app_communes_index', methods: ['GET'])]
+    #[Cache(vary: ['Accept-Encoding'])] // Met en cache le rendu complet de la page
     public function index(CommunesRepository $communesRepository): Response
     {
         return $this->render('communes/index.html.twig', [
@@ -24,6 +26,7 @@ class CommunesController extends AbstractController
     }
 
     #[Route('/new', name: 'app_communes_new', methods: ['GET', 'POST'])]
+    #[Cache(vary: ['Accept-Encoding'])] // Met en cache le rendu complet de la page
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $commune = new Communes();
@@ -44,6 +47,7 @@ class CommunesController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_communes_show', methods: ['GET'])]
+    #[Cache(vary: ['Accept-Encoding'])] // Met en cache le rendu complet de la page
     public function show(Communes $commune): Response
     {
         return $this->render('communes/show.html.twig', [
@@ -52,6 +56,7 @@ class CommunesController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_communes_edit', methods: ['GET', 'POST'])]
+    #[Cache(vary: ['Accept-Encoding'])] // Met en cache le rendu complet de la page
     public function edit(Request $request, Communes $commune, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(CommunesType::class, $commune);

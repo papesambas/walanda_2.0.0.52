@@ -71,18 +71,28 @@ class eleveService
         $request = $this->requestStack->getMainRequest();
         $page = $request->query->getInt('page', 1);
         $limit = 15;
-        $eleveQuery = $this->elevesRepos->findForPaginationLieu($lieuNaissances);
+        $eleveQuery = $this->elevesRepos->findForPaginationLieuNaissance($lieuNaissances);
         return $this->paginator->paginate($eleveQuery, $page, $limit);
     }
 
-    public function getPaginatedElevesEcole(?EcoleProvenances $ecoleProvenances = null)
+    public function getPaginatedElevesRecrutement(?EcoleProvenances $ecoleProvenances = null)
     {
         $request = $this->requestStack->getMainRequest();
         $page = $request->query->getInt('page', 1);
         $limit = 15;
-        $eleveQuery = $this->elevesRepos->findForPaginationEcole($ecoleProvenances);
+        $eleveQuery = $this->elevesRepos->findForPaginationRecrutement($ecoleProvenances);
         return $this->paginator->paginate($eleveQuery, $page, $limit);
     }
+
+    public function getPaginatedElevesAnDernier(?EcoleProvenances $ecoleProvenances = null)
+    {
+        $request = $this->requestStack->getMainRequest();
+        $page = $request->query->getInt('page', 1);
+        $limit = 15;
+        $eleveQuery = $this->elevesRepos->findForPaginationAnDernier($ecoleProvenances);
+        return $this->paginator->paginate($eleveQuery, $page, $limit);
+    }
+
 
     /*public function getPaginationElevesPere(?Peres $peres = null)
     {

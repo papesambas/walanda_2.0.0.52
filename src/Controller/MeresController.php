@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpKernel\Attribute\Cache;
 
 #[Route('/meres')]
 class MeresController extends AbstractController
@@ -26,6 +27,7 @@ class MeresController extends AbstractController
     }
 
     #[Route('/', name: 'app_meres_index', methods: ['GET'])]
+    #[Cache(vary: ['Accept-Encoding'])] // Met en cache le rendu complet de la page
     public function index(MeresRepository $meresRepository): Response
     {
         return $this->render('meres/index.html.twig', [
@@ -34,6 +36,7 @@ class MeresController extends AbstractController
     }
 
     #[Route('/new', name: 'app_meres_new', methods: ['GET', 'POST'])]
+    #[Cache(vary: ['Accept-Encoding'])] // Met en cache le rendu complet de la page
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $mere = new Meres();
@@ -54,6 +57,7 @@ class MeresController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_meres_show', methods: ['GET'])]
+    #[Cache(vary: ['Accept-Encoding'])] // Met en cache le rendu complet de la page
     public function show(Meres $mere): Response
     {
         return $this->render('meres/show.html.twig', [
@@ -62,6 +66,7 @@ class MeresController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_meres_edit', methods: ['GET', 'POST'])]
+    #[Cache(vary: ['Accept-Encoding'])] // Met en cache le rendu complet de la page
     public function edit(Request $request, Meres $mere, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(MeresType::class, $mere);

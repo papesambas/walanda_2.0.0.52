@@ -10,11 +10,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpKernel\Attribute\Cache;
 
 #[Route('/etablissements')]
 class EtablissementsController extends AbstractController
 {
     #[Route('/', name: 'app_etablissements_index', methods: ['GET'])]
+    #[Cache(vary: ['Accept-Encoding'])] // Met en cache le rendu complet de la page
     public function index(EtablissementsRepository $etablissementsRepository): Response
     {
         return $this->render('etablissements/index.html.twig', [
@@ -23,6 +25,7 @@ class EtablissementsController extends AbstractController
     }
 
     #[Route('/new', name: 'app_etablissements_new', methods: ['GET', 'POST'])]
+    #[Cache(vary: ['Accept-Encoding'])] // Met en cache le rendu complet de la page
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $etablissement = new Etablissements();
@@ -43,6 +46,7 @@ class EtablissementsController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_etablissements_show', methods: ['GET'])]
+    #[Cache(vary: ['Accept-Encoding'])] // Met en cache le rendu complet de la page
     public function show(Etablissements $etablissement): Response
     {
         return $this->render('etablissements/show.html.twig', [
@@ -51,6 +55,7 @@ class EtablissementsController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_etablissements_edit', methods: ['GET', 'POST'])]
+    #[Cache(vary: ['Accept-Encoding'])] // Met en cache le rendu complet de la page
     public function edit(Request $request, Etablissements $etablissement, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(EtablissementsType::class, $etablissement);
@@ -71,7 +76,7 @@ class EtablissementsController extends AbstractController
     #[Route('/{id}', name: 'app_etablissements_delete', methods: ['POST'])]
     public function delete(Request $request, Etablissements $etablissement, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$etablissement->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $etablissement->getId(), $request->request->get('_token'))) {
             $entityManager->remove($etablissement);
             $entityManager->flush();
         }

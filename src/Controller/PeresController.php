@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpKernel\Attribute\Cache;
 
 #[Route('/peres')]
 class PeresController extends AbstractController
@@ -26,6 +27,7 @@ class PeresController extends AbstractController
     }
 
     #[Route('/', name: 'app_peres_index', methods: ['GET'])]
+    #[Cache(vary: ['Accept-Encoding'])] // Met en cache le rendu complet de la page
     public function index(PeresRepository $peresRepository): Response
     {
         return $this->render('peres/index.html.twig', [
@@ -34,6 +36,7 @@ class PeresController extends AbstractController
     }
 
     #[Route('/new', name: 'app_peres_new', methods: ['GET', 'POST'])]
+    #[Cache(vary: ['Accept-Encoding'])] // Met en cache le rendu complet de la page
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $pere = new Peres();
@@ -54,6 +57,7 @@ class PeresController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_peres_show', methods: ['GET'])]
+    #[Cache(vary: ['Accept-Encoding'])] // Met en cache le rendu complet de la page
     public function show(Peres $pere): Response
     {
         return $this->render('peres/show.html.twig', [
@@ -62,6 +66,7 @@ class PeresController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_peres_edit', methods: ['GET', 'POST'])]
+    #[Cache(vary: ['Accept-Encoding'])] // Met en cache le rendu complet de la page
     public function edit(Request $request, Peres $pere, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(PeresType::class, $pere);

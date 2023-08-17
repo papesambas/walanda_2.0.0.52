@@ -1,4 +1,4 @@
-<table class="table">
+<table class="table table-sm table-responsive-sm table-hover">
     <div class="count fst-italic">
         Effectif :
         <span class="text-danger ">{{ eleves.getTotalItemCount }}</span>
@@ -6,7 +6,7 @@
     </div>
     <thead>
         <tr>
-            <th>Id</th>
+            {#<th>Id</th>#}
             <th>Nom et Prénom</th>
             {% if app.request.attributes.get('_route')!= 'app_classes_show' %}
                 <th>Classe</th>
@@ -18,28 +18,34 @@
             {% if app.request.attributes.get('_route')!= 'app_departements_show' %}
                 <th>Département</th>
             {% endif %}
-            <th>Fils/Fille de</th>
-            <th>et de
-            </th>
+            {% if app.request.attributes.get('_route')!= 'app_recrutement_show' %}
+                <th>Recruté(e) à :</th>
+            {% endif %}
+            {% if app.request.attributes.get('_route')!= 'app_an_dernier_show' %}
+                <th>
+                    Etait à:</th>
+            {% endif %}
             {% if app.request.attributes.get('_route')== 'app_classes_show' or app.request.attributes.get('_route')== 'app_statuts_show'
-            or app.request.attributes.get('_route')== 'app_departements_show' %}
+            or app.request.attributes.get('_route')== 'app_departements_show' or app.request.attributes.get('_route')== 'app_recrutement_show'
+            or app.request.attributes.get('_route')== 'app_an_dernier_show' %}
                 <th>lieu de Naisance</th>
             {% endif %}
-            <th>actions</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
         {% for elefe in eleves %}
             <tr>
-                <td>{{ elefe.id }}</td>
+                {#<td>{{ elefe.id }}</td>#}
                 {% if elefe.sexe == 'Masculin' %}
                     {#<td>{{ elefe.imageName }}</td>#}
-                    <td>{{ elefe.fullName }}</td>
+                    <td>
+                        <a class="text-decoration-none" href="{{ path('app_eleves_show', {'slug': elefe.slug}) }}">{{ elefe.fullName }}</a>
+                    </td>
                     {#<td>{{ elefe.isEnregistrer ? 'Yes' : 'No' }}</td>#}
                     {% if app.request.attributes.get('_route')!= 'app_classes_show' %}
                         <td>
                             <a class="text-decoration-none" href="{{ path('app_classes_show', {'slug': elefe.classe.slug}) }}">{{ elefe.classe }}</a>
-
                         </td>
                     {% endif %}
                     {#<td>{{ elefe.isAdmis ? 'Yes' : 'No' }}</td>#}
@@ -56,13 +62,23 @@
                             <a class="text-decoration-none" href="{{ path('app_departements_show', {'slug': elefe.departement.slug}) }}">{{ elefe.departement }}</a>
                         </td>
                     {% endif %}
-                    {#<td>{{ elefe.natureHandicap }}</td>#}
-                    <td>{{ elefe.parent.pere.fullname }}</td>
+                    {% if app.request.attributes.get('_route')!= 'app_recrutement_show' %}
+                        <td>
+                            <a class="text-decoration-none" href="{{ path('app_recrutement_show', {'slug': elefe.ecoleRecrutement.slug}) }}">{{ elefe.ecoleRecrutement }}</a>
+                        </td>
+                    {% endif %}
                     {#<td>{{ elefe.dateRecrutement ? elefe.dateRecrutement|date('d-m-Y') : '' }}</td>#}
-                    <td>{{ elefe.parent.mere.fullname }}</td>
+                    {% if app.request.attributes.get('_route')!= 'app_an_dernier_show' %}
+                        <td>
+                            {% if elefe.ecoleAnDernier is not null %}
+                                <a class="text-decoration-none" href="{{ path('app_an_dernier_show', {'slug': elefe.ecoleAnDernier.slug}) }}">{{ elefe.ecoleAnDernier }}</a>
+                            {% endif %}
+                        </td>
+                    {% endif %}
                     {#<td>{{ elefe.statutFinance }}</td>#}
                     {% if app.request.attributes.get('_route')== 'app_classes_show' or app.request.attributes.get('_route')== 'app_statuts_show'
-            or app.request.attributes.get('_route')== 'app_departements_show' %}
+            or app.request.attributes.get('_route')== 'app_departements_show'or app.request.attributes.get('_route')== 'app_recrutement_show'
+            or app.request.attributes.get('_route')== 'app_an_dernier_show' %}
                         <td>
                             <a class="text-decoration-none" href="{{ path('app_lieu_naissances_show', {'slug': elefe.lieuNaissance.slug}) }}">{{ elefe.lieuNaissance }}</a>
 
@@ -70,13 +86,15 @@
                     {% endif %}
 
                     <td>
-                        <a href="{{ path('app_eleves_show', {'slug': elefe.slug}) }}">
-                            show</a>
-                        <a href="{{ path('app_eleves_edit', {'slug': elefe.slug}) }}">edit</a>
+                        <a href="{{ path('app_eleves_edit', {'slug': elefe.slug}) }}">
+                            <i class="fas fa-edit"></i>
+                        </a>
                     </td>
                 {% else %}
                     {#<td>{{ elefe.imageName }}</td>#}
-                    <td class="text-danger ">{{ elefe.fullName }}</td>
+                    <td>
+                        <a class="text-danger text-decoration-none" href="{{ path('app_eleves_show', {'slug': elefe.slug}) }}">{{ elefe.fullName }}</a>
+                    </td>
                     {#<td>{{ elefe.isEnregistrer ? 'Yes' : 'No' }}</td>#}
                     {% if app.request.attributes.get('_route')!= 'app_classes_show' %}
                         <td>
@@ -98,12 +116,23 @@
                         </td>
                     {% endif %}
                     {#<td>{{ elefe.natureHandicap }}</td>#}
-                    <td class="text-danger ">{{ elefe.parent.pere.fullname }}</td>
+                    {% if app.request.attributes.get('_route')!= 'app_recrutement_show' %}
+                        <td class="text-danger ">
+                            <a class="text-danger text-decoration-none" href="{{ path('app_recrutement_show', {'slug': elefe.ecoleRecrutement.slug}) }}">{{ elefe.ecoleRecrutement }}</a>
+                        </td>
+                    {% endif %}
                     {#<td>{{ elefe.dateRecrutement ? elefe.dateRecrutement|date('d-m-Y') : '' }}</td>#}
-                    <td class="text-danger ">{{ elefe.parent.mere.fullname }}</td>
+                    {% if app.request.attributes.get('_route')!= 'app_an_dernier_show' %}
+                        <td class="text-danger ">
+                            {% if elefe.ecoleAnDernier is not null %}
+                                <a class="text-danger text-decoration-none" href="{{ path('app_an_dernier_show', {'slug': elefe.ecoleAnDernier.slug}) }}">{{ elefe.ecoleAnDernier }}</a>
+                            {% endif %}
+                        </td>
+                    {% endif %}
                     {#<td>{{ elefe.statutFinance }}#}
                     {% if app.request.attributes.get('_route')== 'app_classes_show' or app.request.attributes.get('_route')== 'app_statuts_show'
-            or app.request.attributes.get('_route')== 'app_departements_show' %}
+            or app.request.attributes.get('_route')== 'app_departements_show'or app.request.attributes.get('_route')== 'app_recrutement_show'
+            or app.request.attributes.get('_route')== 'app_an_dernier_show' %}
                         <td class="text-danger ">
                             <a class="text-danger text-decoration-none" href="{{ path('app_lieu_naissances_show', {'slug': elefe.lieuNaissance.slug}) }}">{{ elefe.lieuNaissance }}</a>
                         </td>
@@ -111,9 +140,9 @@
 
                 </td>
                 <td>
-                    <a href="{{ path('app_eleves_show', {'slug': elefe.slug}) }}">
-                        show</a>
-                    <a href="{{ path('app_eleves_edit', {'slug': elefe.slug}) }}">edit</a>
+                    <a href="{{ path('app_eleves_edit', {'slug': elefe.slug}) }}">
+                        <i class="fas fa-edit"></i>
+                    </a>
                 </td>
             {% endif %}
 

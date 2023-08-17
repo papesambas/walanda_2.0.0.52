@@ -5,16 +5,19 @@ namespace App\Controller;
 use App\Entity\Departements;
 use App\Form\DepartementsType;
 use App\Repository\DepartementsRepository;
+use App\Service\eleveService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpKernel\Attribute\Cache;
 
 #[Route('/departements')]
 class DepartementsController extends AbstractController
 {
     #[Route('/', name: 'app_departements_index', methods: ['GET'])]
+    #[Cache(vary: ['Accept-Encoding'])] // Met en cache le rendu complet de la page
     public function index(DepartementsRepository $departementsRepository): Response
     {
         return $this->render('departements/index.html.twig', [
@@ -23,6 +26,7 @@ class DepartementsController extends AbstractController
     }
 
     #[Route('/new', name: 'app_departements_new', methods: ['GET', 'POST'])]
+    #[Cache(vary: ['Accept-Encoding'])] // Met en cache le rendu complet de la page
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $departement = new Departements();
@@ -43,14 +47,17 @@ class DepartementsController extends AbstractController
     }
 
     #[Route('/{slug}', name: 'app_departements_show', methods: ['GET'])]
-    public function show(Departements $departement): Response
+    #[Cache(vary: ['Accept-Encoding'])] // Met en cache le rendu complet de la page
+    public function show(Departements $departement, eleveService $eleveService): Response
     {
         return $this->render('departements/show.html.twig', [
             'departement' => $departement,
+            'eleves' => $eleveService->getPaginatedElevesDepartement($departement),
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_departements_edit', methods: ['GET', 'POST'])]
+    #[Route('/{slug}/edit', name: 'app_departements_edit', methods: ['GET', 'POST'])]
+    #[Cache(vary: ['Accept-Encoding'])] // Met en cache le rendu complet de la page
     public function edit(Request $request, Departements $departement, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(DepartementsType::class, $departement);

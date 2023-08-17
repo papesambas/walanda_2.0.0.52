@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}EcoleProvenances
+{% endblock %}
+
+{% block body %}
+    <h1 class="fst-italic text-center bg-warning-subtle bg-opacity-75">Liste des élèves
+        {% if app.request.attributes.get('_route') == 'app_recrutement_show' %}
+            recruté(s) à:
+            {{ ecole_provenance }}
+        {% elseif app.request.attributes.get('_route') == 'app_an_dernier_show' %}
+            venant de :
+            {{ ecole_provenance }}
+        {% endif %}
+    </h1>
+
+    {% include 'eleves/liste.html.twig' with {'eleves': eleves} %}
+
+    <a class="btn btn-primary btn-sm" href="{{ path('app_eleves_index') }}">Retour</a>
+
+    {#<a href="{{ path('app_ecole_provenances_edit', {'slug': ecole_provenance.slug}) }}">edit</a>#}
+
+    {{ include('ecole_provenances/_delete_form.html.twig') }}
+{% endblock %}

@@ -3,6 +3,7 @@
 namespace App\Test\Controller;
 
 use App\Entity\Cycles;
+use App\Entity\Enseignements;
 use App\Repository\CyclesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
@@ -27,13 +28,16 @@ class CyclesControllerTest extends WebTestCase
 
     public function testIndex(): void
     {
-        $crawler = $this->client->request('GET', $this->path);
+        $path = '/cycles/'; // Assurez-vous que $this->path contient le bon chemin
+
+        $crawler = $this->client->request('GET', $path);
 
         self::assertResponseStatusCodeSame(200);
-        self::assertPageTitleContains('Cycle index');
+        $this->assertResponseIsSuccessful();
+        $this->assertSelectorTextContains('title', 'Cycles index'); // Correction de la chaîne attendue
 
         // Use the $crawler to perform additional assertions e.g.
-        // self::assertSame('Some text on the page', $crawler->filter('.p')->first());
+        // self::assertSame('Some text on the page', $crawler->filter('.p'
     }
 
     public function testNew(): void
@@ -60,13 +64,14 @@ class CyclesControllerTest extends WebTestCase
 
     public function testShow(): void
     {
+        $enseignement = new Enseignements();
         $this->markTestIncomplete();
         $fixture = new Cycles();
         $fixture->setDesignation('My Title');
-        $fixture->setCreatedAt('My Title');
-        $fixture->setUpdatedAt('My Title');
+        $fixture->setCreatedAt(new \DateTimeImmutable());
+        $fixture->setUpdatedAt(new \DateTimeImmutable());
         $fixture->setSlug('My Title');
-        $fixture->setEnseignement('My Title');
+        $fixture->setEnseignement($enseignement);
 
         $this->manager->persist($fixture);
         $this->manager->flush();
@@ -81,16 +86,17 @@ class CyclesControllerTest extends WebTestCase
 
     public function testEdit(): void
     {
+        $enseignement = new Enseignements();
         $this->markTestIncomplete();
         $fixture = new Cycles();
         $fixture->setDesignation('My Title');
-        $fixture->setCreatedAt('My Title');
-        $fixture->setUpdatedAt('My Title');
+        $fixture->setCreatedAt(new \DateTimeImmutable());
+        $fixture->setUpdatedAt(new \DateTimeImmutable());
         $fixture->setSlug('My Title');
-        $fixture->setEnseignement('My Title');
+        $fixture->setEnseignement($enseignement);
 
         $this->manager->persist($fixture);
-        $this->manager->flush();
+        $this->manager->flush();;
 
         $this->client->request('GET', sprintf('%s%s/edit', $this->path, $fixture->getId()));
 
@@ -115,16 +121,17 @@ class CyclesControllerTest extends WebTestCase
 
     public function testRemove(): void
     {
+        $enseignement = new Enseignements();
         $this->markTestIncomplete();
 
         $originalNumObjectsInRepository = count($this->repository->findAll());
 
         $fixture = new Cycles();
         $fixture->setDesignation('My Title');
-        $fixture->setCreatedAt('My Title');
-        $fixture->setUpdatedAt('My Title');
+        $fixture->setCreatedAt(new \DateTimeImmutable());
+        $fixture->setUpdatedAt(new \DateTimeImmutable());
         $fixture->setSlug('My Title');
-        $fixture->setEnseignement('My Title');
+        $fixture->setEnseignement($enseignement);
 
         $this->manager->persist($fixture);
         $this->manager->flush();

@@ -2,6 +2,8 @@
 
 namespace App\Test\Controller;
 
+use App\Entity\Meres;
+use App\Entity\Peres;
 use App\Entity\Telephones;
 use App\Repository\TelephonesRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -27,13 +29,16 @@ class TelephonesControllerTest extends WebTestCase
 
     public function testIndex(): void
     {
-        $crawler = $this->client->request('GET', $this->path);
+        $path = '/telephones/'; // Assurez-vous que $this->path contient le bon chemin
+
+        $crawler = $this->client->request('GET', $path);
 
         self::assertResponseStatusCodeSame(200);
-        self::assertPageTitleContains('Telephone index');
+        $this->assertResponseIsSuccessful();
+        $this->assertSelectorTextContains('title', 'Telephones index'); // Correction de la chaîne attendue
 
         // Use the $crawler to perform additional assertions e.g.
-        // self::assertSame('Some text on the page', $crawler->filter('.p')->first());
+        // self::assertSame('Some text on the page', $crawler->filter('.p'
     }
 
     public function testNew(): void
@@ -61,14 +66,16 @@ class TelephonesControllerTest extends WebTestCase
 
     public function testShow(): void
     {
+        $pere = new Peres();
+        $mere = new Meres();
         $this->markTestIncomplete();
         $fixture = new Telephones();
         $fixture->setNumero('My Title');
-        $fixture->setCreatedAt('My Title');
-        $fixture->setUpdatedAt('My Title');
+        $fixture->setCreatedAt(new \DateTimeImmutable());
+        $fixture->setUpdatedAt(new \DateTimeImmutable());
         $fixture->setSlug('My Title');
-        $fixture->setPeres('My Title');
-        $fixture->setMeres('My Title');
+        $fixture->setPeres($pere);
+        $fixture->setMeres($mere);
 
         $this->manager->persist($fixture);
         $this->manager->flush();
@@ -83,14 +90,16 @@ class TelephonesControllerTest extends WebTestCase
 
     public function testEdit(): void
     {
+        $pere = new Peres();
+        $mere = new Meres();
         $this->markTestIncomplete();
         $fixture = new Telephones();
         $fixture->setNumero('My Title');
-        $fixture->setCreatedAt('My Title');
-        $fixture->setUpdatedAt('My Title');
+        $fixture->setCreatedAt(new \DateTimeImmutable());
+        $fixture->setUpdatedAt(new \DateTimeImmutable());
         $fixture->setSlug('My Title');
-        $fixture->setPeres('My Title');
-        $fixture->setMeres('My Title');
+        $fixture->setPeres($pere);
+        $fixture->setMeres($mere);
 
         $this->manager->persist($fixture);
         $this->manager->flush();
@@ -120,17 +129,19 @@ class TelephonesControllerTest extends WebTestCase
 
     public function testRemove(): void
     {
+        $pere = new Peres();
+        $mere = new Meres();
         $this->markTestIncomplete();
 
         $originalNumObjectsInRepository = count($this->repository->findAll());
 
         $fixture = new Telephones();
         $fixture->setNumero('My Title');
-        $fixture->setCreatedAt('My Title');
-        $fixture->setUpdatedAt('My Title');
+        $fixture->setCreatedAt(new \DateTimeImmutable());
+        $fixture->setUpdatedAt(new \DateTimeImmutable());
         $fixture->setSlug('My Title');
-        $fixture->setPeres('My Title');
-        $fixture->setMeres('My Title');
+        $fixture->setPeres($pere);
+        $fixture->setMeres($mere);
 
         $this->manager->persist($fixture);
         $this->manager->flush();

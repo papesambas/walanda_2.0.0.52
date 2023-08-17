@@ -38,7 +38,9 @@
   }
   
   .custom-checkbox input[type="checkbox"]:checked + label::before {
-    background-color:darken(#428bca, 20%); /* Couleur de fond lorsque le checkbox est coché */
+    background: linear-gradient(to bottom right, darken(#2f5d85, 20%) 50%, white 50%);
+    border-color: darken(#428bca, 20%);
+    border: 2px solid #000; /* Couleur de la bordure */
   }
   
   .custom-checkbox label::after {

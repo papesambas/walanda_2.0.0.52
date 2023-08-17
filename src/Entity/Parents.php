@@ -35,7 +35,7 @@ class Parents
 
     public function __toString()
     {
-        return $this->pere->getFullname() . 'et ' . $this->mere->getFullname();
+        return $this->pere->getFullname() . ' -Et- ' . $this->mere->getFullname();
     }
 
     public function getId(): ?int

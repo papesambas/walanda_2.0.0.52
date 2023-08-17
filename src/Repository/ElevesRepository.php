@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Eleves;
 use App\Entity\Classes;
 use App\Entity\Departements;
+use App\Entity\EcoleProvenances;
 use App\Entity\LieuNaissances;
 use App\Entity\Statuts;
 use Doctrine\ORM\Query;
@@ -83,12 +84,46 @@ class ElevesRepository extends ServiceEntityRepository
             ->setParameter('isActif', true);
 
         if ($lieuNaissances) {
-            $qb->leftJoin('e.lieuNaissances', 'l')
+            $qb->leftJoin('e.lieuNaissance', 'l')
                 ->andWhere('l.id = :lieuNaissancesId')
                 ->setParameter('lieuNaissancesId', $lieuNaissances->getId());
         }
         return $qb->getQuery();
     }
+
+    public function findForPaginationRecrutement(?EcoleProvenances $ecoleProvenances): Query
+    {
+        $qb = $this->createQueryBuilder('e')
+            ->where('e.isActif = :isActif')
+            ->orderBy('e.fullname', 'ASC')
+            ->addOrderBy('e.dateInscription', 'ASC')
+            ->setParameter('isActif', true);
+
+        if ($ecoleProvenances) {
+            $qb->leftJoin('e.ecoleRecrutement', 'ecoleRecrutement')
+                ->andWhere('ecoleRecrutement.id = :ecoleRecrutementId')
+                ->setParameter('ecoleRecrutementId', $ecoleProvenances->getId());
+        }
+        return $qb->getQuery();
+    }
+
+    public function findForPaginationAnDernier(?EcoleProvenances $ecoleProvenances): Query
+    {
+        $qb = $this->createQueryBuilder('e')
+            ->where('e.isActif = :isActif')
+            ->orderBy('e.fullname', 'ASC')
+            ->addOrderBy('e.dateInscription', 'ASC')
+            ->setParameter('isActif', true);
+
+        if ($ecoleProvenances) {
+            $qb->leftJoin('e.ecoleAnDernier', 'ecoleAnDernier')
+                ->andWhere('ecoleAnDernier.id = :ecoleAnDernierId')
+                ->setParameter('ecoleAnDernierId', $ecoleProvenances->getId());
+        }
+        return $qb->getQuery();
+    }
+
+
 
     //    /**
     //     * @return Eleves[] Returns an array of Eleves objects

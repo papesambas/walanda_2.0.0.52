@@ -3,6 +3,7 @@
 namespace App\Test\Controller;
 
 use App\Entity\Classes;
+use App\Entity\Niveaux;
 use App\Repository\ClassesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
@@ -27,13 +28,16 @@ class ClassesControllerTest extends WebTestCase
 
     public function testIndex(): void
     {
-        $crawler = $this->client->request('GET', $this->path);
+        $path = '/classes/'; // Assurez-vous que $this->path contient le bon chemin
+
+        $crawler = $this->client->request('GET', $path);
 
         self::assertResponseStatusCodeSame(200);
-        self::assertPageTitleContains('Class index');
+        $this->assertResponseIsSuccessful();
+        $this->assertSelectorTextContains('title', 'Classes index'); // Correction de la chaîne attendue
 
         // Use the $crawler to perform additional assertions e.g.
-        // self::assertSame('Some text on the page', $crawler->filter('.p')->first());
+        // self::assertSame('Some text on the page', $crawler->filter('.p'
     }
 
     public function testNew(): void
@@ -63,16 +67,17 @@ class ClassesControllerTest extends WebTestCase
 
     public function testShow(): void
     {
+        $niveau = new Niveaux();
         $this->markTestIncomplete();
         $fixture = new Classes();
         $fixture->setDesignation('My Title');
         $fixture->setCapacite('My Title');
         $fixture->setEffectif('My Title');
         $fixture->setDisponibilite('My Title');
-        $fixture->setCreatedAt('My Title');
-        $fixture->setUpdatedAt('My Title');
+        $fixture->setCreatedAt(new \DateTimeImmutable());
+        $fixture->setUpdatedAt(new \DateTimeImmutable());
         $fixture->setSlug('My Title');
-        $fixture->setNiveau('My Title');
+        $fixture->setNiveau($niveau);
 
         $this->manager->persist($fixture);
         $this->manager->flush();
@@ -87,16 +92,17 @@ class ClassesControllerTest extends WebTestCase
 
     public function testEdit(): void
     {
+        $niveau = new Niveaux();
         $this->markTestIncomplete();
         $fixture = new Classes();
         $fixture->setDesignation('My Title');
         $fixture->setCapacite('My Title');
         $fixture->setEffectif('My Title');
         $fixture->setDisponibilite('My Title');
-        $fixture->setCreatedAt('My Title');
-        $fixture->setUpdatedAt('My Title');
+        $fixture->setCreatedAt(new \DateTimeImmutable());
+        $fixture->setUpdatedAt(new \DateTimeImmutable());
         $fixture->setSlug('My Title');
-        $fixture->setNiveau('My Title');
+        $fixture->setNiveau($niveau);
 
         $this->manager->persist($fixture);
         $this->manager->flush();
@@ -130,6 +136,7 @@ class ClassesControllerTest extends WebTestCase
 
     public function testRemove(): void
     {
+        $niveau = new Niveaux();
         $this->markTestIncomplete();
 
         $originalNumObjectsInRepository = count($this->repository->findAll());
@@ -139,10 +146,10 @@ class ClassesControllerTest extends WebTestCase
         $fixture->setCapacite('My Title');
         $fixture->setEffectif('My Title');
         $fixture->setDisponibilite('My Title');
-        $fixture->setCreatedAt('My Title');
-        $fixture->setUpdatedAt('My Title');
+        $fixture->setCreatedAt(new \DateTimeImmutable());
+        $fixture->setUpdatedAt(new \DateTimeImmutable());
         $fixture->setSlug('My Title');
-        $fixture->setNiveau('My Title');
+        $fixture->setNiveau($niveau);
 
         $this->manager->persist($fixture);
         $this->manager->flush();
