@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}FraisScolarites index
+{% endblock %}
+
+{% block body %}
+    <h1>FraisScolarites index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Elève</th>
+                <th>Classe</th>
+                <th>Inscription</th>
+                <th>Carnet</th>
+                <th>Transfert</th>
+                <th>Septembre</th>
+                <th>Octobre</th>
+                <th>Novembre</th>
+                <th>Decembre</th>
+                <th>Janvier</th>
+                <th>Fevrier</th>
+                <th>Mars</th>
+                <th>Avril</th>
+                <th>Mai</th>
+                <th>Juin</th>
+                <th>Autre</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for frais_scolarite in frais_scolarites %}
+                <tr>
+                    <td>{{ frais_scolarite.id }}</td>
+                    <td>{{ frais_scolarite.eleve }}</td>
+                    <td>{{ frais_scolarite.eleve ? frais_scolarite.eleve.classe : null }}</td>
+                    <td>{{ frais_scolarite.inscription }}</td>
+                    <td>{{ frais_scolarite.carnet }}</td>
+                    <td>{{ frais_scolarite.transfert }}</td>
+                    <td>{{ frais_scolarite.septembre }}</td>
+                    <td>{{ frais_scolarite.octobre }}</td>
+                    <td>{{ frais_scolarite.novembre }}</td>
+                    <td>{{ frais_scolarite.decembre }}</td>
+                    <td>{{ frais_scolarite.janvier }}</td>
+                    <td>{{ frais_scolarite.fevrier }}</td>
+                    <td>{{ frais_scolarite.mars }}</td>
+                    <td>{{ frais_scolarite.avril }}</td>
+                    <td>{{ frais_scolarite.mai }}</td>
+                    <td>{{ frais_scolarite.juin }}</td>
+                    <td>{{ frais_scolarite.autre }}</td>
+                    <td>
+                        <a href="{{ path('app_frais_scolarites_show', {'id': frais_scolarite.id}) }}">show</a>
+                        <a href="{{ path('app_frais_scolarites_edit', {'id': frais_scolarite.id}) }}">edit</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="16">no records found</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_frais_scolarites_new') }}">Create new</a>
+{% endblock %}

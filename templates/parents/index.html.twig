@@ -1,45 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Parents index{% endblock %}
+{% block title %}Parents index
+{% endblock %}
 
 {% block body %}
-    <h1>Parents index</h1>
+    <h1 class="fst-italic text-center bg-warning-subtle bg-opacity-75">Liste des parents</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Père</th>
-                <th>Profession</th>
-                <th>Téléphone</th>
-                <th>Mère</th>
-                <th>Profession</th>
-                <th>Téléphone</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for parent in parents %}
-            <tr>
-                <td>{{ parent.id }}</td>
-                <td>{{ parent.pere }}</td>
-                <td>{{ parent.pere.profession }}</td>
-                <td>{{ parent.pere.telephone }}</td>
-                <td>{{ parent.mere }}</td>
-                <td>{{ parent.mere.profession }}</td>
-                <td>{{ parent.mere.telephone }}</td>
-                <td>
-                    <a href="{{ path('app_parents_show', {'id': parent.id}) }}">show</a>
-                    <a href="{{ path('app_parents_edit', {'id': parent.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    {% include 'parents/_liste.html.twig' with {parents} %}
 
     <a href="{{ path('app_parents_new') }}">Create new</a>
 {% endblock %}

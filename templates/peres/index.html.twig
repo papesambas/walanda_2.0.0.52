@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Peres index{% endblock %}
+{% block title %}Peres index
+{% endblock %}
 
 {% block body %}
     <h1>Peres index</h1>
@@ -15,21 +16,21 @@
             </tr>
         </thead>
         <tbody>
-        {% for pere in peres %}
-            <tr>
-                <td>{{ pere.fullname }}</td>
-                <td>{{ pere.profession }}</td>
-                <td>{{ pere.telephone }}</td>
-                <td>
-                    <a href="{{ path('app_peres_show', {'id': pere.id}) }}">show</a>
-                    <a href="{{ path('app_peres_edit', {'id': pere.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="6">no records found</td>
-            </tr>
-        {% endfor %}
+            {% for pere in peres %}
+                <tr>
+                    <td>{{ pere.fullname }}</td>
+                    <td>{{ pere.profession }}</td>
+                    <td>{{ pere.telephone }}</td>
+                    <td>
+                        <a href="{{ path('app_peres_show', {'slug': pere.slug}) }}">show</a>
+                        <a href="{{ path('app_peres_edit', {'slug': pere.slug}) }}">edit</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="6">no records found</td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
 

@@ -2,9 +2,13 @@
 
 namespace App\Repository;
 
+use App\Entity\Meres;
 use App\Entity\Parents;
+use App\Entity\Peres;
+use App\Entity\Professions;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\Query;
 
 /**
  * @extends ServiceEntityRepository<Parents>
@@ -38,6 +42,28 @@ class ParentsRepository extends ServiceEntityRepository
             ->getQuery()
             ->getOneOrNullResult();
     }
+
+    public function findForPagination(?Professions $professions): Query
+    {
+        $qb = $this->createQueryBuilder('p')
+            ->leftJoin('p.pere', 'pe')
+            ->leftJoin('pe.profession', 'professionPere')
+            ->leftJoin('p.mere', 'me')
+            ->leftJoin('me.profession', 'professionMere')
+            ->orderBy('pe.fullname', 'ASC')
+            ->addOrderBy('me.fullname', 'ASC');
+
+        if ($professions) {
+            $qb->andWhere($qb->expr()->orX(
+                $qb->expr()->eq('professionPere', ':profession'),
+                $qb->expr()->eq('professionMere', ':profession')
+            ))
+                ->setParameter('profession', $professions);
+        }
+
+        return $qb->getQuery();
+    }
+
 
     //    /**
     //     * @return Parents[] Returns an array of Parents objects

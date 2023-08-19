@@ -2,24 +2,26 @@
 
 namespace App\Form;
 
-use App\Entity\Parents;
+use App\Entity\Echeances;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ParentsType extends AbstractType
+class EcheancesType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('pere', PeresType::class)
-            ->add('mere', MeresType::class);
+            ->add('echeance')
+            ->add('createdAt')
+            ->add('updatedAt')
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Parents::class,
+            'data_class' => Echeances::class,
         ]);
     }
 }

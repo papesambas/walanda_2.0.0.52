@@ -37,13 +37,21 @@
             <div class="col-md-2 mt-1 text-center text-primary-emphasis fst-italic">{{ form_row(form.numExtrait) }}</div>
             <div class="col-md-1 mt-1 text-center text-primary-emphasis fst-italic p-4 border-1">
                 <label class="custom-checkbox">
-                    {{ form_widget(form.isAdmis) }}
+                    {% if is_granted('ROLE_ADMIN') %}
+                        {{ form_widget(form.isAdmis) }}
+                    {% else %}
+                        {{ form_widget(form.isAdmis, { 'attr': {'disabled': 'disabled'} }) }}
+                    {% endif %}
                     <span></span>
                 </label>
             </div>
             <div class="col-md-1 mt-1 text-center text-primary-emphasis fst-italic p-4 m-2 border-1">
                 <label class="custom-checkbox">
-                    {{ form_widget(form.isActif) }}
+                    {% if is_granted('ROLE_ADMIN') %}
+                        {{ form_widget(form.isActif) }}
+                    {% else %}
+                        {{ form_widget(form.isActif, { 'attr': {'disabled': 'disabled'} }) }}
+                    {% endif %}
                     <span></span>
                 </label>
             </div>

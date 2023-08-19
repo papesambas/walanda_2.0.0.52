@@ -8,8 +8,12 @@ use App\Repository\CerclesRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: CerclesRepository::class)]
+#[UniqueEntity(fields: ['designation'], message: 'There is already an account with this designation')]
+
 class Cercles
 {
     use CreatedAtTrait;
@@ -19,7 +23,8 @@ class Cercles
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 150)]
+    #[ORM\Column(length: 150, unique: true)]
+    #[Assert\NotBlank()]
     private ?string $designation = null;
 
     #[ORM\ManyToOne(inversedBy: 'cercles')]

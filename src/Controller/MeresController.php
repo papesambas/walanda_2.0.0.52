@@ -56,7 +56,7 @@ class MeresController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_meres_show', methods: ['GET'])]
+    #[Route('/{slug}', name: 'app_meres_show', methods: ['GET'])]
     #[Cache(vary: ['Accept-Encoding'])] // Met en cache le rendu complet de la page
     public function show(Meres $mere): Response
     {
@@ -65,7 +65,7 @@ class MeresController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_meres_edit', methods: ['GET', 'POST'])]
+    #[Route('/{slug}/edit', name: 'app_meres_edit', methods: ['GET', 'POST'])]
     #[Cache(vary: ['Accept-Encoding'])] // Met en cache le rendu complet de la page
     public function edit(Request $request, Meres $mere, EntityManagerInterface $entityManager): Response
     {

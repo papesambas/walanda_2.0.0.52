@@ -8,8 +8,11 @@ use App\Repository\ClassesRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ClassesRepository::class)]
+#[UniqueEntity(fields: ['designation'], message: 'There is already an account with this designation')]
 class Classes
 {
     use CreatedAtTrait;
@@ -19,16 +22,18 @@ class Classes
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 150)]
+    #[ORM\Column(length: 150, unique: true)]
     private ?string $designation = null;
 
     #[ORM\Column]
+    #[Assert\Positive()]
     private ?int $capacite = null;
 
     #[ORM\Column(nullable: true)]
     private ?int $effectif = null;
 
     #[ORM\Column]
+    #[Assert\PositiveOrZero()]
     private ?int $disponibilite = null;
 
     #[ORM\ManyToOne(inversedBy: 'classes')]

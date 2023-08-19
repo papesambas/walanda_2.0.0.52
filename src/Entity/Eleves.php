@@ -131,6 +131,9 @@ class Eleves
     #[ORM\JoinColumn(nullable: false)]
     private ?Parents $parent = null;
 
+    #[ORM\OneToOne(mappedBy: 'eleve', cascade: ['persist', 'remove'])]
+    private ?FraisScolarites $fraisScolarites = null;
+
     public function __construct()
     {
         $this->dossier = new ArrayCollection();
@@ -569,5 +572,27 @@ class Eleves
     public function getImageName(): ?string
     {
         return $this->imageName;
+    }
+
+    public function getFraisScolarites(): ?FraisScolarites
+    {
+        return $this->fraisScolarites;
+    }
+
+    public function setFraisScolarites(?FraisScolarites $fraisScolarites): static
+    {
+        // unset the owning side of the relation if necessary
+        if ($fraisScolarites === null && $this->fraisScolarites !== null) {
+            $this->fraisScolarites->setEleve(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($fraisScolarites !== null && $fraisScolarites->getEleve() !== $this) {
+            $fraisScolarites->setEleve($this);
+        }
+
+        $this->fraisScolarites = $fraisScolarites;
+
+        return $this;
     }
 }

@@ -1,0 +1,51 @@
+<table class="table table-sm table-responsive-sm table-hover">
+    <div class="count fst-italic">
+        Nombre :
+        <span class="text-danger ">{{ parents.getTotalItemCount }}</span>
+        parents
+    </div>
+    <thead>
+        <tr>
+            {#<th>Id</th>#}
+            <th>Père</th>
+            <th>Profession</th>
+            <th>Mère</th>
+            <th>Profession</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for parent in parents %}
+            <tr>
+                <td>
+                    <a class="text-decoration-none" href="{{ path('app_peres_show', {'slug': parent.pere.slug}) }}">{{ parent.pere.fullName }}</a>
+                </td>
+                <td>
+                    <a class="text-decoration-none" href="{{ path('app_professions_show', {'slug': parent.pere.profession.slug}) }}">{{ parent.pere.profession }}</a>
+                </td>
+                <td>
+                    <a class="text-decoration-none" href="{{ path('app_meres_show', {'slug': parent.mere.slug}) }}">{{ parent.mere.fullName }}</a>
+                </td>
+                <td>
+                    <a class="text-decoration-none" href="{{ path('app_professions_show', {'slug': parent.mere.profession.slug}) }}">{{ parent.mere.profession }}</a>
+                </td>
+                <td>
+                    <a href="{{ path('app_parents_edit', {'id': parent.id}) }}">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                </td>
+
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="21">no records found</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<div class="container">
+    <div class="row">
+        <div class="d-flex align-items-center justify-content-center">
+            {{ knp_pagination_render(parents) }}</div>
+    </div>
+</div>

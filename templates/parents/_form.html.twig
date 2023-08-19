@@ -4,7 +4,9 @@
         <div class="col-md-6 me-1">
             <div class="row border rounded my-3 py-3 bg-secondary-subtle">
                 <h3>Informations du Père</h3>
-                <div class="col-md-6 mt-2 bg-warning">{{ form_widget(form.SearchPere) }}</div>
+                {% if app.request.attributes.get('_route')== 'app_parents_new_eleve' %}
+                    <div class="col-md-6 mt-2 bg-warning">{{ form_widget(form.SearchPere) }}</div>
+                {% endif %}
                 <div class="col-md-6 mt-2">Recherche par # Nina</div>
                 <div class="col-md-6 mt-2">{{ form_widget(form.pere.nom) }}</div>
                 <div class="col-md-6 mt-2">{{ form_widget(form.pere.prenom) }}</div>
@@ -16,7 +18,9 @@
 
             <div class="row border rounded my-3 py-3 bg-secondary-subtle">
                 <h3 class="fst-italic text-center">Informations de la Mère</h3>
-                <div class="col-md-6 mt-2 bg-warning">{{ form_widget(form.SearchMere) }}</div>
+                {% if app.request.attributes.get('_route')== 'app_parents_new_eleve' %}
+                    <div class="col-md-6 mt-2 bg-warning">{{ form_widget(form.SearchMere) }}</div>
+                {% endif %}
                 <div class="col-md-6 mt-2">Recherche par # Nina</div>
                 <div class="col-md-6 mt-2">{{ form_widget(form.mere.nom) }}</div>
                 <div class="col-md-6 mt-2">{{ form_widget(form.mere.prenom) }}</div>

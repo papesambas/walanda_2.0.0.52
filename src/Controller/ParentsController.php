@@ -8,6 +8,7 @@ use App\Form\ParentsRechercheType;
 use App\Repository\MeresRepository;
 use App\Repository\ParentsRepository;
 use App\Repository\PeresRepository;
+use App\Service\parentService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,10 +32,12 @@ class ParentsController extends AbstractController
     }
     #[Route('/', name: 'app_parents_index', methods: ['GET'])]
     #[Cache(vary: ['Accept-Encoding'])] // Met en cache le rendu complet de la page
-    public function index(ParentsRepository $parentsRepository): Response
+    public function index(parentService $parentService): Response
     {
+
+        $parents = $parentService->getPaginatedParents();
         return $this->render('parents/index.html.twig', [
-            'parents' => $parentsRepository->findAll(),
+            'parents' => $parents,
         ]);
     }
 

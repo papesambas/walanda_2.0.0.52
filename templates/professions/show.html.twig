@@ -1,38 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Professions{% endblock %}
+{% block title %}Professions
+{% endblock %}
 
 {% block body %}
-    <h1>Professions</h1>
+    <h1 class="fst-italic text-center bg-warning-subtle bg-opacity-75">Liste des parents travaillant comme :
+        {{ profession }}</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ profession.id }}</td>
-            </tr>
-            <tr>
-                <th>Designation</th>
-                <td>{{ profession.designation }}</td>
-            </tr>
-            <tr>
-                <th>CreatedAt</th>
-                <td>{{ profession.createdAt ? profession.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>UpdatedAt</th>
-                <td>{{ profession.updatedAt ? profession.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Slug</th>
-                <td>{{ profession.slug }}</td>
-            </tr>
-        </tbody>
-    </table>
+    {% include 'parents/_liste.html.twig' with {'parents': parents} %}
 
-    <a href="{{ path('app_professions_index') }}">back to list</a>
+    <a class="btn btn-primary btn-sm" href="{{ path('app_parents_index') }}">Retour</a>
 
-    <a href="{{ path('app_professions_edit', {'id': profession.id}) }}">edit</a>
+
+    {#<a href="{{ path('app_professions_edit', {'slug': profession.slug}) }}">edit</a>#}
 
     {{ include('professions/_delete_form.html.twig') }}
 {% endblock %}

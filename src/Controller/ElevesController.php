@@ -6,16 +6,18 @@ use App\Entity\Eleves;
 use App\Entity\Parents;
 use App\Form\ElevesType;
 use App\Entity\DossierEleves;
-use App\Repository\ElevesRepository;
 use App\Service\eleveService;
+use App\Entity\FraisScolarites;
+use App\Repository\ElevesRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\FraisScolairesRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpKernel\Attribute\Cache;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 
 #[Route('/eleves')]
 class ElevesController extends AbstractController
@@ -32,7 +34,7 @@ class ElevesController extends AbstractController
 
     #[Route('/new', name: 'app_eleves_new', methods: ['GET', 'POST'])]
     #[Cache(vary: ['Accept-Encoding'])] // Met en cache le rendu complet de la page
-    public function new(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, ElevesRepository $elevesRepository, FraisScolairesRepository $fraisScolairesRepository, SluggerInterface $slugger): Response
     {
         $elefe = new Eleves();
 
@@ -73,6 +75,44 @@ class ElevesController extends AbstractController
 
             $entityManager->persist($elefe);
             $entityManager->flush();
+
+            $elevesNonExonoresSansFraisScolarites = $elevesRepository->findElevesNonExonoresSansFraisScolarites();
+
+            $entityManager->beginTransaction();
+
+            try {
+                foreach ($elevesNonExonoresSansFraisScolarites as $eleve) {
+                    $fraisScolarite = $fraisScolairesRepository->findOneFraisScolariteByNiveauAndStatut($eleve->getClasse()->getNiveau(), $eleve->getStatut());
+
+                    if ($fraisScolarite) {
+                        $nouveauFraisScolarite = new FraisScolarites();
+                        $nouveauFraisScolarite->setEleve($eleve);
+                        $nouveauFraisScolarite->setInscription($fraisScolarite->getFraisInscription());
+                        $nouveauFraisScolarite->setCarnet($fraisScolarite->getFraisCarnet());
+                        $nouveauFraisScolarite->setTransfert($fraisScolarite->getFraisTransfert());
+                        $nouveauFraisScolarite->setSeptembre($fraisScolarite->getSeptembre());
+                        $nouveauFraisScolarite->setOctobre($fraisScolarite->getOctobre());
+                        $nouveauFraisScolarite->setNovembre($fraisScolarite->getNovembre());
+                        $nouveauFraisScolarite->setDecembre($fraisScolarite->getDecembre());
+                        $nouveauFraisScolarite->setJanvier($fraisScolarite->getJanvier());
+                        $nouveauFraisScolarite->setFevrier($fraisScolarite->getFevrier());
+                        $nouveauFraisScolarite->setMars($fraisScolarite->getMars());
+                        $nouveauFraisScolarite->setAvril($fraisScolarite->getAvril());
+                        $nouveauFraisScolarite->setMai($fraisScolarite->getMai());
+                        $nouveauFraisScolarite->setJuin($fraisScolarite->getJuin());
+                        $nouveauFraisScolarite->setAutre($fraisScolarite->getAutres());
+                        $entityManager->persist($nouveauFraisScolarite);
+
+                        $entityManager->persist($nouveauFraisScolarite);
+                    }
+                }
+
+                $entityManager->flush();
+                $entityManager->commit();
+            } catch (\Exception $exception) {
+                $entityManager->rollback();
+                throw $exception;
+            }
 
             return $this->redirectToRoute('app_eleves_index', [], Response::HTTP_SEE_OTHER);
         }

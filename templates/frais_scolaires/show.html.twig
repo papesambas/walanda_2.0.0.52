@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}FraisScolaires{% endblock %}
+
+{% block body %}
+    <h1>FraisScolaires</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ frais_scolaire.id }}</td>
+            </tr>
+            <tr>
+                <th>FraisInscription</th>
+                <td>{{ frais_scolaire.fraisInscription }}</td>
+            </tr>
+            <tr>
+                <th>FraisCarnet</th>
+                <td>{{ frais_scolaire.fraisCarnet }}</td>
+            </tr>
+            <tr>
+                <th>FraisTransfert</th>
+                <td>{{ frais_scolaire.fraisTransfert }}</td>
+            </tr>
+            <tr>
+                <th>Septembre</th>
+                <td>{{ frais_scolaire.septembre }}</td>
+            </tr>
+            <tr>
+                <th>Octobre</th>
+                <td>{{ frais_scolaire.octobre }}</td>
+            </tr>
+            <tr>
+                <th>Novembre</th>
+                <td>{{ frais_scolaire.novembre }}</td>
+            </tr>
+            <tr>
+                <th>Decembre</th>
+                <td>{{ frais_scolaire.decembre }}</td>
+            </tr>
+            <tr>
+                <th>Janvier</th>
+                <td>{{ frais_scolaire.janvier }}</td>
+            </tr>
+            <tr>
+                <th>Fevrier</th>
+                <td>{{ frais_scolaire.fevrier }}</td>
+            </tr>
+            <tr>
+                <th>Mars</th>
+                <td>{{ frais_scolaire.mars }}</td>
+            </tr>
+            <tr>
+                <th>Avril</th>
+                <td>{{ frais_scolaire.avril }}</td>
+            </tr>
+            <tr>
+                <th>Mai</th>
+                <td>{{ frais_scolaire.mai }}</td>
+            </tr>
+            <tr>
+                <th>Juin</th>
+                <td>{{ frais_scolaire.juin }}</td>
+            </tr>
+            <tr>
+                <th>Autres</th>
+                <td>{{ frais_scolaire.autres }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ frais_scolaire.createdAt ? frais_scolaire.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>UpdatedAt</th>
+                <td>{{ frais_scolaire.updatedAt ? frais_scolaire.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_frais_scolaires_index') }}">back to list</a>
+
+    <a href="{{ path('app_frais_scolaires_edit', {'id': frais_scolaire.id}) }}">edit</a>
+
+    {{ include('frais_scolaires/_delete_form.html.twig') }}
+{% endblock %}

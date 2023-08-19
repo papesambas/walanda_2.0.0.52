@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Professions;
 use App\Form\ProfessionsType;
 use App\Repository\ProfessionsRepository;
+use App\Service\parentService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -46,16 +47,17 @@ class ProfessionsController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_professions_show', methods: ['GET'])]
+    #[Route('/{slug}', name: 'app_professions_show', methods: ['GET'])]
     #[Cache(vary: ['Accept-Encoding'])] // Met en cache le rendu complet de la page
-    public function show(Professions $profession): Response
+    public function show(Professions $profession, parentService $parentService): Response
     {
         return $this->render('professions/show.html.twig', [
             'profession' => $profession,
+            'parents' => $parentService->getPaginatedParents($profession),
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_professions_edit', methods: ['GET', 'POST'])]
+    #[Route('/{slug}/edit', name: 'app_professions_edit', methods: ['GET', 'POST'])]
     #[Cache(vary: ['Accept-Encoding'])] // Met en cache le rendu complet de la page
     public function edit(Request $request, Professions $profession, EntityManagerInterface $entityManager): Response
     {

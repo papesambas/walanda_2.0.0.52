@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Meres index{% endblock %}
+{% block title %}Meres index
+{% endblock %}
 
 {% block body %}
     <h1>Meres index</h1>
@@ -15,21 +16,21 @@
             </tr>
         </thead>
         <tbody>
-        {% for mere in meres %}
-            <tr>
-                <td>{{ mere.fullname }}</td>
-                <td>{{ mere.profession }}</td>
-                <td>{{ mere.telephone }}</td>
-                <td>
-                    <a href="{{ path('app_meres_show', {'id': mere.id}) }}">show</a>
-                    <a href="{{ path('app_meres_edit', {'id': mere.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="6">no records found</td>
-            </tr>
-        {% endfor %}
+            {% for mere in meres %}
+                <tr>
+                    <td>{{ mere.fullname }}</td>
+                    <td>{{ mere.profession }}</td>
+                    <td>{{ mere.telephone }}</td>
+                    <td>
+                        <a href="{{ path('app_meres_show', {'slug': mere.slug}) }}">show</a>
+                        <a href="{{ path('app_meres_edit', {'slug': mere.slug}) }}">edit</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="6">no records found</td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
 

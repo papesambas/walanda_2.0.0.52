@@ -56,7 +56,7 @@ class PeresController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_peres_show', methods: ['GET'])]
+    #[Route('/{slug}', name: 'app_peres_show', methods: ['GET'])]
     #[Cache(vary: ['Accept-Encoding'])] // Met en cache le rendu complet de la page
     public function show(Peres $pere): Response
     {
@@ -65,7 +65,7 @@ class PeresController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_peres_edit', methods: ['GET', 'POST'])]
+    #[Route('/{slug}/edit', name: 'app_peres_edit', methods: ['GET', 'POST'])]
     #[Cache(vary: ['Accept-Encoding'])] // Met en cache le rendu complet de la page
     public function edit(Request $request, Peres $pere, EntityManagerInterface $entityManager): Response
     {

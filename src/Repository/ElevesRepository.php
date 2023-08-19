@@ -123,6 +123,21 @@ class ElevesRepository extends ServiceEntityRepository
         return $qb->getQuery();
     }
 
+    public function findElevesNonExonoresSansFraisScolarites()
+    {
+        return $this->createQueryBuilder('e')
+            ->leftJoin('e.fraisScolarites', 'f')
+            ->andWhere('e.statutFinance != :statut')
+            ->andWhere('e.isActif = :isActif')
+            ->andWhere('e.isAdmis = :isAdmis')
+            ->andWhere('f.id IS NULL') // Vérifie que l'élève n'a pas de frais scolarités associés
+            ->setParameter('statut', 'exonore')
+            ->setParameter('isActif', true)
+            ->setParameter('isAdmis', true)
+            ->getQuery()
+            ->getResult();
+    }
+
 
 
     //    /**
