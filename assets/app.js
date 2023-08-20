@@ -28,4 +28,5 @@ import './scripts/eleves/deleteDoc';
 import './scripts/eleves/handicap';
 import './scripts/eleves/lieuNaissance';
 import './scripts/eleves/scolarite1';
+import './scripts/eleves/sante';
 

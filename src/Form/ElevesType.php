@@ -25,6 +25,7 @@ use App\Entity\EcoleProvenances;
 use Doctrine\ORM\EntityRepository;
 use App\Repository\MeresRepository;
 use App\Repository\PeresRepository;
+use App\Repository\StatutsRepository;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\AbstractType;
@@ -46,6 +47,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 
@@ -58,12 +60,14 @@ class ElevesType extends AbstractType
         private Redoublements1Repository $redoublements1Repository,
         private PeresRepository $peresRepository,
         private MeresRepository $meresRepository,
+        private StatutsRepository $statutsRepository
 
     ) {
         $this->redoublements1Repository = $redoublements1Repository;
         $this->redoublements2Repository = $redoublements2Repository;
         $this->peresRepository = $peresRepository;
         $this->meresRepository = $meresRepository;
+        $this->statutsRepository = $statutsRepository;
     }
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -230,6 +234,22 @@ class ElevesType extends AbstractType
             ->add('adresse', TextareaType::class, [
                 'attr' => ['placeholder' => "Adresse du domicile"],
                 'required' => false,
+            ])
+            ->add('santes', CollectionType::class, [
+                'entry_type' => SantesType::class,
+                'entry_options' => ['label' => true],
+                'by_reference' => false,
+                'allow_add' => true,
+                'allow_delete' => true,
+                'error_bubbling' => false,
+            ])
+            ->add('departs', CollectionType::class, [
+                'entry_type' => DepartsType::class,
+                'entry_options' => ['label' => true],
+                'by_reference' => false,
+                'allow_add' => true,
+                'allow_delete' => true,
+                'error_bubbling' => false,
             ]);
 
         $builder->get('niveau')->addEventListener(
@@ -241,7 +261,9 @@ class ElevesType extends AbstractType
                 $this->addDateNaissanceField($form->getParent(), $form->getData());
                 $this->addDateRecrutementField($form->getParent(), $form->getData());
                 $this->addScolarites1Field($form->getParent(), $form->getData());
-                $this->addStatutsField($form->getParent(), $form->getData());
+                $isNewRegistration = !$form->getParent()->getData()->getId(); // Assuming getId() returns the ID of the entity
+
+                $this->addStatutsField($form->getParent(), $form->getData(), $isNewRegistration);
             }
         );
 
@@ -305,10 +327,13 @@ class ElevesType extends AbstractType
                 $form = $event->getForm();
                 if ($statut) {
                     $niveau = $statut->getNiveau();
-                    $this->addStatutsField($form, $niveau);
+                    $isNewRegistration = $form ? !$form : true;
+
+                    $this->addStatutsField($form, $niveau, $isNewRegistration);
                     $form->get('niveau')->setData($niveau);
                 } else {
-                    $this->addStatutsField($form, null);
+                    $isNewRegistration = $form ? !$form : true;
+                    $this->addStatutsField($form, null, $isNewRegistration);
                 }
             }
         );
@@ -444,23 +469,42 @@ class ElevesType extends AbstractType
         ]);
     }
 
-    public function addStatutsField(FormInterface $form, ?Niveaux $niveaux)
+    public function addStatutsField(FormInterface $form, ?Niveaux $niveaux, bool $isNewRegistration)
     {
-        $form->add('statut', EntityType::class, [
-            'label' => 'Statut',
-            'class' => Statuts::class,
-            'choices' => $niveaux ? $niveaux->getStatuts() : [],
-            'placeholder' => 'Entrer ou Choisir un statut',
-            'choice_label' => 'designation',
-            'query_builder' => function (EntityRepository $er) {
-                return $er->createQueryBuilder('s')
-                    ->orderBy('s.designation', 'ASC');
-            },
-            'attr' => [
-                'class' => 'select-statut'
-            ],
-            'error_bubbling' => false,
-        ]);
+        $statutsForRegistration = $this->statutsRepository->findStatutsForNlEnregistrement($niveaux);
+        if ($isNewRegistration) {
+            $form->add('statut', EntityType::class, [
+                'label' => 'Statut',
+                'class' => Statuts::class,
+                'choices' => $statutsForRegistration ? $statutsForRegistration : [],
+                'placeholder' => 'Entrer ou Choisir un statut',
+                'choice_label' => 'designation',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('s')
+                        ->orderBy('s.designation', 'ASC');
+                },
+                'attr' => [
+                    'class' => 'select-statut'
+                ],
+                'error_bubbling' => false,
+            ]);
+        } else {
+            $form->add('statut', EntityType::class, [
+                'label' => 'Statut',
+                'class' => Statuts::class,
+                'choices' => $niveaux ? $niveaux->getStatuts() : [],
+                'placeholder' => 'Entrer ou Choisir un statut',
+                'choice_label' => 'designation',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('s')
+                        ->orderBy('s.designation', 'ASC');
+                },
+                'attr' => [
+                    'class' => 'select-statut'
+                ],
+                'error_bubbling' => false,
+            ]);
+        }
     }
 
     private function addDateNaissanceField(FormInterface $form, ?Niveaux $niveau)

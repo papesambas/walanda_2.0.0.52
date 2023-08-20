@@ -91,7 +91,7 @@
                                 <div class="row">
                                     <div class="fst-italic">
                                         <a href="{{ asset('uploads/eleves/documents/' ~ document.designation) }}">{{ document.designation }}(PDF)</a>
-                                        <a class="text-danger fst-italic" href="{{ path('app_eleve_documents_delete', {'id': document.id}) }}" data-delete data-token="{{ csrf_token('delete' ~ document.id) }}">supprimer</a>
+                                        <a class="text-danger fst-italic" href="{{ path('app_eleve_documents_delete', {'id': document.id}) }}" data-delete="data-delete" data-token="{{ csrf_token('delete' ~ document.id) }}">supprimer</a>
 
                                     </div>
                                 </div>
@@ -146,6 +146,33 @@
         </div>
     </div>
 </div>
+<div class="row border bg-secondary-subtle bg-op py-1">
+    <div class="col-md-8">
+        <button type="button" class="btn btn-warning btn-sm btn-new" data-collection="#santes">
+            <span class="fst-italic text-center">L'enfant a t-il des problèmes de Santé ?</span>
+        </button>
+        <div id="santes" class="row" data-prototype="{{ include("eleves/_santes.html.twig", {form: form.santes.vars.prototype})|e ('html_attr') }}" data-index="{{ form.santes|length > 0 ? form.santes|last.vars.name + 1 : 0 }}">
+            {% for santeForm in form.santes %}
+                <div class="col-12">
+                    {{ include("eleves/_santes.html.twig", {form: santeForm}) }}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="col-md-4">
+        <button type="button" class="btn btn-danger btn-sm btn-new" data-collection="#departs">
+            <span class="fst-italic text-center">Voulez vous constatez un transfert ou un abandon ?</span>
+        </button>
+
+        <div id="departs" class="row" data-prototype="{{ include("eleves/_departs.html.twig", {form: form.departs.vars.prototype})|e ('html_attr') }}" data-index="{{ form.departs|length > 0 ? form.departs|last.vars.name + 1 : 0 }}">
+            {% for departForm in form.departs %}
+                <div class="col-12">
+                    {{ include("eleves/_departs.html.twig", {form: departForm}) }}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
 <div class="row d-grid gap-2 d-md-flex justify-content-md-end">
     <hr style="height: 1px;background: black;margin: 10px 0;box-shadow: 0px 0px 2px 1px ;">
         <div class="row">
@@ -171,4 +198,4 @@
 </div>
 {#{{ form_widget(form) }}#}
 {#<button class="btn">{{ button_label|default('Save') }}</button>#}
-{{ form_end(form) }}
+{{ form_end(form, {render_rest: false}) }}

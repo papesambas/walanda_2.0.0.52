@@ -11,6 +11,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ElevesRepository::class)]
 #[Vich\Uploadable]
@@ -134,9 +135,23 @@ class Eleves
     #[ORM\OneToOne(mappedBy: 'eleve', cascade: ['persist', 'remove'])]
     private ?FraisScolarites $fraisScolarites = null;
 
+    #[ORM\OneToOne(mappedBy: 'eleve', cascade: ['persist', 'remove'])]
+    private ?FraisScolaritesAbandon $fraisScolaritesAbandon = null;
+
+    #[ORM\OneToMany(mappedBy: 'eleve', targetEntity: Santes::class, orphanRemoval: true, cascade: ['persist'])]
+    #[Assert\Count(max: 3)]
+
+    private Collection $santes;
+
+    #[ORM\OneToMany(mappedBy: 'eleve', targetEntity: Departs::class, cascade: ['persist'])]
+    #[Assert\Count(max: 1)]
+    private Collection $departs;
+
     public function __construct()
     {
         $this->dossier = new ArrayCollection();
+        $this->santes = new ArrayCollection();
+        $this->departs = new ArrayCollection();
     }
 
     public function __toString()
@@ -592,6 +607,83 @@ class Eleves
         }
 
         $this->fraisScolarites = $fraisScolarites;
+
+        return $this;
+    }
+
+    public function getFraisScolaritesAbandon(): ?FraisScolaritesAbandon
+    {
+        return $this->fraisScolaritesAbandon;
+    }
+
+    public function setFraisScolaritesAbandon(FraisScolaritesAbandon $fraisScolaritesAbandon): static
+    {
+        // set the owning side of the relation if necessary
+        if ($fraisScolaritesAbandon->getEleve() !== $this) {
+            $fraisScolaritesAbandon->setEleve($this);
+        }
+
+        $this->fraisScolaritesAbandon = $fraisScolaritesAbandon;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Santes>
+     */
+    public function getSantes(): Collection
+    {
+        return $this->santes;
+    }
+
+    public function addSante(Santes $sante): static
+    {
+        if (!$this->santes->contains($sante)) {
+            $this->santes->add($sante);
+            $sante->setEleve($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSante(Santes $sante): static
+    {
+        if ($this->santes->removeElement($sante)) {
+            // set the owning side to null (unless already changed)
+            if ($sante->getEleve() === $this) {
+                $sante->setEleve(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Departs>
+     */
+    public function getDeparts(): Collection
+    {
+        return $this->departs;
+    }
+
+    public function addDepart(Departs $depart): static
+    {
+        if (!$this->departs->contains($depart)) {
+            $this->departs->add($depart);
+            $depart->setEleve($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDepart(Departs $depart): static
+    {
+        if ($this->departs->removeElement($depart)) {
+            // set the owning side to null (unless already changed)
+            if ($depart->getEleve() === $this) {
+                $depart->setEleve(null);
+            }
+        }
 
         return $this;
     }

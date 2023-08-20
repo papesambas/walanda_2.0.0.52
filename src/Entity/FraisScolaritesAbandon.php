@@ -2,24 +2,22 @@
 
 namespace App\Entity;
 
-use App\Repository\FraisScolaritesRepository;
+use App\Entity\Trait\CreatedAtTrait;
+use App\Repository\FraisScolaritesAbandonRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
-#[ORM\Entity(repositoryClass: FraisScolaritesRepository::class)]
+
+#[ORM\Entity(repositoryClass: FraisScolaritesAbandonRepository::class)]
 #[UniqueEntity(fields: ['eleve'], message: 'There is already an account with this eleve')]
-
-class FraisScolarites
+class FraisScolaritesAbandon
 {
+    use CreatedAtTrait;
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
-
-    #[ORM\OneToOne(inversedBy: 'fraisScolarites', cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(name: 'eleve_id', referencedColumnName: 'id', unique: true)]
-    private ?Eleves $eleve = null;
 
     #[ORM\Column(nullable: true)]
     #[Assert\PositiveOrZero]
@@ -80,21 +78,14 @@ class FraisScolarites
     #[ORM\Column(nullable: true)]
     private ?int $arrieres = null;
 
+    #[ORM\OneToOne(inversedBy: 'fraisScolaritesAbandon', cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(name: 'eleve_id', referencedColumnName: 'id', unique: true)]
+
+    private ?Eleves $eleve = null;
+
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getEleve(): ?Eleves
-    {
-        return $this->eleve;
-    }
-
-    public function setEleve(?Eleves $eleve): static
-    {
-        $this->eleve = $eleve;
-
-        return $this;
     }
 
     public function getInscription(): ?int
@@ -273,6 +264,18 @@ class FraisScolarites
     public function setArrieres(?int $arrieres): static
     {
         $this->arrieres = $arrieres;
+
+        return $this;
+    }
+
+    public function getEleve(): ?Eleves
+    {
+        return $this->eleve;
+    }
+
+    public function setEleve(Eleves $eleve): static
+    {
+        $this->eleve = $eleve;
 
         return $this;
     }
