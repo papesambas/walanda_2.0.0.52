@@ -78,7 +78,7 @@ class FraisScolaritesAbandon
     #[ORM\Column(nullable: true)]
     private ?int $arrieres = null;
 
-    #[ORM\OneToOne(inversedBy: 'fraisScolaritesAbandon', cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(inversedBy: 'fraisScolaritesAbandon', cascade: ['persist'])]
     #[ORM\JoinColumn(name: 'eleve_id', referencedColumnName: 'id', unique: true)]
 
     private ?Eleves $eleve = null;

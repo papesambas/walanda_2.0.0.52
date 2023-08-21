@@ -2,11 +2,13 @@
 
 namespace App\EventListener;
 
+use App\Entity\Users;
 use LogicException;
 use App\Entity\Eleves;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\Event\LifecycleEventArgs;
 use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 class elevesEntityListener
@@ -15,11 +17,14 @@ class elevesEntityListener
     private $Slugger;
     private $entityManager;
 
-    public function __construct(Security $security, SluggerInterface $Slugger, EntityManagerInterface $entityManager)
+    private $PasswordHasher;
+
+    public function __construct(Security $security, SluggerInterface $Slugger, EntityManagerInterface $entityManager, UserPasswordHasherInterface $PasswordHasher)
     {
         $this->Securty = $security;
         $this->Slugger = $Slugger;
         $this->entityManager = $entityManager;
+        $this->PasswordHasher = $PasswordHasher;
     }
 
     public function prePersist(Eleves $eleves, LifecycleEventArgs $arg): void
@@ -28,6 +33,8 @@ class elevesEntityListener
         if ($user === null) {
             throw new LogicException('User cannot be null here ...');
         }*/
+
+
         $format = 'Y';
         $formatJour = 'd';
         $formatMois = 'm';
@@ -52,7 +59,9 @@ class elevesEntityListener
                 $matricule .= $caractereAleatoire;
             }
 
-            $matricules = $recrutem . ' ' . $nom . $dateNaissJour . $dateNaissMois . $prenom . $matricule . '-' . rand(10000, 99999);
+            $suffix = substr(time(), -4);;
+
+            $matricules = $recrutem . ' ' . $nom . $dateNaissJour . $dateNaissMois . $prenom . '-' . $matricule . '-' . rand(10000, 99999) . '-' . $suffix;
 
             $existingEleve = $this->entityManager->getRepository(Eleves::class)->findOneBy(['matricule' => $matricules]);
             if ($existingEleve === null) {

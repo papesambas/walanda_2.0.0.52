@@ -31,7 +31,7 @@ class UsersFixtures extends Fixture implements DependentFixtureInterface
         $superAdmin->setPassword(
             $this->passwordEncoder->hashPassword($superAdmin, 'superadmin')
         );
-        $superAdmin->setRoles(['ROLE_SUPER_ADMIN']);
+        $superAdmin->setRoles(['ROLE_SUPERADMIN']);
         $manager->persist($superAdmin);
         $this->addReference('user-' . $this->counter, $superAdmin);
         $this->counter++;
@@ -51,18 +51,91 @@ class UsersFixtures extends Fixture implements DependentFixtureInterface
         $this->counter++;
 
         for ($i = 1; $i <= 10; $i++) {
-            $user = new Users();
-            $user->setNom($this->getReference('nom_' . $faker->numberBetween(1, 50)));
-            $user->setPrenom($this->getReference('prenom_' . $faker->numberBetween(1, 100)));
-            $user->setEmail($faker->email);
-            $user->setFullName($faker->lastName() . ' ' . $faker->firstNameMale());
-            $user->setUsername('User' . ' ' . $this->counter);
-            $user->setPassword(
-                $this->passwordEncoder->hashPassword($user, 'secret')
-            );
-            $manager->persist($user);
-            $this->addReference('user-' . $this->counter, $user);
-            $this->counter++;
+            if ($i <= 4) {
+                $user = new Users();
+                $user->setNom($this->getReference('nom_' . $faker->numberBetween(1, 50)));
+                $user->setPrenom($this->getReference('prenom_' . $faker->numberBetween(1, 100)));
+                $user->setEmail($faker->email);
+                $user->setFullName($faker->lastName() . ' ' . $faker->firstNameMale());
+                $user->setRoles(['ROLE_ENSEIGNANT']);
+                $user->setUsername('User' . ' ' . $this->counter);
+                $user->setPassword(
+                    $this->passwordEncoder->hashPassword($user, 'secret')
+                );
+                $manager->persist($user);
+                $this->addReference('user-' . $this->counter, $user);
+                $this->counter++;
+            } elseif ($i > 4 && $i <= 5) {
+                $user = new Users();
+                $user->setNom($this->getReference('nom_' . $faker->numberBetween(1, 50)));
+                $user->setPrenom($this->getReference('prenom_' . $faker->numberBetween(1, 100)));
+                $user->setEmail($faker->email);
+                $user->setFullName($faker->lastName() . ' ' . $faker->firstNameMale());
+                $user->setRoles(['ROLE_SURVEILLANT']);
+                $user->setUsername('User' . ' ' . $this->counter);
+                $user->setPassword(
+                    $this->passwordEncoder->hashPassword($user, 'secret')
+                );
+                $manager->persist($user);
+                $this->addReference('user-' . $this->counter, $user);
+                $this->counter++;
+            } elseif ($i > 5 && $i <= 7) {
+                $user = new Users();
+                $user->setNom($this->getReference('nom_' . $faker->numberBetween(1, 50)));
+                $user->setPrenom($this->getReference('prenom_' . $faker->numberBetween(1, 100)));
+                $user->setEmail($faker->email);
+                $user->setFullName($faker->lastName() . ' ' . $faker->firstNameMale());
+                $user->setRoles(['ROLE_SECRETAIRE']);
+                $user->setUsername('User' . ' ' . $this->counter);
+                $user->setPassword(
+                    $this->passwordEncoder->hashPassword($user, 'secret')
+                );
+                $manager->persist($user);
+                $this->addReference('user-' . $this->counter, $user);
+                $this->counter++;
+            } elseif ($i > 7 && $i <= 8) {
+                $user = new Users();
+                $user->setNom($this->getReference('nom_' . $faker->numberBetween(1, 50)));
+                $user->setPrenom($this->getReference('prenom_' . $faker->numberBetween(1, 100)));
+                $user->setEmail($faker->email);
+                $user->setFullName($faker->lastName() . ' ' . $faker->firstNameMale());
+                $user->setRoles(['ROLE_CAISSIER']);
+                $user->setUsername('User' . ' ' . $this->counter);
+                $user->setPassword(
+                    $this->passwordEncoder->hashPassword($user, 'secret')
+                );
+                $manager->persist($user);
+                $this->addReference('user-' . $this->counter, $user);
+                $this->counter++;
+            } elseif ($i > 8 && $i <= 9) {
+                $user = new Users();
+                $user->setNom($this->getReference('nom_' . $faker->numberBetween(1, 50)));
+                $user->setPrenom($this->getReference('prenom_' . $faker->numberBetween(1, 100)));
+                $user->setEmail($faker->email);
+                $user->setFullName($faker->lastName() . ' ' . $faker->firstNameMale());
+                $user->setRoles(['ROLE_FINANCE']);
+                $user->setUsername('User' . ' ' . $this->counter);
+                $user->setPassword(
+                    $this->passwordEncoder->hashPassword($user, 'secret')
+                );
+                $manager->persist($user);
+                $this->addReference('user-' . $this->counter, $user);
+                $this->counter++;
+            } else {
+                $user = new Users();
+                $user->setNom($this->getReference('nom_' . $faker->numberBetween(1, 50)));
+                $user->setPrenom($this->getReference('prenom_' . $faker->numberBetween(1, 100)));
+                $user->setEmail($faker->email);
+                $user->setFullName($faker->lastName() . ' ' . $faker->firstNameMale());
+                $user->setRoles(['ROLE_DIRECTION']);
+                $user->setUsername('User' . ' ' . $this->counter);
+                $user->setPassword(
+                    $this->passwordEncoder->hashPassword($user, 'secret')
+                );
+                $manager->persist($user);
+                $this->addReference('user-' . $this->counter, $user);
+                $this->counter++;
+            }
         }
 
         $manager->flush();

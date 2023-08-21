@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Users;
 use App\Entity\Eleves;
 use App\Entity\Parents;
 use App\Form\ElevesType;
@@ -9,6 +10,7 @@ use App\Entity\DossierEleves;
 use App\Service\eleveService;
 use App\Entity\FraisScolarites;
 use App\Repository\ElevesRepository;
+use App\Entity\FraisScolaritesAbandon;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\FraisScolairesRepository;
 use App\Repository\FraisScolaritesRepository;
@@ -17,8 +19,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpKernel\Attribute\Cache;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use App\Repository\FraisScolaritesAbandonRepository;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 #[Route('/eleves')]
 class ElevesController extends AbstractController
@@ -35,7 +39,7 @@ class ElevesController extends AbstractController
 
     #[Route('/new', name: 'app_eleves_new', methods: ['GET', 'POST'])]
     #[Cache(vary: ['Accept-Encoding'])] // Met en cache le rendu complet de la page
-    public function new(Request $request, EntityManagerInterface $entityManager, ElevesRepository $elevesRepository, FraisScolairesRepository $fraisScolairesRepository, SluggerInterface $slugger): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $PasswordHasher, ElevesRepository $elevesRepository, FraisScolairesRepository $fraisScolairesRepository, SluggerInterface $slugger): Response
     {
         $elefe = new Eleves();
 
@@ -74,48 +78,32 @@ class ElevesController extends AbstractController
                 $elefe->addDossier($docum);
             }
 
+            $suffix = substr(time(), -4);
+
+            $user = new Users();
+            $password = 'password';
+            $email = "inscription@EMPT.edu";
+            $userNom = $elefe->getNom();
+            $userPrenom = $elefe->getPrenom();
+            $userFullname = $elefe->getNom() . ' ' . $elefe->getPrenom();
+            $username = $elefe->getNom() . ' ' . $elefe->getPrenom() . $suffix;
+            $user->setEmail($email);
+            $user->setFullname($userFullname);
+            $user->setNom($userNom);
+            $user->setPrenom($userPrenom);
+            $user->setPassword($PasswordHasher->hashPassword($user, $password));
+            $user->setUsername($username);
+            $user->setRoles(['ROLE_ELEVE']);
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            $elefe->setUser($user);
+            $user->setEleves($elefe);
+
             $entityManager->persist($elefe);
             $entityManager->flush();
 
-            $elevesNonExonoresSansFraisScolarites = $elevesRepository->findElevesNonExonoresSansFraisScolarites();
-
-            $entityManager->beginTransaction();
-
-            try {
-                foreach ($elevesNonExonoresSansFraisScolarites as $eleve) {
-                    $fraisScolarite = $fraisScolairesRepository->findOneFraisScolariteByNiveauAndStatut($eleve->getClasse()->getNiveau(), $eleve->getStatut());
-
-                    if ($fraisScolarite) {
-                        $nouveauFraisScolarite = new FraisScolarites();
-                        $nouveauFraisScolarite->setEleve($eleve);
-                        $nouveauFraisScolarite->setInscription($fraisScolarite->getFraisInscription());
-                        $nouveauFraisScolarite->setCarnet($fraisScolarite->getFraisCarnet());
-                        $nouveauFraisScolarite->setTransfert($fraisScolarite->getFraisTransfert());
-                        $nouveauFraisScolarite->setSeptembre($fraisScolarite->getSeptembre());
-                        $nouveauFraisScolarite->setOctobre($fraisScolarite->getOctobre());
-                        $nouveauFraisScolarite->setNovembre($fraisScolarite->getNovembre());
-                        $nouveauFraisScolarite->setDecembre($fraisScolarite->getDecembre());
-                        $nouveauFraisScolarite->setJanvier($fraisScolarite->getJanvier());
-                        $nouveauFraisScolarite->setFevrier($fraisScolarite->getFevrier());
-                        $nouveauFraisScolarite->setMars($fraisScolarite->getMars());
-                        $nouveauFraisScolarite->setAvril($fraisScolarite->getAvril());
-                        $nouveauFraisScolarite->setMai($fraisScolarite->getMai());
-                        $nouveauFraisScolarite->setJuin($fraisScolarite->getJuin());
-                        $nouveauFraisScolarite->setAutre($fraisScolarite->getAutres());
-                        $entityManager->persist($nouveauFraisScolarite);
-
-                        $entityManager->persist($nouveauFraisScolarite);
-                    }
-                }
-
-                $entityManager->flush();
-                $entityManager->commit();
-            } catch (\Exception $exception) {
-                $entityManager->rollback();
-                throw $exception;
-            }
-
-            return $this->redirectToRoute('app_eleves_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_eleves_controle_scolarite_non_presente', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('eleves/new.html.twig', [
@@ -135,8 +123,9 @@ class ElevesController extends AbstractController
 
     #[Route('/{slug}/edit', name: 'app_eleves_edit', methods: ['GET', 'POST'])]
     #[Cache(vary: ['Accept-Encoding'])] // Met en cache le rendu complet de la page
-    public function edit(Request $request, Eleves $elefe, ElevesRepository $elevesRepository, FraisScolairesRepository $fraisScolairesRepository, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
+    public function edit(Request $request, Eleves $elefe, UserPasswordHasherInterface $PasswordHasher, ElevesRepository $elevesRepository, FraisScolairesRepository $fraisScolairesRepository, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {
+
         $form = $this->createForm(ElevesType::class, $elefe);
         $form->handleRequest($request);
 
@@ -162,48 +151,32 @@ class ElevesController extends AbstractController
                 $elefe->addDossier($docum);
             }
 
-            $entityManager->flush();
+            $user = $elefe->getUser();
+            if (!$user) {
+                $suffix = substr(time(), -4);
 
-            $elevesNonExonoresSansFraisScolarites = $elevesRepository->findElevesNonExonoresSansFraisScolarites();
-
-            $entityManager->beginTransaction();
-
-            try {
-                foreach ($elevesNonExonoresSansFraisScolarites as $eleve) {
-                    $fraisScolarite = $fraisScolairesRepository->findOneFraisScolariteByNiveauAndStatut($eleve->getClasse()->getNiveau(), $eleve->getStatut());
-
-                    if ($fraisScolarite) {
-                        $nouveauFraisScolarite = new FraisScolarites();
-                        $nouveauFraisScolarite->setEleve($eleve);
-                        $nouveauFraisScolarite->setInscription($fraisScolarite->getFraisInscription());
-                        $nouveauFraisScolarite->setCarnet($fraisScolarite->getFraisCarnet());
-                        $nouveauFraisScolarite->setTransfert($fraisScolarite->getFraisTransfert());
-                        $nouveauFraisScolarite->setSeptembre($fraisScolarite->getSeptembre());
-                        $nouveauFraisScolarite->setOctobre($fraisScolarite->getOctobre());
-                        $nouveauFraisScolarite->setNovembre($fraisScolarite->getNovembre());
-                        $nouveauFraisScolarite->setDecembre($fraisScolarite->getDecembre());
-                        $nouveauFraisScolarite->setJanvier($fraisScolarite->getJanvier());
-                        $nouveauFraisScolarite->setFevrier($fraisScolarite->getFevrier());
-                        $nouveauFraisScolarite->setMars($fraisScolarite->getMars());
-                        $nouveauFraisScolarite->setAvril($fraisScolarite->getAvril());
-                        $nouveauFraisScolarite->setMai($fraisScolarite->getMai());
-                        $nouveauFraisScolarite->setJuin($fraisScolarite->getJuin());
-                        $nouveauFraisScolarite->setAutre($fraisScolarite->getAutres());
-                        $entityManager->persist($nouveauFraisScolarite);
-
-                        $entityManager->persist($nouveauFraisScolarite);
-                    }
-                }
-
+                $user = new Users();
+                $password = 'password';
+                $email = "inscription@EMPT.edu";
+                $userNom = $elefe->getNom();
+                $userPrenom = $elefe->getPrenom();
+                $userFullname = $elefe->getNom() . ' ' . $elefe->getPrenom();
+                $username = $elefe->getNom() . ' ' . $elefe->getPrenom() . $suffix;
+                $user->setEmail($email);
+                $user->setFullname($userFullname);
+                $user->setNom($userNom);
+                $user->setPrenom($userPrenom);
+                $user->setPassword($PasswordHasher->hashPassword($user, $password));
+                $user->setUsername($username);
+                $user->setRoles(['ROLE_ELEVE']);
+                $entityManager->persist($user);
                 $entityManager->flush();
-                $entityManager->commit();
-            } catch (\Exception $exception) {
-                $entityManager->rollback();
-                throw $exception;
+
+                $elefe->setUser($user);
+                $user->setEleves($elefe);
             }
 
-
-            return $this->redirectToRoute('app_eleves_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_eleves_controle_scolarite_non_presente', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('eleves/edit.html.twig', [
@@ -245,44 +218,178 @@ class ElevesController extends AbstractController
         }
     }
 
-    #[Route('/fin/annee', name: 'app_eleves_cloture', methods: ['GET'])]
+    #[Route('/controle/scolarite/presence/1', name: 'app_eleves_controle_scolarite_non_presente', methods: ['GET', 'POST'])]
     #[Cache(vary: ['Accept-Encoding'])] // Met en cache le rendu complet de la page
-    public function cloture(
-        Request $request,
+    public function controle(
+        eleveService $eleveService,
         ElevesRepository $elevesRepository,
-        FraisScolairesRepository $fraisScolairesRepository,
         EntityManagerInterface $entityManager,
-        SluggerInterface $slugger,
-        FraisScolaritesRepository $fraisScolaritesRepository
+        FraisScolairesRepository $fraisScolairesRepository
     ): Response {
-        $elevesPresents = $elevesRepository->findElevesNonExonoresAvecFraisScolarites();
+        $elevesNonExonoresSansFraisScolarites = $elevesRepository->findElevesNonExonoresSansFraisScolarites();
         $entityManager->beginTransaction();
 
         try {
-            foreach ($elevesPresents as $elefe) {
-                $fraisScolaritesEleves =  $fraisScolaritesRepository->findByEleve($elefe);
-                $fraisScolarite = new FraisScolarites();
-                $insciption = $fraisScolaritesEleves->getInscription();
-                $carnet = $fraisScolaritesEleves->getCarnet();
-                $transfert = $fraisScolaritesEleves->getTransfert();
-                $Septembre = $fraisScolaritesEleves->getSeptembre();
-                $Octobre = $fraisScolaritesEleves->getOctobre();
-                $Novembre = $fraisScolaritesEleves->getNovembre();
-                $Decembre = $fraisScolaritesEleves->getDecembre();
-                $Janvier = $fraisScolaritesEleves->getJanvier();
-                $Fevrier = $fraisScolaritesEleves->getFevrier();
-                $Mars = $fraisScolaritesEleves->getMars();
-                $Avril = $fraisScolaritesEleves->getAvril();
-                $Mai = $fraisScolaritesEleves->getMai();
-                $Juin = $fraisScolaritesEleves->getJuin();
-                $Autre = $fraisScolaritesEleves->getAutre();
+            foreach ($elevesNonExonoresSansFraisScolarites as $eleve) {
+                $fraisScolaire = $fraisScolairesRepository->findOneFraisScolariteByNiveauAndStatut($eleve->getClasse()->getNiveau(), $eleve->getStatut());
+                $resultats[] = $fraisScolaire;
 
-                $total = $insciption + $carnet + $transfert + $Septembre + $Octobre + $Novembre + $Decembre + $Janvier + $Fevrier + $Mars + $Avril + $Mai + $Juin + $Autre; // Ajouter l'élément à notre tableau
-                $fraisScolaritesEleves->setArrieres(0);
-                //$fraisScolaritesRepository->save($fraisScolarite, true);
+                if ($fraisScolaire) {
+                    $nouveauFraisScolarite = new FraisScolarites();
+                    $nouveauFraisScolarite->setEleve($eleve);
+                    $nouveauFraisScolarite->setInscription($fraisScolaire->getFraisInscription());
+                    $nouveauFraisScolarite->setCarnet($fraisScolaire->getFraisCarnet());
+                    $nouveauFraisScolarite->setTransfert($fraisScolaire->getFraisTransfert());
+                    $nouveauFraisScolarite->setSeptembre($fraisScolaire->getSeptembre());
+                    $nouveauFraisScolarite->setOctobre($fraisScolaire->getOctobre());
+                    $nouveauFraisScolarite->setNovembre($fraisScolaire->getNovembre());
+                    $nouveauFraisScolarite->setDecembre($fraisScolaire->getDecembre());
+                    $nouveauFraisScolarite->setJanvier($fraisScolaire->getJanvier());
+                    $nouveauFraisScolarite->setFevrier($fraisScolaire->getFevrier());
+                    $nouveauFraisScolarite->setMars($fraisScolaire->getMars());
+                    $nouveauFraisScolarite->setAvril($fraisScolaire->getAvril());
+                    $nouveauFraisScolarite->setMai($fraisScolaire->getMai());
+                    $nouveauFraisScolarite->setJuin($fraisScolaire->getJuin());
+                    $nouveauFraisScolarite->setAutre($fraisScolaire->getAutres());
+                    $entityManager->persist($nouveauFraisScolarite);
+
+                    $entityManager->persist($nouveauFraisScolarite);
+                }
             }
 
-            //dd($total);            
+            $entityManager->flush();
+            $entityManager->commit();
+        } catch (\Exception $exception) {
+            $entityManager->rollback();
+            throw $exception;
+        }
+
+        return $this->redirectToRoute('app_eleves_controle_scolarite_presente_exonore', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/controle/scolarite/presence/2', name: 'app_eleves_controle_scolarite_presente_exonore', methods: ['GET', 'POST'])]
+    #[Cache(vary: ['Accept-Encoding'])] // Met en cache le rendu complet de la page
+    public function controle2(
+        eleveService $eleveService,
+        ElevesRepository $elevesRepository,
+        EntityManagerInterface $entityManager,
+        FraisScolaritesRepository $fraisScolaritesRepository
+    ): Response {
+        $elevesExonoresFraisScolarites = $elevesRepository->findElevesExonoresAvecFraisScolarites();
+        $entityManager->beginTransaction();
+
+        try {
+            foreach ($elevesExonoresFraisScolarites as $eleve) {
+
+                $fraisScolaire = $fraisScolaritesRepository->findByEleve($eleve);
+
+
+                if ($fraisScolaire) {
+                    // Supprimer l'entité fraisScolaire
+                    $entityManager->remove($fraisScolaire);
+                    $entityManager->flush();
+                }
+            }
+
+            $entityManager->flush();
+            $entityManager->commit();
+        } catch (\Exception $exception) {
+            $entityManager->rollback();
+            throw $exception;
+        }
+
+        return $this->redirectToRoute('app_eleves_controle_scolarite_presente_inactif', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/controle/scolarite/presence/3', name: 'app_eleves_controle_scolarite_presente_inactif', methods: ['GET', 'POST'])]
+    #[Cache(vary: ['Accept-Encoding'])] // Met en cache le rendu complet de la page
+    public function controle3(
+        eleveService $eleveService,
+        ElevesRepository $elevesRepository,
+        EntityManagerInterface $entityManager,
+        FraisScolaritesRepository $fraisScolaritesRepository
+    ): Response {
+        $elevesInactifFraisScolarites = $elevesRepository->findElevesInactifAvecFraisScolarites();
+        $entityManager->beginTransaction();
+        try {
+            foreach ($elevesInactifFraisScolarites as $eleve) {
+                $fraisScolaire = $fraisScolaritesRepository->findByEleve($eleve);
+
+                if ($fraisScolaire) {
+                    $arriere = $fraisScolaire->getArrieres();
+                    $inscription = $fraisScolaire->getInscription();
+                    $carnet = $fraisScolaire->getCarnet();
+                    $transfert = $fraisScolaire->getTransfert();
+                    $sept = $fraisScolaire->getSeptembre();
+                    $oct = $fraisScolaire->getOctobre();
+                    $nov = $fraisScolaire->getNovembre();
+                    $dec = $fraisScolaire->getDecembre();
+                    $janv = $fraisScolaire->getJanvier();
+                    $fev = $fraisScolaire->getFevrier();
+                    $mars = $fraisScolaire->getMars();
+                    $avr = $fraisScolaire->getAvril();
+                    $mai = $fraisScolaire->getMai();
+                    $juin = $fraisScolaire->getJuin();
+                    $autre = $fraisScolaire->getAutre();
+                    $total = $arriere + $inscription + $carnet + $transfert + $sept + $oct + $nov + $dec + $janv + $fev + $mars + $avr + $mai + $juin + $autre;
+
+                    if ($total > 0) {
+                        $abandon = new FraisScolaritesAbandon();
+                        $abandon->setEleve($eleve);
+                        $abandon->setArrieres($arriere);
+                        $abandon->setInscription($inscription);
+                        $abandon->setCarnet($carnet);
+                        $abandon->setTransfert($transfert);
+                        $abandon->setSeptembre($sept);
+                        $abandon->setOctobre($oct);
+                        $abandon->setNovembre($nov);
+                        $abandon->setDecembre($dec);
+                        $abandon->setJanvier($janv);
+                        $abandon->setFevrier($fev);
+                        $abandon->setMars($mars);
+                        $abandon->setAvril($avr);
+                        $abandon->setMai($mai);
+                        $abandon->setJuin($juin);
+
+                        $entityManager->persist($abandon);
+                    }
+                }
+                //on supprime des frais scolaires l'élève ayant abandonné
+                $entityManager->remove($fraisScolaire);
+            }
+
+            $entityManager->flush();
+            $entityManager->commit();
+        } catch (\Exception $exception) {
+            $entityManager->rollback();
+            throw $exception;
+        }
+
+        return $this->redirectToRoute('app_eleves_controle_scolarite_reintegre_actif', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/controle/scolarite/presence/4', name: 'app_eleves_controle_scolarite_reintegre_actif', methods: ['GET', 'POST'])]
+    #[Cache(vary: ['Accept-Encoding'])] // Met en cache le rendu complet de la page
+    public function controle4(
+        eleveService $eleveService,
+        ElevesRepository $elevesRepository,
+        EntityManagerInterface $entityManager,
+        FraisScolaritesRepository $fraisScolaritesRepository,
+        FraisScolaritesAbandonRepository $fraisScolaritesAbandonRepository,
+    ): Response {
+        $elevesactifReintegrer = $elevesRepository->findElevesActifSansFraisScolarites();
+
+        $entityManager->beginTransaction();
+        try {
+            foreach ($elevesactifReintegrer as $eleve) {
+                $fraisScolaire = $fraisScolaritesAbandonRepository->findByEleve($eleve);
+
+                if ($fraisScolaire) {
+                    // Supprimer l'entité fraisScolaire
+                    $entityManager->remove($fraisScolaire);
+                }
+            }
+
             $entityManager->flush();
             $entityManager->commit();
         } catch (\Exception $exception) {

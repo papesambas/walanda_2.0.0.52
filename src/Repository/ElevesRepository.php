@@ -145,7 +145,50 @@ class ElevesRepository extends ServiceEntityRepository
             ->andWhere('e.statutFinance != :statut')
             ->andWhere('e.isActif = :isActif')
             ->andWhere('e.isAdmis = :isAdmis')
-            ->andWhere('f.id IS NOT NULL') // Vérifie que l'élève n'a pas de frais scolarités associés
+            ->andWhere('f.id IS NOT NULL') // Vérifie que l'élève a pas des frais scolarités associés
+            ->setParameter('statut', 'exonore')
+            ->setParameter('isActif', true)
+            ->setParameter('isAdmis', true)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findElevesExonoresAvecFraisScolarites()
+    {
+        return $this->createQueryBuilder('e')
+            ->leftJoin('e.fraisScolarites', 'f')
+            ->andWhere('e.statutFinance = :statut')
+            ->andWhere('e.isActif = :isActif')
+            ->andWhere('f.id IS NOT NULL') // Vérifie que l'élève a des frais scolaires associés
+            ->setParameter('statut', 'exonore')
+            ->setParameter('isActif', true)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findElevesInactifAvecFraisScolarites()
+    {
+        return $this->createQueryBuilder('e')
+            ->leftJoin('e.fraisScolarites', 'f')
+            ->andWhere('e.statutFinance != :statut')
+            ->andWhere('e.isActif = :isActif')
+            ->andWhere('e.isAdmis = :isAdmis')
+            ->andWhere('f.id IS NOT NULL') // Vérifie que l'élève a pas des frais scolarités associés
+            ->setParameter('statut', 'exonore')
+            ->setParameter('isActif', false)
+            ->setParameter('isAdmis', true)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findElevesActifSansFraisScolarites()
+    {
+        return $this->createQueryBuilder('e')
+            ->leftJoin('e.fraisScolaritesAbandon', 'f')
+            ->andWhere('e.statutFinance != :statut')
+            ->andWhere('e.isActif = :isActif')
+            ->andWhere('e.isAdmis = :isAdmis')
+            ->andWhere('f.id IS Not NULL') // Vérifie que l'élève a pas des frais scolarités associés
             ->setParameter('statut', 'exonore')
             ->setParameter('isActif', true)
             ->setParameter('isAdmis', true)

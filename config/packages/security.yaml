@@ -37,8 +37,59 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+         - { path: ^/admin, roles: ROLE_ADMIN }
+         - { path: ^/blog, roles: ROLE_USER }
+         - { path: ^/cercles, roles: ROLE_ADMIN }
+         - { path: ^/classes, roles: ROLE_USER }
+         - { path: ^/cloture, roles: ROLE_ADMIN }
+         - { path: ^/communes, roles: ROLE_ADMIN }
+         - { path: ^/cycles, roles: ROLE_ADMIN }
+         - { path: ^/departements, roles: ROLE_ADMIN }
+         - { path: ^/departs, roles: ROLE_ADMIN }
+         - { path: ^/echeances, roles: ROLE_ADMIN }
+         - { path: ^/ecole/provenances, roles: ROLE_SECRETAIRE }
+         - { path: ^/eleves, roles: ROLE_SECRETAIRE }
+         - { path: ^/enseignements, roles: ROLE_ADMIN }
+         - { path: ^/etablissements, roles: ROLE_ADMIN }
+         - { path: ^/frais/scolaires, roles: ROLE_ADMIN }
+         - { path: ^/lieu/naissances, roles: ROLE_SECRETAIRE }
+         - { path: ^/meres, roles: ROLE_SECRETAIRE }
+         - { path: ^/ninas, roles: ROLE_ADMIN }
+         - { path: ^/niveaux, roles: ROLE_ADMIN }
+         - { path: ^/noms, roles: ROLE_SECRETAIRE }
+         - { path: ^/parents, roles: ROLE_SECRETAIRE }
+         - { path: ^/peres, roles: ROLE_SECRETAIRE }
+         - { path: ^/prenoms, roles: ROLE_SECRETAIRE }
+         - { path: ^/professions, roles: ROLE_SECRETAIRE }
+         - { path: ^/regions, roles: ROLEROLE_ADMIN_USER }
+         - { path: ^/registration, roles: ROLE_ADMIN }
+         - { path: ^/reset/password, roles: ROLE_ADMIN }
+         - { path: ^/santes, roles: ROLE_SECRETAIRE }
+         - { path: ^/statuts, roles: ROLE_SECRETAIRE }
+         - { path: ^/telephones, roles: ROLE_SECRETAIRE }
+         #- { path: ^/profile, roles: ROLE_USER }
+         #- { path: ^/profile, roles: ROLE_USER }
+         #- { path: ^/profile, roles: ROLE_USER }
+         #- { path: ^/profile, roles: ROLE_USER }
+         #- { path: ^/profile, roles: ROLE_USER }
+         #- { path: ^/profile, roles: ROLE_USER }
+         #- { path: ^/profile, roles: ROLE_USER }
+         #- { path: ^/profile, roles: ROLE_USER }
+
+
+
+
+
+    role_hierarchy:
+        ROLE_EDUCATEUR: ROLE_USER
+        ROLE_SECRETAIRE: ROLE_USER
+        ROLE_SURVEILLANT: ROLE_EDUCATEUR
+        ROLE_CAISSE: ROLE_SECRETAIRE
+        ROLE_COMPTABLE: ROLE_CAISSE
+        ROLE_FINANCE: ROLE_COMPTABLE
+        ROLE_DIRECTION: [ROLE_SURVEILLANT, ROLE_SECRETAIRE]
+        ROLE_ADMIN: [ROLE_DIRECTION, ROLE_CAISSE]
+        ROLE_SUPERADMIN: [ROLE_ADMIN, ROLE_FINANCE]
 
 when@test:
     security:

@@ -82,8 +82,8 @@ class NiveauxMaternelleFixtures extends Fixture implements DependentFixtureInter
                         for ($a = 1; $a <= 1; $a++) {
                             $frais = new FraisScolaires();
                             $frais->setAutres(0);
-                            $frais->setFraisInscription(0);
-                            $frais->setFraisCarnet(0);
+                            $frais->setFraisInscription(5000);
+                            $frais->setFraisCarnet(1000);
                             $frais->setFraisTransfert(0);
                             $frais->setSeptembre(0);
                             $frais->setOctobre(10000);
@@ -108,8 +108,8 @@ class NiveauxMaternelleFixtures extends Fixture implements DependentFixtureInter
                         for ($a = 1; $a <= 1; $a++) {
                             $frais = new FraisScolaires();
                             $frais->setAutres(0);
-                            $frais->setFraisInscription(0);
-                            $frais->setFraisCarnet(0);
+                            $frais->setFraisInscription(5000);
+                            $frais->setFraisCarnet(1000);
                             $frais->setFraisTransfert(0);
                             $frais->setSeptembre(0);
                             $frais->setOctobre(10000);
@@ -202,8 +202,8 @@ class NiveauxMaternelleFixtures extends Fixture implements DependentFixtureInter
                         for ($a = 1; $a <= 1; $a++) {
                             $frais = new FraisScolaires();
                             $frais->setAutres(0);
-                            $frais->setFraisInscription(0);
-                            $frais->setFraisCarnet(0);
+                            $frais->setFraisInscription(5000);
+                            $frais->setFraisCarnet(1000);
                             $frais->setFraisTransfert(0);
                             $frais->setSeptembre(0);
                             $frais->setOctobre(10000);
@@ -228,8 +228,8 @@ class NiveauxMaternelleFixtures extends Fixture implements DependentFixtureInter
                         for ($a = 1; $a <= 1; $a++) {
                             $frais = new FraisScolaires();
                             $frais->setAutres(0);
-                            $frais->setFraisInscription(0);
-                            $frais->setFraisCarnet(0);
+                            $frais->setFraisInscription(5000);
+                            $frais->setFraisCarnet(1000);
                             $frais->setFraisTransfert(0);
                             $frais->setSeptembre(0);
                             $frais->setOctobre(10000);
@@ -322,8 +322,8 @@ class NiveauxMaternelleFixtures extends Fixture implements DependentFixtureInter
                         for ($a = 1; $a <= 1; $a++) {
                             $frais = new FraisScolaires();
                             $frais->setAutres(0);
-                            $frais->setFraisInscription(0);
-                            $frais->setFraisCarnet(0);
+                            $frais->setFraisInscription(5000);
+                            $frais->setFraisCarnet(1000);
                             $frais->setFraisTransfert(0);
                             $frais->setSeptembre(0);
                             $frais->setOctobre(10000);
@@ -348,8 +348,8 @@ class NiveauxMaternelleFixtures extends Fixture implements DependentFixtureInter
                         for ($a = 1; $a <= 1; $a++) {
                             $frais = new FraisScolaires();
                             $frais->setAutres(0);
-                            $frais->setFraisInscription(0);
-                            $frais->setFraisCarnet(0);
+                            $frais->setFraisInscription(5000);
+                            $frais->setFraisCarnet(1000);
                             $frais->setFraisTransfert(0);
                             $frais->setSeptembre(0);
                             $frais->setOctobre(10000);

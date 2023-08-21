@@ -209,9 +209,9 @@ class ElevesType extends AbstractType
                 'expanded' => true,
                 'multiple' => false,
                 'choices' => [
-                    'privé(e)' => 'Privé(e)',
+                    'privé' => 'Privé',
                     'boursier' => 'Boursier',
-                    'exonoré(e)' => 'Exonoré(e)'
+                    'exonoré' => 'Exonoré'
                 ],
                 'label_attr' => [
                     'class' => 'radio-inline'
@@ -237,7 +237,7 @@ class ElevesType extends AbstractType
             ])
             ->add('santes', CollectionType::class, [
                 'entry_type' => SantesType::class,
-                'entry_options' => ['label' => true],
+                'entry_options' => ['label' => false],
                 'by_reference' => false,
                 'allow_add' => true,
                 'allow_delete' => true,
@@ -245,7 +245,7 @@ class ElevesType extends AbstractType
             ])
             ->add('departs', CollectionType::class, [
                 'entry_type' => DepartsType::class,
-                'entry_options' => ['label' => true],
+                'entry_options' => ['label' => false],
                 'by_reference' => false,
                 'allow_add' => true,
                 'allow_delete' => true,

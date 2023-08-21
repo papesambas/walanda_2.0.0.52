@@ -150,7 +150,7 @@ class MeresController extends AbstractController
 
             $this->addFlash('danger', 'Le téléphone sollicité pour une mère, est déjà associé à un père');
             $response = new JsonResponse([
-                'errorTel' => '',
+                'errorTel' => 'Le téléphone sollicité pour une mère, est déjà associé à un père',
                 'mereId' => $mereId,
                 'nomId' => $nomId,
                 'prenomId' => $prenomId,
@@ -169,7 +169,7 @@ class MeresController extends AbstractController
             return $response;
         } elseif ($mere == null && $pere == null && $telephone !== null) {
             return new JsonResponse([
-                'error' => 'Le téléphone existe, mais il n\'a pas de mère associée.',
+                'errorTele' => 'Le téléphone existe, mais il n\'a pas de mère associée.',
                 'telephoneId' => $telephone->getId(),
                 'telephone' => $telephone->getNumero(),
 

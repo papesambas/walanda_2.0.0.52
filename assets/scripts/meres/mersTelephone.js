@@ -86,6 +86,15 @@ function select2Function() {
                             location.reload();
                         }, 200);
                     }
+                    if (data.errorTele) {
+                        alert(data.errorTele);
+                        $('#parents_recherche_mere_nom').empty().append($('<option></option>').attr('value', data.nomId).text(data.nom));
+                        $('#parents_recherche_mere_prenom').empty().append($('<option></option>').attr('value', data.prenomId).text(data.prenom));
+                        $('#parents_recherche_mere_profession').empty().append($('<option></option>').attr('value', data.professionId).text(data.profession));
+                        $('#parents_recherche_mere_telephone').empty().append($('<option></option>').attr('value', data.telephoneId).text(data.telephone));
+                        $('#parents_recherche_mere_nina').empty().append($('<option></option>').attr('value', data.ninaId).text(data.nina));
+                    }
+
                 })
             }
         });

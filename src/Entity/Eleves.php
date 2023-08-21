@@ -38,7 +38,7 @@ class Eleves
     private ?string $sexe = "Masculin";
 
     #[ORM\Column(length: 8)]
-    private ?string $statutFinance = "privé(e)";
+    private ?string $statutFinance = "Privé";
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $dateNaissance = null;
@@ -123,6 +123,8 @@ class Eleves
     private ?Redoublements3 $redoublement3 = null;
 
     #[ORM\OneToOne(inversedBy: 'eleves', cascade: ['persist', 'remove'])]
+    #[Assert\Valid]
+
     private ?Users $user = null;
 
     #[ORM\OneToMany(mappedBy: 'eleves', targetEntity: DossierEleves::class, cascade: ['persist', 'remove'])]
@@ -144,7 +146,6 @@ class Eleves
     private Collection $santes;
 
     #[ORM\OneToMany(mappedBy: 'eleve', targetEntity: Departs::class, cascade: ['persist'])]
-    #[Assert\Count(max: 1)]
     private Collection $departs;
 
     public function __construct()

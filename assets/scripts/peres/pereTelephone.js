@@ -89,17 +89,27 @@ function select2Function() {
                             location.reload();
                         }, 200);
                     }
+                    if (data.errorTele) {
+                        alert(data.errorTele);
+                        $('#parents_recherche_pere_nom').empty().append($('<option></option>').attr('value', data.nomId).text(data.nom));
+                        $('#parents_recherche_pere_prenom').empty().append($('<option></option>').attr('value', data.prenomId).text(data.prenom));
+                        $('#parents_recherche_pere_profession').empty().append($('<option></option>').attr('value', data.professionId).text(data.profession));
+                        $('#parents_recherche_pere_telephone').empty().append($('<option></option>').attr('value', data.telephoneId).text(data.telephone));
+                        $('#parents_recherche_pere_nina').empty().append($('<option></option>').attr('value', data.ninaId).text(data.nina));
+                    }
+
                 })
             }
         });
         // Réinitialiser les champs Select2 lorsque la valeur de #parents_recherche_pere_telephone change
         $('#parents_recherche_SearchPere').on('change', function () {
-            console.log("SearchPere change event triggered");
-            $('#parents_recherche_pere_nom').select2('val', null);
-            $('#parents_recherche_pere_prenom').select2('val', null);
-            $('#parents_recherche_pere_profession').select2('val', null);
-            $('#parents_recherche_pere_telephone').select2('val', null);
-            $('#parents_recherche_pere_nina').select2('val', null);
+            setTimeout(function () {
+                $('#parents_recherche_pere_nom').select2('val', null);
+                $('#parents_recherche_pere_prenom').select2('val', null);
+                $('#parents_recherche_pere_profession').select2('val', null);
+                $('#parents_recherche_pere_telephone').select2('val', null);
+                $('#parents_recherche_pere_nina').select2('val', null);
+            }, 100); // Délay en millisecondes
         });
     });
 }
