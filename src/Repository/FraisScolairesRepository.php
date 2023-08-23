@@ -2,9 +2,11 @@
 
 namespace App\Repository;
 
+use App\Entity\Classes;
+use Doctrine\ORM\Query;
 use App\Entity\FraisScolaires;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<FraisScolaires>
@@ -32,7 +34,6 @@ class FraisScolairesRepository extends ServiceEntityRepository
 
         return $qb->getOneOrNullResult();
     }
-
 
 
 

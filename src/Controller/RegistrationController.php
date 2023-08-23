@@ -89,4 +89,29 @@ class RegistrationController extends AbstractController
 
         return $this->redirectToRoute('app_home');
     }
+
+    #[Route('/reverify/email/{id}', name: 'app_reverify_email')]
+    public function reverifyUserEmail(Request $request, Users $user): Response
+    {
+
+        // Vérifiez si l'utilisateur a déjà vérifié son e-mail. Si oui, redirigez-le.
+        if ($user->isIsVerified()) {
+            return $this->redirectToRoute('app_home'); // Redirigez selon votre logique.
+        }
+
+        // Générez et envoyez un nouvel e-mail de confirmation.
+        $this->emailVerifier->sendEmailConfirmation(
+            'app_verify_email',
+            $user,
+            (new TemplatedEmail())
+                ->from(new Address('empt@gmail.com', 'Walanda'))
+                ->to($user->getEmail())
+                ->subject('Please Confirm your Email')
+                ->htmlTemplate('registration/confirmation_email.html.twig')
+        );
+
+        $this->addFlash('success', 'A new confirmation email has been sent. Please check your inbox.');
+
+        return $this->redirectToRoute('app_home'); // Redirigez selon votre logique.
+    }
 }

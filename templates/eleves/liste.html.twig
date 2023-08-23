@@ -98,7 +98,7 @@
                     {#<td>{{ elefe.isEnregistrer ? 'Yes' : 'No' }}</td>#}
                     {% if app.request.attributes.get('_route')!= 'app_classes_show' %}
                         <td>
-                            <a class="text-danger text-decoration-none " href="{{ path('app_classes_show', {'slug': elefe.classe.slug}) }}">{{ elefe.classe }}</a>
+                            <a class="text-danger text-decoration-none" href="{{ path('app_classes_show', {'slug': elefe.classe.slug}) }}">{{ elefe.classe }}</a>
                         </td>
                     {% endif %}
                     {#<td>{{ elefe.isAdmis ? 'Yes' : 'No' }}</td>#}

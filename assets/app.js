@@ -20,6 +20,7 @@ import $ from 'jquery';
 window.$ = window.jQuery = $;
 
 import './scripts/select2';
+import './scripts/clickTable';
 import './scripts/peres/pereTelephone';
 import './scripts/meres/mersTelephone';
 

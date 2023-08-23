@@ -2,9 +2,11 @@
 
 namespace App\Repository;
 
+use App\Entity\Classes;
+use Doctrine\ORM\Query;
 use App\Entity\FraisScolarites;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<FraisScolarites>
@@ -47,6 +49,22 @@ class FraisScolaritesRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+
+    public function findForPagination(?Classes $classes): Query
+    {
+        $qb = $this->createQueryBuilder('f')
+            ->leftJoin('f.eleve', 'e')
+            ->orderBy('e.fullname', 'ASC');
+
+        if ($classes) {
+            $qb->leftJoin('e.classe', 'c')
+                ->OrderBy('c.designation', 'ASC')
+                ->andWhere('c.id = :classeId')
+                ->setParameter('classeId', $classes->getId());
+        }
+        return $qb->getQuery();
+    }
+
 
 
 

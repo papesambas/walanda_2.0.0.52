@@ -8,6 +8,7 @@ use App\Form\FraisScolaritesType;
 use App\Repository\ElevesRepository;
 use App\Repository\FraisScolairesRepository;
 use App\Repository\FraisScolaritesRepository;
+use App\Service\fraisScolaritesService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,10 +19,11 @@ use Symfony\Component\Routing\Annotation\Route;
 class FraisScolaritesController extends AbstractController
 {
     #[Route('/', name: 'app_frais_scolarites_index', methods: ['GET'])]
-    public function index(FraisScolaritesRepository $fraisScolaritesRepository): Response
+    public function index(fraisScolaritesService $fraisScolaritesService): Response
     {
+        $frais = $fraisScolaritesService->getPaginatedEleves();
         return $this->render('frais_scolarites/index.html.twig', [
-            'frais_scolarites' => $fraisScolaritesRepository->findAll(),
+            'frais_scolarites' => $frais,
         ]);
     }
 

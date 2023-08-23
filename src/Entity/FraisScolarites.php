@@ -78,6 +78,7 @@ class FraisScolarites
     private ?int $autre = null;
 
     #[ORM\Column(nullable: true)]
+    #[Assert\PositiveOrZero]
     private ?int $arrieres = null;
 
     public function getId(): ?int

@@ -29,6 +29,16 @@ services:
             $requestStack: '@request_stack'
             $elevesRepos: '@App\Repository\ElevesRepository'
             $paginator: '@knp_paginator'
+    App\Service\fraisScolaritesService:
+        arguments:
+            $requestStack: '@request_stack'
+            $fraisScolaritesRepos: '@App\Repository\FraisScolaritesRepository'
+            $paginator: '@knp_paginator'
+    App\Service\parentService:
+        arguments:
+            $requestStack: '@request_stack'
+            $parentsRepos: '@App\Repository\ParentsRepository'
+            $paginator: '@knp_paginator'
             
     App\EventListener\anneeScolairesEntityListener:
             tags:

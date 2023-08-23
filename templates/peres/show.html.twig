@@ -24,7 +24,11 @@
                         {% for parent in pere.parents %}
                             <div class="col-md-6">
                                 <div class="card mb-3">
-                                    <div class="card-header">{{ parent.mere.fullname }}</div>
+                                    <div class="card-header">
+                                        <a class="text-decoration-none" href="{{ path('app_meres_show', { 'slug': parent.mere.slug }) }}">
+                                            {{ parent.mere.fullname }}
+                                        </a>
+                                    </div>
                                     <div class="card-body">
                                         <table class="table table-hover table-sm">
                                             <thead>
@@ -35,7 +39,7 @@
                                             </thead>
                                             <tbody>
                                                 {% for eleve in parent.eleves %}
-                                                    <tr>
+                                                    <tr class="table-link" data-href="{{ path('app_eleves_show', { 'slug': eleve.slug }) }}">
                                                         <td>{{ eleve.fullname }}</td>
                                                         <td>{{ eleve.classe }}</td>
                                                     </tr>
