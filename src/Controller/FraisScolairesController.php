@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\FraisScolaires;
-use App\Form\FraisScolairesType;
+use App\Form\FraisScolaires1Type;
 use App\Repository\FraisScolairesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -26,7 +26,7 @@ class FraisScolairesController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $fraisScolaire = new FraisScolaires();
-        $form = $this->createForm(FraisScolairesType::class, $fraisScolaire);
+        $form = $this->createForm(FraisScolaires1Type::class, $fraisScolaire);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -53,7 +53,7 @@ class FraisScolairesController extends AbstractController
     #[Route('/{id}/edit', name: 'app_frais_scolaires_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, FraisScolaires $fraisScolaire, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(FraisScolairesType::class, $fraisScolaire);
+        $form = $this->createForm(FraisScolaires1Type::class, $fraisScolaire);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

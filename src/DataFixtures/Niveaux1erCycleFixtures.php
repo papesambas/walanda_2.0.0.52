@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 use Faker;
 use App\Entity\Niveaux;
 use App\Entity\Statuts;
+use App\Entity\FraisType;
 use App\Entity\FraisScolaires;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -27,25 +28,136 @@ class Niveaux1erCycleFixtures extends Fixture implements DependentFixtureInterfa
                         $statut = new Statuts();
                         $statut->setDesignation('1ère Inscription');
                         $statut->setNiveau($niveau);
-                        for ($a = 1; $a <= 1; $a++) {
-                            $frais = new FraisScolaires();
-                            $frais->setAutres(0);
-                            $frais->setFraisInscription(5000);
-                            $frais->setFraisCarnet(1000);
-                            $frais->setFraisTransfert(0);
-                            $frais->setSeptembre(0);
-                            $frais->setOctobre(10000);
-                            $frais->setNovembre(10000);
-                            $frais->setDecembre(10000);
-                            $frais->setJanvier(10000);
-                            $frais->setFevrier(10000);
-                            $frais->setMars(10000);
-                            $frais->setAvril(5000);
-                            $frais->setMai(0);
-                            $frais->setJuin(0);
-                            $frais->setNiveau($niveau);
-                            $frais->setStatut($statut);
-                            $manager->persist($frais);
+                        for ($j = 1; $j <= 1; $j++) {
+                            $fraisType = new FraisType();
+                            $fraisType->setPeriode('mensuel');
+                            $fraisType->setNiveau($niveau);
+                            $fraisType->setStatut($statut);
+                            for ($a = 1; $a <= 15; $a++) {
+                                $frais = new FraisScolaires();
+                                if ($a == 1) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('Inscription');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(5000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 2) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('carnet');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(1000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 3) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('transfert');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 4) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('septembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 5) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(1, 1));
+                                    $frais->setDesignation('octobre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 6) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(2, 2));
+                                    $frais->setDesignation('novembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 7) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(3, 3));
+                                    $frais->setDesignation('decembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 8) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(4, 4));
+                                    $frais->setDesignation('janvier');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 9) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(5, 5));
+                                    $frais->setDesignation('février');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 10) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(6, 6));
+                                    $frais->setDesignation('mars');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 11) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(7, 7));
+                                    $frais->setDesignation('avril');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(5000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 12) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(8, 8));
+                                    $frais->setDesignation('mai');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 13) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('juin');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 14) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('autre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 15) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('arriérés');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                }
+                            }
+                            $manager->persist($fraisType);
                         }
                         $manager->persist($statut);
                         $this->addReference('statut1ere_' . $i, $statut);
@@ -53,51 +165,275 @@ class Niveaux1erCycleFixtures extends Fixture implements DependentFixtureInterfa
                         $statut = new Statuts();
                         $statut->setDesignation('Passant');
                         $statut->setNiveau($niveau);
-                        for ($a = 1; $a <= 1; $a++) {
-                            $frais = new FraisScolaires();
-                            $frais->setAutres(0);
-                            $frais->setFraisInscription(0);
-                            $frais->setFraisCarnet(0);
-                            $frais->setFraisTransfert(0);
-                            $frais->setSeptembre(0);
-                            $frais->setOctobre(10000);
-                            $frais->setNovembre(10000);
-                            $frais->setDecembre(10000);
-                            $frais->setJanvier(10000);
-                            $frais->setFevrier(10000);
-                            $frais->setMars(10000);
-                            $frais->setAvril(5000);
-                            $frais->setMai(0);
-                            $frais->setJuin(0);
-                            $frais->setNiveau($niveau);
-                            $frais->setStatut($statut);
-                            $manager->persist($frais);
+                        for ($j = 1; $j <= 1; $j++) {
+                            $fraisType = new FraisType();
+                            $fraisType->setPeriode('mensuel');
+                            $fraisType->setNiveau($niveau);
+                            $fraisType->setStatut($statut);
+                            for ($a = 1; $a <= 15; $a++) {
+                                $frais = new FraisScolaires();
+                                if ($a == 1) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('Inscription');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 2) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('carnet');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 3) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('transfert');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 4) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('septembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 5) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(1, 1));
+                                    $frais->setDesignation('octobre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 6) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(2, 2));
+                                    $frais->setDesignation('novembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 7) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(3, 3));
+                                    $frais->setDesignation('decembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 8) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(4, 4));
+                                    $frais->setDesignation('janvier');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 9) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(5, 5));
+                                    $frais->setDesignation('février');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 10) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(6, 6));
+                                    $frais->setDesignation('mars');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 11) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(7, 7));
+                                    $frais->setDesignation('avril');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(5000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 12) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(8, 8));
+                                    $frais->setDesignation('mai');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 13) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('juin');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 14) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('autre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 15) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('arriérés');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                }
+                            }
+
+                            $manager->persist($fraisType);
                         }
+
                         $manager->persist($statut);
                         $this->addReference('statut1ere_' . $i, $statut);
                     } elseif ($i == 3) {
                         $statut = new Statuts();
                         $statut->setDesignation('Redoublant');
                         $statut->setNiveau($niveau);
-                        for ($a = 1; $a <= 1; $a++) {
-                            $frais = new FraisScolaires();
-                            $frais->setAutres(0);
-                            $frais->setFraisInscription(0);
-                            $frais->setFraisCarnet(0);
-                            $frais->setFraisTransfert(0);
-                            $frais->setSeptembre(0);
-                            $frais->setOctobre(10000);
-                            $frais->setNovembre(10000);
-                            $frais->setDecembre(10000);
-                            $frais->setJanvier(10000);
-                            $frais->setFevrier(10000);
-                            $frais->setMars(10000);
-                            $frais->setAvril(5000);
-                            $frais->setMai(0);
-                            $frais->setJuin(0);
-                            $frais->setNiveau($niveau);
-                            $frais->setStatut($statut);
-                            $manager->persist($frais);
+                        for ($j = 1; $j <= 1; $j++) {
+                            $fraisType = new FraisType();
+                            $fraisType->setPeriode('mensuel');
+                            $fraisType->setNiveau($niveau);
+                            $fraisType->setStatut($statut);
+                            for ($a = 1; $a <= 15; $a++) {
+                                $frais = new FraisScolaires();
+                                if ($a == 1) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('Inscription');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 2) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('carnet');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 3) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('transfert');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 4) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('septembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 5) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(1, 1));
+                                    $frais->setDesignation('octobre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 6) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(2, 2));
+                                    $frais->setDesignation('novembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 7) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(3, 3));
+                                    $frais->setDesignation('decembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 8) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(4, 4));
+                                    $frais->setDesignation('janvier');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 9) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(5, 5));
+                                    $frais->setDesignation('février');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 10) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(6, 6));
+                                    $frais->setDesignation('mars');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 11) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(7, 7));
+                                    $frais->setDesignation('avril');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(5000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 12) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(8, 8));
+                                    $frais->setDesignation('mai');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 13) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('juin');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 14) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('autre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 15) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('arriérés');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                }
+                            }
+                            $manager->persist($fraisType);
                         }
                         $manager->persist($statut);
                         $this->addReference('statut1ere_' . $i, $statut);
@@ -105,25 +441,136 @@ class Niveaux1erCycleFixtures extends Fixture implements DependentFixtureInterfa
                         $statut = new Statuts();
                         $statut->setDesignation('Transfert départ');
                         $statut->setNiveau($niveau);
-                        for ($a = 1; $a <= 1; $a++) {
-                            $frais = new FraisScolaires();
-                            $frais->setAutres(0);
-                            $frais->setFraisInscription(0);
-                            $frais->setFraisCarnet(0);
-                            $frais->setFraisTransfert(5000);
-                            $frais->setSeptembre(0);
-                            $frais->setOctobre(0);
-                            $frais->setNovembre(0);
-                            $frais->setDecembre(0);
-                            $frais->setJanvier(0);
-                            $frais->setFevrier(0);
-                            $frais->setMars(0);
-                            $frais->setAvril(0);
-                            $frais->setMai(0);
-                            $frais->setJuin(0);
-                            $frais->setNiveau($niveau);
-                            $frais->setStatut($statut);
-                            $manager->persist($frais);
+                        for ($j = 1; $j <= 1; $j++) {
+                            $fraisType = new FraisType();
+                            $fraisType->setPeriode('mensuel');
+                            $fraisType->setNiveau($niveau);
+                            $fraisType->setStatut($statut);
+                            for ($a = 1; $a <= 15; $a++) {
+                                $frais = new FraisScolaires();
+                                if ($a == 1) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('Inscription');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 2) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('carnet');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 3) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('transfert');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(5000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 4) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('septembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 5) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(1, 1));
+                                    $frais->setDesignation('octobre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 6) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(2, 2));
+                                    $frais->setDesignation('novembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 7) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(3, 3));
+                                    $frais->setDesignation('decembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 8) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(4, 4));
+                                    $frais->setDesignation('janvier');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 9) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(5, 5));
+                                    $frais->setDesignation('février');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 10) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(6, 6));
+                                    $frais->setDesignation('mars');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 11) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(7, 7));
+                                    $frais->setDesignation('avril');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 12) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(8, 8));
+                                    $frais->setDesignation('mai');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 13) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('juin');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 14) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('autre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 15) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('arriérés');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                }
+                            }
+                            $manager->persist($fraisType);
                         }
                         $manager->persist($statut);
                         $this->addReference('statut1ere_' . $i, $statut);
@@ -131,51 +578,274 @@ class Niveaux1erCycleFixtures extends Fixture implements DependentFixtureInterfa
                         $statut = new Statuts();
                         $statut->setDesignation('Sans dossier');
                         $statut->setNiveau($niveau);
-                        for ($a = 1; $a <= 1; $a++) {
-                            $frais = new FraisScolaires();
-                            $frais->setAutres(0);
-                            $frais->setFraisInscription(5000);
-                            $frais->setFraisCarnet(1000);
-                            $frais->setFraisTransfert(0);
-                            $frais->setSeptembre(0);
-                            $frais->setOctobre(10000);
-                            $frais->setNovembre(10000);
-                            $frais->setDecembre(10000);
-                            $frais->setJanvier(10000);
-                            $frais->setFevrier(10000);
-                            $frais->setMars(10000);
-                            $frais->setAvril(5000);
-                            $frais->setMai(0);
-                            $frais->setJuin(0);
-                            $frais->setNiveau($niveau);
-                            $frais->setStatut($statut);
-                            $manager->persist($frais);
+                        for ($j = 1; $j <= 1; $j++) {
+                            $fraisType = new FraisType();
+                            $fraisType->setPeriode('mensuel');
+                            $fraisType->setNiveau($niveau);
+                            $fraisType->setStatut($statut);
+                            for ($a = 1; $a <= 15; $a++) {
+                                $frais = new FraisScolaires();
+                                if ($a == 1) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('Inscription');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(5000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 2) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('carnet');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(1000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 3) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('transfert');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 4) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('septembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 5) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(1, 1));
+                                    $frais->setDesignation('octobre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 6) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(2, 2));
+                                    $frais->setDesignation('novembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 7) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(3, 3));
+                                    $frais->setDesignation('decembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 8) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(4, 4));
+                                    $frais->setDesignation('janvier');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 9) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(5, 5));
+                                    $frais->setDesignation('février');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 10) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(6, 6));
+                                    $frais->setDesignation('mars');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 11) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(7, 7));
+                                    $frais->setDesignation('avril');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(5000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 12) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(8, 8));
+                                    $frais->setDesignation('mai');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 13) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('juin');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 14) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('autre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 15) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('arriérés');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                }
+                            }
+                            $manager->persist($fraisType);
                         }
+
                         $manager->persist($statut);
                         $this->addReference('statut1ere_' . $i, $statut);
                     } elseif ($i == 6) {
                         $statut = new Statuts();
                         $statut->setDesignation('En attente');
                         $statut->setNiveau($niveau);
-                        for ($a = 1; $a <= 1; $a++) {
-                            $frais = new FraisScolaires();
-                            $frais->setAutres(0);
-                            $frais->setFraisInscription(5000);
-                            $frais->setFraisCarnet(1000);
-                            $frais->setFraisTransfert(0);
-                            $frais->setSeptembre(0);
-                            $frais->setOctobre(10000);
-                            $frais->setNovembre(10000);
-                            $frais->setDecembre(10000);
-                            $frais->setJanvier(10000);
-                            $frais->setFevrier(10000);
-                            $frais->setMars(10000);
-                            $frais->setAvril(5000);
-                            $frais->setMai(0);
-                            $frais->setJuin(0);
-                            $frais->setNiveau($niveau);
-                            $frais->setStatut($statut);
-                            $manager->persist($frais);
+                        for ($j = 1; $j <= 1; $j++) {
+                            $fraisType = new FraisType();
+                            $fraisType->setPeriode('mensuel');
+                            $fraisType->setNiveau($niveau);
+                            $fraisType->setStatut($statut);
+                            for ($a = 1; $a <= 15; $a++) {
+                                $frais = new FraisScolaires();
+                                if ($a == 1) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('Inscription');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(5000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 2) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('carnet');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(1000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 3) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('transfert');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 4) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('septembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 5) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(1, 1));
+                                    $frais->setDesignation('octobre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 6) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(2, 2));
+                                    $frais->setDesignation('novembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 7) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(3, 3));
+                                    $frais->setDesignation('decembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 8) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(4, 4));
+                                    $frais->setDesignation('janvier');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 9) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(5, 5));
+                                    $frais->setDesignation('février');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 10) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(6, 6));
+                                    $frais->setDesignation('mars');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 11) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(7, 7));
+                                    $frais->setDesignation('avril');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(5000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 12) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(8, 8));
+                                    $frais->setDesignation('mai');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 13) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('juin');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 14) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('autre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 15) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('arriérés');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                }
+                            }
+                            $manager->persist($fraisType);
                         }
                         $manager->persist($statut);
                         $this->addReference('statut1ere_' . $i, $statut);
@@ -205,25 +875,136 @@ class Niveaux1erCycleFixtures extends Fixture implements DependentFixtureInterfa
                         $statut = new Statuts();
                         $statut->setDesignation('Transfert Arrivé');
                         $statut->setNiveau($niveau);
-                        for ($a = 1; $a <= 1; $a++) {
-                            $frais = new FraisScolaires();
-                            $frais->setAutres(0);
-                            $frais->setFraisInscription(5000);
-                            $frais->setFraisCarnet(0);
-                            $frais->setFraisTransfert(0);
-                            $frais->setSeptembre(0);
-                            $frais->setOctobre(10000);
-                            $frais->setNovembre(10000);
-                            $frais->setDecembre(10000);
-                            $frais->setJanvier(10000);
-                            $frais->setFevrier(10000);
-                            $frais->setMars(10000);
-                            $frais->setAvril(5000);
-                            $frais->setMai(0);
-                            $frais->setJuin(0);
-                            $frais->setNiveau($niveau);
-                            $frais->setStatut($statut);
-                            $manager->persist($frais);
+                        for ($j = 1; $j <= 1; $j++) {
+                            $fraisType = new FraisType();
+                            $fraisType->setPeriode('mensuel');
+                            $fraisType->setNiveau($niveau);
+                            $fraisType->setStatut($statut);
+                            for ($a = 1; $a <= 15; $a++) {
+                                $frais = new FraisScolaires();
+                                if ($a == 1) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('Inscription');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 2) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('carnet');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 3) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('transfert');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(5000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 4) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('septembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 5) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(1, 1));
+                                    $frais->setDesignation('octobre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 6) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(2, 2));
+                                    $frais->setDesignation('novembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 7) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(3, 3));
+                                    $frais->setDesignation('decembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 8) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(4, 4));
+                                    $frais->setDesignation('janvier');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 9) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(5, 5));
+                                    $frais->setDesignation('février');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 10) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(6, 6));
+                                    $frais->setDesignation('mars');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 11) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(7, 7));
+                                    $frais->setDesignation('avril');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(5000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 12) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(8, 8));
+                                    $frais->setDesignation('mai');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 13) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('juin');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 14) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('autre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 15) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('arriérés');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                }
+                            }
+                            $manager->persist($fraisType);
                         }
                         $manager->persist($statut);
                         $this->addReference('statut2eme_' . $i, $statut);
@@ -231,51 +1012,274 @@ class Niveaux1erCycleFixtures extends Fixture implements DependentFixtureInterfa
                         $statut = new Statuts();
                         $statut->setDesignation('Passant');
                         $statut->setNiveau($niveau);
-                        for ($a = 1; $a <= 1; $a++) {
-                            $frais = new FraisScolaires();
-                            $frais->setAutres(0);
-                            $frais->setFraisInscription(0);
-                            $frais->setFraisCarnet(0);
-                            $frais->setFraisTransfert(0);
-                            $frais->setSeptembre(0);
-                            $frais->setOctobre(10000);
-                            $frais->setNovembre(10000);
-                            $frais->setDecembre(10000);
-                            $frais->setJanvier(10000);
-                            $frais->setFevrier(10000);
-                            $frais->setMars(10000);
-                            $frais->setAvril(5000);
-                            $frais->setMai(0);
-                            $frais->setJuin(0);
-                            $frais->setNiveau($niveau);
-                            $frais->setStatut($statut);
-                            $manager->persist($frais);
+                        for ($j = 1; $j <= 1; $j++) {
+                            $fraisType = new FraisType();
+                            $fraisType->setPeriode('mensuel');
+                            $fraisType->setNiveau($niveau);
+                            $fraisType->setStatut($statut);
+                            for ($a = 1; $a <= 15; $a++) {
+                                $frais = new FraisScolaires();
+                                if ($a == 1) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('Inscription');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 2) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('carnet');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 3) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('transfert');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 4) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('septembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 5) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(1, 1));
+                                    $frais->setDesignation('octobre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 6) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(2, 2));
+                                    $frais->setDesignation('novembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 7) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(3, 3));
+                                    $frais->setDesignation('decembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 8) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(4, 4));
+                                    $frais->setDesignation('janvier');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 9) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(5, 5));
+                                    $frais->setDesignation('février');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 10) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(6, 6));
+                                    $frais->setDesignation('mars');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 11) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(7, 7));
+                                    $frais->setDesignation('avril');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(5000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 12) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(8, 8));
+                                    $frais->setDesignation('mai');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 13) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('juin');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 14) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('autre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 15) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('arriérés');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                }
+                            }
+                            $manager->persist($fraisType);
                         }
+
                         $manager->persist($statut);
                         $this->addReference('statut2eme_' . $i, $statut);
                     } elseif ($i == 3) {
                         $statut = new Statuts();
                         $statut->setDesignation('Redoublant');
                         $statut->setNiveau($niveau);
-                        for ($a = 1; $a <= 1; $a++) {
-                            $frais = new FraisScolaires();
-                            $frais->setAutres(0);
-                            $frais->setFraisInscription(0);
-                            $frais->setFraisCarnet(0);
-                            $frais->setFraisTransfert(0);
-                            $frais->setSeptembre(0);
-                            $frais->setOctobre(10000);
-                            $frais->setNovembre(10000);
-                            $frais->setDecembre(10000);
-                            $frais->setJanvier(10000);
-                            $frais->setFevrier(10000);
-                            $frais->setMars(10000);
-                            $frais->setAvril(5000);
-                            $frais->setMai(0);
-                            $frais->setJuin(0);
-                            $frais->setNiveau($niveau);
-                            $frais->setStatut($statut);
-                            $manager->persist($frais);
+                        for ($j = 1; $j <= 1; $j++) {
+                            $fraisType = new FraisType();
+                            $fraisType->setPeriode('mensuel');
+                            $fraisType->setNiveau($niveau);
+                            $fraisType->setStatut($statut);
+                            for ($a = 1; $a <= 15; $a++) {
+                                $frais = new FraisScolaires();
+                                if ($a == 1) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('Inscription');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 2) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('carnet');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 3) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('transfert');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 4) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('septembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 5) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(1, 1));
+                                    $frais->setDesignation('octobre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 6) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(2, 2));
+                                    $frais->setDesignation('novembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 7) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(3, 3));
+                                    $frais->setDesignation('decembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 8) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(4, 4));
+                                    $frais->setDesignation('janvier');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 9) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(5, 5));
+                                    $frais->setDesignation('février');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 10) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(6, 6));
+                                    $frais->setDesignation('mars');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 11) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(7, 7));
+                                    $frais->setDesignation('avril');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(5000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 12) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(8, 8));
+                                    $frais->setDesignation('mai');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 13) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('juin');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 14) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('autre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 15) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('arriérés');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                }
+                            }
+                            $manager->persist($fraisType);
                         }
                         $manager->persist($statut);
                         $this->addReference('statut2eme_' . $i, $statut);
@@ -283,25 +1287,136 @@ class Niveaux1erCycleFixtures extends Fixture implements DependentFixtureInterfa
                         $statut = new Statuts();
                         $statut->setDesignation('Transfert départ');
                         $statut->setNiveau($niveau);
-                        for ($a = 1; $a <= 1; $a++) {
-                            $frais = new FraisScolaires();
-                            $frais->setAutres(0);
-                            $frais->setFraisInscription(0);
-                            $frais->setFraisCarnet(0);
-                            $frais->setFraisTransfert(5000);
-                            $frais->setSeptembre(0);
-                            $frais->setOctobre(0);
-                            $frais->setNovembre(0);
-                            $frais->setDecembre(0);
-                            $frais->setJanvier(0);
-                            $frais->setFevrier(0);
-                            $frais->setMars(0);
-                            $frais->setAvril(0);
-                            $frais->setMai(0);
-                            $frais->setJuin(0);
-                            $frais->setNiveau($niveau);
-                            $frais->setStatut($statut);
-                            $manager->persist($frais);
+                        for ($j = 1; $j <= 1; $j++) {
+                            $fraisType = new FraisType();
+                            $fraisType->setPeriode('mensuel');
+                            $fraisType->setNiveau($niveau);
+                            $fraisType->setStatut($statut);
+                            for ($a = 1; $a <= 15; $a++) {
+                                $frais = new FraisScolaires();
+                                if ($a == 1) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('Inscription');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 2) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('carnet');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 3) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('transfert');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(5000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 4) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('septembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 5) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(1, 1));
+                                    $frais->setDesignation('octobre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 6) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(2, 2));
+                                    $frais->setDesignation('novembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 7) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(3, 3));
+                                    $frais->setDesignation('decembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 8) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(4, 4));
+                                    $frais->setDesignation('janvier');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 9) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(5, 5));
+                                    $frais->setDesignation('février');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 10) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(6, 6));
+                                    $frais->setDesignation('mars');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 11) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(7, 7));
+                                    $frais->setDesignation('avril');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 12) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(8, 8));
+                                    $frais->setDesignation('mai');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 13) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('juin');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 14) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('autre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 15) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('arriérés');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                }
+                            }
+                            $manager->persist($fraisType);
                         }
                         $manager->persist($statut);
                         $this->addReference('statut2eme_' . $i, $statut);
@@ -309,25 +1424,136 @@ class Niveaux1erCycleFixtures extends Fixture implements DependentFixtureInterfa
                         $statut = new Statuts();
                         $statut->setDesignation('Sans dossier');
                         $statut->setNiveau($niveau);
-                        for ($a = 1; $a <= 1; $a++) {
-                            $frais = new FraisScolaires();
-                            $frais->setAutres(0);
-                            $frais->setFraisInscription(5000);
-                            $frais->setFraisCarnet(1000);
-                            $frais->setFraisTransfert(0);
-                            $frais->setSeptembre(0);
-                            $frais->setOctobre(10000);
-                            $frais->setNovembre(10000);
-                            $frais->setDecembre(10000);
-                            $frais->setJanvier(10000);
-                            $frais->setFevrier(10000);
-                            $frais->setMars(10000);
-                            $frais->setAvril(5000);
-                            $frais->setMai(0);
-                            $frais->setJuin(0);
-                            $frais->setNiveau($niveau);
-                            $frais->setStatut($statut);
-                            $manager->persist($frais);
+                        for ($j = 1; $j <= 1; $j++) {
+                            $fraisType = new FraisType();
+                            $fraisType->setPeriode('mensuel');
+                            $fraisType->setNiveau($niveau);
+                            $fraisType->setStatut($statut);
+                            for ($a = 1; $a <= 15; $a++) {
+                                $frais = new FraisScolaires();
+                                if ($a == 1) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('Inscription');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(5000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 2) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('carnet');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(1000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 3) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('transfert');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 4) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('septembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 5) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(1, 1));
+                                    $frais->setDesignation('octobre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 6) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(2, 2));
+                                    $frais->setDesignation('novembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 7) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(3, 3));
+                                    $frais->setDesignation('decembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 8) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(4, 4));
+                                    $frais->setDesignation('janvier');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 9) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(5, 5));
+                                    $frais->setDesignation('février');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 10) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(6, 6));
+                                    $frais->setDesignation('mars');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 11) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(7, 7));
+                                    $frais->setDesignation('avril');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(5000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 12) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(8, 8));
+                                    $frais->setDesignation('mai');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 13) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('juin');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 14) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('autre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 15) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('arriérés');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                }
+                            }
+                            $manager->persist($fraisType);
                         }
                         $manager->persist($statut);
                         $this->addReference('statut2eme_' . $i, $statut);
@@ -335,25 +1561,136 @@ class Niveaux1erCycleFixtures extends Fixture implements DependentFixtureInterfa
                         $statut = new Statuts();
                         $statut->setDesignation('En attente');
                         $statut->setNiveau($niveau);
-                        for ($a = 1; $a <= 1; $a++) {
-                            $frais = new FraisScolaires();
-                            $frais->setAutres(0);
-                            $frais->setFraisInscription(5000);
-                            $frais->setFraisCarnet(1000);
-                            $frais->setFraisTransfert(0);
-                            $frais->setSeptembre(0);
-                            $frais->setOctobre(10000);
-                            $frais->setNovembre(10000);
-                            $frais->setDecembre(10000);
-                            $frais->setJanvier(10000);
-                            $frais->setFevrier(10000);
-                            $frais->setMars(10000);
-                            $frais->setAvril(5000);
-                            $frais->setMai(0);
-                            $frais->setJuin(0);
-                            $frais->setNiveau($niveau);
-                            $frais->setStatut($statut);
-                            $manager->persist($frais);
+                        for ($j = 1; $j <= 1; $j++) {
+                            $fraisType = new FraisType();
+                            $fraisType->setPeriode('mensuel');
+                            $fraisType->setNiveau($niveau);
+                            $fraisType->setStatut($statut);
+                            for ($a = 1; $a <= 15; $a++) {
+                                $frais = new FraisScolaires();
+                                if ($a == 1) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('Inscription');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(5000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 2) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('carnet');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(1000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 3) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('transfert');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 4) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('septembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 5) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(1, 1));
+                                    $frais->setDesignation('octobre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 6) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(2, 2));
+                                    $frais->setDesignation('novembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 7) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(3, 3));
+                                    $frais->setDesignation('decembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 8) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(4, 4));
+                                    $frais->setDesignation('janvier');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 9) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(5, 5));
+                                    $frais->setDesignation('février');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 10) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(6, 6));
+                                    $frais->setDesignation('mars');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 11) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(7, 7));
+                                    $frais->setDesignation('avril');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(5000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 12) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(8, 8));
+                                    $frais->setDesignation('mai');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 13) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('juin');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 14) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('autre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 15) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('arriérés');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                }
+                            }
+                            $manager->persist($fraisType);
                         }
                         $manager->persist($statut);
                         $this->addReference('statut2eme_' . $i, $statut);
@@ -361,6 +1698,137 @@ class Niveaux1erCycleFixtures extends Fixture implements DependentFixtureInterfa
                         $statut = new Statuts();
                         $statut->setDesignation('Abandon');
                         $statut->setNiveau($niveau);
+                        for ($j = 1; $j <= 1; $j++) {
+                            $fraisType = new FraisType();
+                            $fraisType->setPeriode('mensuel');
+                            $fraisType->setNiveau($niveau);
+                            $fraisType->setStatut($statut);
+                            for ($a = 1; $a <= 15; $a++) {
+                                $frais = new FraisScolaires();
+                                if ($a == 1) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('Inscription');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 2) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('carnet');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 3) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('abandon');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(5000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 4) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('septembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 5) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(1, 1));
+                                    $frais->setDesignation('octobre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 6) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(2, 2));
+                                    $frais->setDesignation('novembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 7) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(3, 3));
+                                    $frais->setDesignation('decembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 8) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(4, 4));
+                                    $frais->setDesignation('janvier');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 9) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(5, 5));
+                                    $frais->setDesignation('février');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 10) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(6, 6));
+                                    $frais->setDesignation('mars');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 11) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(7, 7));
+                                    $frais->setDesignation('avril');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 12) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(8, 8));
+                                    $frais->setDesignation('mai');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 13) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('juin');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 14) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('autre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 15) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('arriérés');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                }
+                            }
+                            $manager->persist($fraisType);
+                        }
                         $manager->persist($statut);
                         $this->addReference('statut2eme_' . $i, $statut);
                     } elseif ($i == 8) {
@@ -383,25 +1851,136 @@ class Niveaux1erCycleFixtures extends Fixture implements DependentFixtureInterfa
                         $statut = new Statuts();
                         $statut->setDesignation('Transfert Arrivé');
                         $statut->setNiveau($niveau);
-                        for ($a = 1; $a <= 1; $a++) {
-                            $frais = new FraisScolaires();
-                            $frais->setAutres(0);
-                            $frais->setFraisInscription(5000);
-                            $frais->setFraisCarnet(0);
-                            $frais->setFraisTransfert(0);
-                            $frais->setSeptembre(0);
-                            $frais->setOctobre(10000);
-                            $frais->setNovembre(10000);
-                            $frais->setDecembre(10000);
-                            $frais->setJanvier(10000);
-                            $frais->setFevrier(10000);
-                            $frais->setMars(10000);
-                            $frais->setAvril(5000);
-                            $frais->setMai(0);
-                            $frais->setJuin(0);
-                            $frais->setNiveau($niveau);
-                            $frais->setStatut($statut);
-                            $manager->persist($frais);
+                        for ($j = 1; $j <= 1; $j++) {
+                            $fraisType = new FraisType();
+                            $fraisType->setPeriode('mensuel');
+                            $fraisType->setNiveau($niveau);
+                            $fraisType->setStatut($statut);
+                            for ($a = 1; $a <= 15; $a++) {
+                                $frais = new FraisScolaires();
+                                if ($a == 1) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('Inscription');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 2) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('carnet');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 3) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('transfert');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(5000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 4) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('septembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 5) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(1, 1));
+                                    $frais->setDesignation('octobre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 6) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(2, 2));
+                                    $frais->setDesignation('novembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 7) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(3, 3));
+                                    $frais->setDesignation('decembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 8) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(4, 4));
+                                    $frais->setDesignation('janvier');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 9) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(5, 5));
+                                    $frais->setDesignation('février');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 10) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(6, 6));
+                                    $frais->setDesignation('mars');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 11) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(7, 7));
+                                    $frais->setDesignation('avril');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(5000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 12) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(8, 8));
+                                    $frais->setDesignation('mai');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 13) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('juin');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 14) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('autre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 15) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('arriérés');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                }
+                            }
+                            $manager->persist($fraisType);
                         }
                         $manager->persist($statut);
                         $this->addReference('statut3eme_' . $i, $statut);
@@ -409,25 +1988,136 @@ class Niveaux1erCycleFixtures extends Fixture implements DependentFixtureInterfa
                         $statut = new Statuts();
                         $statut->setDesignation('Passant');
                         $statut->setNiveau($niveau);
-                        for ($a = 1; $a <= 1; $a++) {
-                            $frais = new FraisScolaires();
-                            $frais->setAutres(0);
-                            $frais->setFraisInscription(0);
-                            $frais->setFraisCarnet(0);
-                            $frais->setFraisTransfert(0);
-                            $frais->setSeptembre(0);
-                            $frais->setOctobre(10000);
-                            $frais->setNovembre(10000);
-                            $frais->setDecembre(10000);
-                            $frais->setJanvier(10000);
-                            $frais->setFevrier(10000);
-                            $frais->setMars(10000);
-                            $frais->setAvril(5000);
-                            $frais->setMai(0);
-                            $frais->setJuin(0);
-                            $frais->setNiveau($niveau);
-                            $frais->setStatut($statut);
-                            $manager->persist($frais);
+                        for ($j = 1; $j <= 1; $j++) {
+                            $fraisType = new FraisType();
+                            $fraisType->setPeriode('mensuel');
+                            $fraisType->setNiveau($niveau);
+                            $fraisType->setStatut($statut);
+                            for ($a = 1; $a <= 15; $a++) {
+                                $frais = new FraisScolaires();
+                                if ($a == 1) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('Inscription');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 2) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('carnet');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 3) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('transfert');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 4) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('septembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 5) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(1, 1));
+                                    $frais->setDesignation('octobre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 6) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(2, 2));
+                                    $frais->setDesignation('novembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 7) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(3, 3));
+                                    $frais->setDesignation('decembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 8) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(4, 4));
+                                    $frais->setDesignation('janvier');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 9) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(5, 5));
+                                    $frais->setDesignation('février');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 10) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(6, 6));
+                                    $frais->setDesignation('mars');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 11) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(7, 7));
+                                    $frais->setDesignation('avril');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(5000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 12) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(8, 8));
+                                    $frais->setDesignation('mai');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 13) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('juin');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 14) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('autre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 15) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('arriérés');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                }
+                            }
+                            $manager->persist($fraisType);
                         }
                         $manager->persist($statut);
                         $this->addReference('statut3eme_' . $i, $statut);
@@ -435,51 +2125,259 @@ class Niveaux1erCycleFixtures extends Fixture implements DependentFixtureInterfa
                         $statut = new Statuts();
                         $statut->setDesignation('Redoublant');
                         $statut->setNiveau($niveau);
-                        for ($a = 1; $a <= 1; $a++) {
-                            $frais = new FraisScolaires();
-                            $frais->setAutres(0);
-                            $frais->setFraisInscription(0);
-                            $frais->setFraisCarnet(0);
-                            $frais->setFraisTransfert(0);
-                            $frais->setSeptembre(0);
-                            $frais->setOctobre(10000);
-                            $frais->setNovembre(10000);
-                            $frais->setDecembre(10000);
-                            $frais->setJanvier(10000);
-                            $frais->setFevrier(10000);
-                            $frais->setMars(10000);
-                            $frais->setAvril(5000);
-                            $frais->setMai(0);
-                            $frais->setJuin(0);
-                            $frais->setNiveau($niveau);
-                            $frais->setStatut($statut);
-                            $manager->persist($frais);
+                        for ($j = 1; $j <= 1; $j++) {
+                            $fraisType = new FraisType();
+                            $fraisType->setPeriode('mensuel');
+                            $fraisType->setNiveau($niveau);
+                            $fraisType->setStatut($statut);
+                            for ($a = 1; $a <= 15; $a++) {
+                                $frais = new FraisScolaires();
+                                if ($a == 1) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('Inscription');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 2) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('carnet');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 3) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('transfert');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 4) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('septembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 5) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(1, 1));
+                                    $frais->setDesignation('octobre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 6) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(2, 2));
+                                    $frais->setDesignation('novembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 7) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(3, 3));
+                                    $frais->setDesignation('decembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 8) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(4, 4));
+                                    $frais->setDesignation('janvier');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 9) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(5, 5));
+                                    $frais->setDesignation('février');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 10) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(6, 6));
+                                    $frais->setDesignation('mars');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 11) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(7, 7));
+                                    $frais->setDesignation('avril');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(5000);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 12) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(8, 8));
+                                    $frais->setDesignation('mai');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 13) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('juin');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 14) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('autre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 15) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('arriérés');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                }
+                            }
+                            $manager->persist($fraisType);
                         }
+                        $frais->setFraisType($fraisType);
                         $manager->persist($statut);
                         $this->addReference('statut3eme_' . $i, $statut);
                     } elseif ($i == 4) {
                         $statut = new Statuts();
                         $statut->setDesignation('Transfert départ');
                         $statut->setNiveau($niveau);
-                        for ($a = 1; $a <= 1; $a++) {
-                            $frais = new FraisScolaires();
-                            $frais->setAutres(0);
-                            $frais->setFraisInscription(0);
-                            $frais->setFraisCarnet(0);
-                            $frais->setFraisTransfert(5000);
-                            $frais->setSeptembre(0);
-                            $frais->setOctobre(0);
-                            $frais->setNovembre(0);
-                            $frais->setDecembre(0);
-                            $frais->setJanvier(0);
-                            $frais->setFevrier(0);
-                            $frais->setMars(0);
-                            $frais->setAvril(0);
-                            $frais->setMai(0);
-                            $frais->setJuin(0);
-                            $frais->setNiveau($niveau);
-                            $frais->setStatut($statut);
-                            $manager->persist($frais);
+                        for ($j = 1; $j <= 1; $j++) {
+                            $fraisType = new FraisType();
+                            $fraisType->setPeriode('mensuel');
+                            $fraisType->setNiveau($niveau);
+                            $fraisType->setStatut($statut);
+                            for ($a = 1; $a <= 15; $a++) {
+                                $frais = new FraisScolaires();
+                                if ($a == 1) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('Inscription');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 2) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('carnet');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 3) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('transfert');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(5000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 4) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('septembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 5) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(1, 1));
+                                    $frais->setDesignation('octobre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 6) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(2, 2));
+                                    $frais->setDesignation('novembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 7) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(3, 3));
+                                    $frais->setDesignation('decembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 8) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(4, 4));
+                                    $frais->setDesignation('janvier');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 9) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(5, 5));
+                                    $frais->setDesignation('février');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 10) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(6, 6));
+                                    $frais->setDesignation('mars');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 11) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(7, 7));
+                                    $frais->setDesignation('avril');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 12) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(8, 8));
+                                    $frais->setDesignation('mai');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 13) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('juin');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 14) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('autre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 15) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('arriérés');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                }
+                            }
+                            $manager->persist($fraisType);
                         }
                         $manager->persist($statut);
                         $this->addReference('statut3eme_' . $i, $statut);
@@ -487,25 +2385,121 @@ class Niveaux1erCycleFixtures extends Fixture implements DependentFixtureInterfa
                         $statut = new Statuts();
                         $statut->setDesignation('Sans dossier');
                         $statut->setNiveau($niveau);
-                        for ($a = 1; $a <= 1; $a++) {
-                            $frais = new FraisScolaires();
-                            $frais->setAutres(0);
-                            $frais->setFraisInscription(5000);
-                            $frais->setFraisCarnet(0);
-                            $frais->setFraisTransfert(0);
-                            $frais->setSeptembre(0);
-                            $frais->setOctobre(10000);
-                            $frais->setNovembre(10000);
-                            $frais->setDecembre(10000);
-                            $frais->setJanvier(10000);
-                            $frais->setFevrier(10000);
-                            $frais->setMars(10000);
-                            $frais->setAvril(5000);
-                            $frais->setMai(0);
-                            $frais->setJuin(0);
-                            $frais->setNiveau($niveau);
-                            $frais->setStatut($statut);
-                            $manager->persist($frais);
+                        for ($j = 1; $j <= 1; $j++) {
+                            $fraisType = new FraisType();
+                            $fraisType->setPeriode('mensuel');
+                            $fraisType->setNiveau($niveau);
+                            $fraisType->setStatut($statut);
+                            for ($a = 1; $a <= 15; $a++) {
+                                $frais = new FraisScolaires();
+                                if ($a == 1) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('Inscription');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(5000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 2) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('carnet');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(1000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 3) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('transfert');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 4) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('septembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 5) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(1, 1));
+                                    $frais->setDesignation('octobre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 6) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(2, 2));
+                                    $frais->setDesignation('novembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 7) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(3, 3));
+                                    $frais->setDesignation('decembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 8) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(4, 4));
+                                    $frais->setDesignation('janvier');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 9) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(5, 5));
+                                    $frais->setDesignation('février');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 10) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(6, 6));
+                                    $frais->setDesignation('mars');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 11) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(7, 7));
+                                    $frais->setDesignation('avril');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(5000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 12) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(8, 8));
+                                    $frais->setDesignation('mai');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 13) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('juin');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 14) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('autre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 15) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('arriérés');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                }
+                            }
+                            $manager->persist($fraisType);
                         }
                         $manager->persist($statut);
                         $this->addReference('statut3eme_' . $i, $statut);
@@ -513,25 +2507,121 @@ class Niveaux1erCycleFixtures extends Fixture implements DependentFixtureInterfa
                         $statut = new Statuts();
                         $statut->setDesignation('En attente');
                         $statut->setNiveau($niveau);
-                        for ($a = 1; $a <= 1; $a++) {
-                            $frais = new FraisScolaires();
-                            $frais->setAutres(0);
-                            $frais->setFraisInscription(5000);
-                            $frais->setFraisCarnet(0);
-                            $frais->setFraisTransfert(0);
-                            $frais->setSeptembre(0);
-                            $frais->setOctobre(10000);
-                            $frais->setNovembre(10000);
-                            $frais->setDecembre(10000);
-                            $frais->setJanvier(10000);
-                            $frais->setFevrier(10000);
-                            $frais->setMars(10000);
-                            $frais->setAvril(5000);
-                            $frais->setMai(0);
-                            $frais->setJuin(0);
-                            $frais->setNiveau($niveau);
-                            $frais->setStatut($statut);
-                            $manager->persist($frais);
+                        for ($j = 1; $j <= 1; $j++) {
+                            $fraisType = new FraisType();
+                            $fraisType->setPeriode('mensuel');
+                            $fraisType->setNiveau($niveau);
+                            $fraisType->setStatut($statut);
+                            for ($a = 1; $a <= 15; $a++) {
+                                $frais = new FraisScolaires();
+                                if ($a == 1) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('Inscription');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(5000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 2) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('carnet');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(1000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 3) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('transfert');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 4) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('septembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 5) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(1, 1));
+                                    $frais->setDesignation('octobre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 6) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(2, 2));
+                                    $frais->setDesignation('novembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 7) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(3, 3));
+                                    $frais->setDesignation('decembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 8) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(4, 4));
+                                    $frais->setDesignation('janvier');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 9) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(5, 5));
+                                    $frais->setDesignation('février');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 10) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(6, 6));
+                                    $frais->setDesignation('mars');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 11) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(7, 7));
+                                    $frais->setDesignation('avril');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(5000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 12) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(8, 8));
+                                    $frais->setDesignation('mai');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 13) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('juin');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 14) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('autre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 15) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('arriérés');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                }
+                            }
+                            $manager->persist($fraisType);
                         }
                         $manager->persist($statut);
                         $this->addReference('statut3eme_' . $i, $statut);
@@ -539,6 +2629,122 @@ class Niveaux1erCycleFixtures extends Fixture implements DependentFixtureInterfa
                         $statut = new Statuts();
                         $statut->setDesignation('Abandon');
                         $statut->setNiveau($niveau);
+                        for ($j = 1; $j <= 1; $j++) {
+                            $fraisType = new FraisType();
+                            $fraisType->setPeriode('mensuel');
+                            $fraisType->setNiveau($niveau);
+                            $fraisType->setStatut($statut);
+                            for ($a = 1; $a <= 15; $a++) {
+                                $frais = new FraisScolaires();
+                                if ($a == 1) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('Inscription');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 2) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('carnet');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 3) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('abandon');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(5000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 4) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('septembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 5) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(1, 1));
+                                    $frais->setDesignation('octobre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 6) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(2, 2));
+                                    $frais->setDesignation('novembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 7) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(3, 3));
+                                    $frais->setDesignation('decembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 8) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(4, 4));
+                                    $frais->setDesignation('janvier');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 9) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(5, 5));
+                                    $frais->setDesignation('février');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 10) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(6, 6));
+                                    $frais->setDesignation('mars');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 11) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(7, 7));
+                                    $frais->setDesignation('avril');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 12) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(8, 8));
+                                    $frais->setDesignation('mai');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 13) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('juin');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 14) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('autre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 15) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('arriérés');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                }
+                            }
+                            $manager->persist($fraisType);
+                        }
                         $manager->persist($statut);
                         $this->addReference('statut3eme_' . $i, $statut);
                     } elseif ($i == 8) {
@@ -561,25 +2767,121 @@ class Niveaux1erCycleFixtures extends Fixture implements DependentFixtureInterfa
                         $statut = new Statuts();
                         $statut->setDesignation('Transfert Arrivé');
                         $statut->setNiveau($niveau);
-                        for ($a = 1; $a <= 1; $a++) {
-                            $frais = new FraisScolaires();
-                            $frais->setAutres(0);
-                            $frais->setFraisInscription(5000);
-                            $frais->setFraisCarnet(0);
-                            $frais->setFraisTransfert(0);
-                            $frais->setSeptembre(0);
-                            $frais->setOctobre(10000);
-                            $frais->setNovembre(10000);
-                            $frais->setDecembre(10000);
-                            $frais->setJanvier(10000);
-                            $frais->setFevrier(10000);
-                            $frais->setMars(10000);
-                            $frais->setAvril(5000);
-                            $frais->setMai(0);
-                            $frais->setJuin(0);
-                            $frais->setNiveau($niveau);
-                            $frais->setStatut($statut);
-                            $manager->persist($frais);
+                        for ($j = 1; $j <= 1; $j++) {
+                            $fraisType = new FraisType();
+                            $fraisType->setPeriode('mensuel');
+                            $fraisType->setNiveau($niveau);
+                            $fraisType->setStatut($statut);
+                            for ($a = 1; $a <= 15; $a++) {
+                                $frais = new FraisScolaires();
+                                if ($a == 1) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('Inscription');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 2) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('carnet');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 3) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('transfert');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(5000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 4) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('septembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 5) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(1, 1));
+                                    $frais->setDesignation('octobre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 6) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(2, 2));
+                                    $frais->setDesignation('novembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 7) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(3, 3));
+                                    $frais->setDesignation('decembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 8) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(4, 4));
+                                    $frais->setDesignation('janvier');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 9) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(5, 5));
+                                    $frais->setDesignation('février');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 10) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(6, 6));
+                                    $frais->setDesignation('mars');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 11) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(7, 7));
+                                    $frais->setDesignation('avril');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(5000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 12) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(8, 8));
+                                    $frais->setDesignation('mai');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 13) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('juin');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 14) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('autre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 15) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('arriérés');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                }
+                            }
+                            $manager->persist($fraisType);
                         }
                         $manager->persist($statut);
                         $this->addReference('statut4eme_' . $i, $statut);
@@ -587,25 +2889,121 @@ class Niveaux1erCycleFixtures extends Fixture implements DependentFixtureInterfa
                         $statut = new Statuts();
                         $statut->setDesignation('Passant');
                         $statut->setNiveau($niveau);
-                        for ($a = 1; $a <= 1; $a++) {
-                            $frais = new FraisScolaires();
-                            $frais->setAutres(0);
-                            $frais->setFraisInscription(0);
-                            $frais->setFraisCarnet(0);
-                            $frais->setFraisTransfert(0);
-                            $frais->setSeptembre(0);
-                            $frais->setOctobre(10000);
-                            $frais->setNovembre(10000);
-                            $frais->setDecembre(10000);
-                            $frais->setJanvier(10000);
-                            $frais->setFevrier(10000);
-                            $frais->setMars(10000);
-                            $frais->setAvril(5000);
-                            $frais->setMai(0);
-                            $frais->setJuin(0);
-                            $frais->setNiveau($niveau);
-                            $frais->setStatut($statut);
-                            $manager->persist($frais);
+                        for ($j = 1; $j <= 1; $j++) {
+                            $fraisType = new FraisType();
+                            $fraisType->setPeriode('mensuel');
+                            $fraisType->setNiveau($niveau);
+                            $fraisType->setStatut($statut);
+                            for ($a = 1; $a <= 15; $a++) {
+                                $frais = new FraisScolaires();
+                                if ($a == 1) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('Inscription');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 2) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('carnet');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 3) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('transfert');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 4) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('septembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 5) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(1, 1));
+                                    $frais->setDesignation('octobre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 6) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(2, 2));
+                                    $frais->setDesignation('novembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 7) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(3, 3));
+                                    $frais->setDesignation('decembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 8) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(4, 4));
+                                    $frais->setDesignation('janvier');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 9) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(5, 5));
+                                    $frais->setDesignation('février');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 10) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(6, 6));
+                                    $frais->setDesignation('mars');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 11) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(7, 7));
+                                    $frais->setDesignation('avril');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(5000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 12) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(8, 8));
+                                    $frais->setDesignation('mai');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 13) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('juin');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 14) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('autre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 15) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('arriérés');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                }
+                            }
+                            $manager->persist($fraisType);
                         }
                         $manager->persist($statut);
                         $this->addReference('statut4eme_' . $i, $statut);
@@ -613,25 +3011,121 @@ class Niveaux1erCycleFixtures extends Fixture implements DependentFixtureInterfa
                         $statut = new Statuts();
                         $statut->setDesignation('Redoublant');
                         $statut->setNiveau($niveau);
-                        for ($a = 1; $a <= 1; $a++) {
-                            $frais = new FraisScolaires();
-                            $frais->setAutres(0);
-                            $frais->setFraisInscription(0);
-                            $frais->setFraisCarnet(0);
-                            $frais->setFraisTransfert(0);
-                            $frais->setSeptembre(0);
-                            $frais->setOctobre(10000);
-                            $frais->setNovembre(10000);
-                            $frais->setDecembre(10000);
-                            $frais->setJanvier(10000);
-                            $frais->setFevrier(10000);
-                            $frais->setMars(10000);
-                            $frais->setAvril(5000);
-                            $frais->setMai(0);
-                            $frais->setJuin(0);
-                            $frais->setNiveau($niveau);
-                            $frais->setStatut($statut);
-                            $manager->persist($frais);
+                        for ($j = 1; $j <= 1; $j++) {
+                            $fraisType = new FraisType();
+                            $fraisType->setPeriode('mensuel');
+                            $fraisType->setNiveau($niveau);
+                            $fraisType->setStatut($statut);
+                            for ($a = 1; $a <= 15; $a++) {
+                                $frais = new FraisScolaires();
+                                if ($a == 1) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('Inscription');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 2) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('carnet');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 3) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('transfert');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 4) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('septembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 5) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(1, 1));
+                                    $frais->setDesignation('octobre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 6) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(2, 2));
+                                    $frais->setDesignation('novembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 7) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(3, 3));
+                                    $frais->setDesignation('decembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 8) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(4, 4));
+                                    $frais->setDesignation('janvier');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 9) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(5, 5));
+                                    $frais->setDesignation('février');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 10) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(6, 6));
+                                    $frais->setDesignation('mars');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 11) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(7, 7));
+                                    $frais->setDesignation('avril');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(5000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 12) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(8, 8));
+                                    $frais->setDesignation('mai');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 13) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('juin');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 14) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('autre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 15) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('arriérés');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                }
+                            }
+                            $manager->persist($fraisType);
                         }
                         $manager->persist($statut);
                         $this->addReference('statut4eme_' . $i, $statut);
@@ -639,25 +3133,121 @@ class Niveaux1erCycleFixtures extends Fixture implements DependentFixtureInterfa
                         $statut = new Statuts();
                         $statut->setDesignation('Transfert départ');
                         $statut->setNiveau($niveau);
-                        for ($a = 1; $a <= 1; $a++) {
-                            $frais = new FraisScolaires();
-                            $frais->setAutres(0);
-                            $frais->setFraisInscription(0);
-                            $frais->setFraisCarnet(0);
-                            $frais->setFraisTransfert(5000);
-                            $frais->setSeptembre(0);
-                            $frais->setOctobre(0);
-                            $frais->setNovembre(0);
-                            $frais->setDecembre(0);
-                            $frais->setJanvier(0);
-                            $frais->setFevrier(0);
-                            $frais->setMars(0);
-                            $frais->setAvril(0);
-                            $frais->setMai(0);
-                            $frais->setJuin(0);
-                            $frais->setNiveau($niveau);
-                            $frais->setStatut($statut);
-                            $manager->persist($frais);
+                        for ($j = 1; $j <= 1; $j++) {
+                            $fraisType = new FraisType();
+                            $fraisType->setPeriode('mensuel');
+                            $fraisType->setNiveau($niveau);
+                            $fraisType->setStatut($statut);
+                            for ($a = 1; $a <= 15; $a++) {
+                                $frais = new FraisScolaires();
+                                if ($a == 1) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('Inscription');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 2) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('carnet');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 3) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('transfert');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(5000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 4) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('septembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 5) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(1, 1));
+                                    $frais->setDesignation('octobre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 6) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(2, 2));
+                                    $frais->setDesignation('novembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 7) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(3, 3));
+                                    $frais->setDesignation('decembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 8) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(4, 4));
+                                    $frais->setDesignation('janvier');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 9) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(5, 5));
+                                    $frais->setDesignation('février');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 10) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(6, 6));
+                                    $frais->setDesignation('mars');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 11) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(7, 7));
+                                    $frais->setDesignation('avril');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 12) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(8, 8));
+                                    $frais->setDesignation('mai');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 13) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('juin');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 14) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('autre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 15) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('arriérés');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                }
+                            }
+                            $manager->persist($fraisType);
                         }
                         $manager->persist($statut);
                         $this->addReference('statut4eme_' . $i, $statut);
@@ -665,25 +3255,121 @@ class Niveaux1erCycleFixtures extends Fixture implements DependentFixtureInterfa
                         $statut = new Statuts();
                         $statut->setDesignation('Sans dossier');
                         $statut->setNiveau($niveau);
-                        for ($a = 1; $a <= 1; $a++) {
-                            $frais = new FraisScolaires();
-                            $frais->setAutres(0);
-                            $frais->setFraisInscription(5000);
-                            $frais->setFraisCarnet(0);
-                            $frais->setFraisTransfert(0);
-                            $frais->setSeptembre(0);
-                            $frais->setOctobre(10000);
-                            $frais->setNovembre(10000);
-                            $frais->setDecembre(10000);
-                            $frais->setJanvier(10000);
-                            $frais->setFevrier(10000);
-                            $frais->setMars(10000);
-                            $frais->setAvril(5000);
-                            $frais->setMai(0);
-                            $frais->setJuin(0);
-                            $frais->setNiveau($niveau);
-                            $frais->setStatut($statut);
-                            $manager->persist($frais);
+                        for ($j = 1; $j <= 1; $j++) {
+                            $fraisType = new FraisType();
+                            $fraisType->setPeriode('mensuel');
+                            $fraisType->setNiveau($niveau);
+                            $fraisType->setStatut($statut);
+                            for ($a = 1; $a <= 15; $a++) {
+                                $frais = new FraisScolaires();
+                                if ($a == 1) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('Inscription');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 2) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('carnet');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(1000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 3) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('transfert');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(5000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 4) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('septembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 5) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(1, 1));
+                                    $frais->setDesignation('octobre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 6) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(2, 2));
+                                    $frais->setDesignation('novembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 7) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(3, 3));
+                                    $frais->setDesignation('decembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 8) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(4, 4));
+                                    $frais->setDesignation('janvier');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 9) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(5, 5));
+                                    $frais->setDesignation('février');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 10) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(6, 6));
+                                    $frais->setDesignation('mars');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 11) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(7, 7));
+                                    $frais->setDesignation('avril');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(5000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 12) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(8, 8));
+                                    $frais->setDesignation('mai');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 13) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('juin');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 14) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('autre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 15) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('arriérés');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                }
+                            }
+                            $manager->persist($fraisType);
                         }
                         $manager->persist($statut);
                         $this->addReference('statut4eme_' . $i, $statut);
@@ -691,25 +3377,121 @@ class Niveaux1erCycleFixtures extends Fixture implements DependentFixtureInterfa
                         $statut = new Statuts();
                         $statut->setDesignation('En attente');
                         $statut->setNiveau($niveau);
-                        for ($a = 1; $a <= 1; $a++) {
-                            $frais = new FraisScolaires();
-                            $frais->setAutres(0);
-                            $frais->setFraisInscription(5000);
-                            $frais->setFraisCarnet(0);
-                            $frais->setFraisTransfert(0);
-                            $frais->setSeptembre(0);
-                            $frais->setOctobre(10000);
-                            $frais->setNovembre(10000);
-                            $frais->setDecembre(10000);
-                            $frais->setJanvier(10000);
-                            $frais->setFevrier(10000);
-                            $frais->setMars(10000);
-                            $frais->setAvril(5000);
-                            $frais->setMai(0);
-                            $frais->setJuin(0);
-                            $frais->setNiveau($niveau);
-                            $frais->setStatut($statut);
-                            $manager->persist($frais);
+                        for ($j = 1; $j <= 1; $j++) {
+                            $fraisType = new FraisType();
+                            $fraisType->setPeriode('mensuel');
+                            $fraisType->setNiveau($niveau);
+                            $fraisType->setStatut($statut);
+                            for ($a = 1; $a <= 15; $a++) {
+                                $frais = new FraisScolaires();
+                                if ($a == 1) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('Inscription');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 2) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('carnet');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 3) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('transfert');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(5000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 4) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('septembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 5) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(1, 1));
+                                    $frais->setDesignation('octobre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 6) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(2, 2));
+                                    $frais->setDesignation('novembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 7) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(3, 3));
+                                    $frais->setDesignation('decembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 8) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(4, 4));
+                                    $frais->setDesignation('janvier');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 9) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(5, 5));
+                                    $frais->setDesignation('février');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 10) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(6, 6));
+                                    $frais->setDesignation('mars');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 11) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(7, 7));
+                                    $frais->setDesignation('avril');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(5000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 12) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(8, 8));
+                                    $frais->setDesignation('mai');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 13) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('juin');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 14) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('autre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 15) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('arriérés');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                }
+                            }
+                            $manager->persist($fraisType);
                         }
                         $manager->persist($statut);
                         $this->addReference('statut4eme_' . $i, $statut);
@@ -717,6 +3499,122 @@ class Niveaux1erCycleFixtures extends Fixture implements DependentFixtureInterfa
                         $statut = new Statuts();
                         $statut->setDesignation('Abandon');
                         $statut->setNiveau($niveau);
+                        for ($j = 1; $j <= 1; $j++) {
+                            $fraisType = new FraisType();
+                            $fraisType->setPeriode('mensuel');
+                            $fraisType->setNiveau($niveau);
+                            $fraisType->setStatut($statut);
+                            for ($a = 1; $a <= 15; $a++) {
+                                $frais = new FraisScolaires();
+                                if ($a == 1) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('Inscription');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 2) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('carnet');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 3) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('abandon');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(5000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 4) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('septembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 5) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(1, 1));
+                                    $frais->setDesignation('octobre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 6) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(2, 2));
+                                    $frais->setDesignation('novembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 7) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(3, 3));
+                                    $frais->setDesignation('decembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 8) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(4, 4));
+                                    $frais->setDesignation('janvier');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 9) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(5, 5));
+                                    $frais->setDesignation('février');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 10) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(6, 6));
+                                    $frais->setDesignation('mars');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 11) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(7, 7));
+                                    $frais->setDesignation('avril');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 12) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(8, 8));
+                                    $frais->setDesignation('mai');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 13) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('juin');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 14) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('autre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 15) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('arriérés');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                }
+                            }
+                            $manager->persist($fraisType);
+                        }
                         $manager->persist($statut);
                         $this->addReference('statut4eme_' . $i, $statut);
                     } elseif ($i == 8) {
@@ -739,25 +3637,121 @@ class Niveaux1erCycleFixtures extends Fixture implements DependentFixtureInterfa
                         $statut = new Statuts();
                         $statut->setDesignation('Transfert Arrivé');
                         $statut->setNiveau($niveau);
-                        for ($a = 1; $a <= 1; $a++) {
-                            $frais = new FraisScolaires();
-                            $frais->setAutres(0);
-                            $frais->setFraisInscription(5000);
-                            $frais->setFraisCarnet(0);
-                            $frais->setFraisTransfert(0);
-                            $frais->setSeptembre(0);
-                            $frais->setOctobre(10000);
-                            $frais->setNovembre(10000);
-                            $frais->setDecembre(10000);
-                            $frais->setJanvier(10000);
-                            $frais->setFevrier(10000);
-                            $frais->setMars(10000);
-                            $frais->setAvril(5000);
-                            $frais->setMai(0);
-                            $frais->setJuin(0);
-                            $frais->setNiveau($niveau);
-                            $frais->setStatut($statut);
-                            $manager->persist($frais);
+                        for ($j = 1; $j <= 1; $j++) {
+                            $fraisType = new FraisType();
+                            $fraisType->setPeriode('mensuel');
+                            $fraisType->setNiveau($niveau);
+                            $fraisType->setStatut($statut);
+                            for ($a = 1; $a <= 15; $a++) {
+                                $frais = new FraisScolaires();
+                                if ($a == 1) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('Inscription');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 2) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('carnet');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 3) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('transfert');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(5000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 4) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('septembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 5) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(1, 1));
+                                    $frais->setDesignation('octobre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 6) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(2, 2));
+                                    $frais->setDesignation('novembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 7) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(3, 3));
+                                    $frais->setDesignation('decembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 8) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(4, 4));
+                                    $frais->setDesignation('janvier');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 9) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(5, 5));
+                                    $frais->setDesignation('février');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 10) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(6, 6));
+                                    $frais->setDesignation('mars');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 11) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(7, 7));
+                                    $frais->setDesignation('avril');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(5000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 12) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(8, 8));
+                                    $frais->setDesignation('mai');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 13) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('juin');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 14) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('autre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 15) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('arriérés');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                }
+                            }
+                            $manager->persist($fraisType);
                         }
                         $manager->persist($statut);
                         $this->addReference('statut5eme_' . $i, $statut);
@@ -765,25 +3759,121 @@ class Niveaux1erCycleFixtures extends Fixture implements DependentFixtureInterfa
                         $statut = new Statuts();
                         $statut->setDesignation('Passant');
                         $statut->setNiveau($niveau);
-                        for ($a = 1; $a <= 1; $a++) {
-                            $frais = new FraisScolaires();
-                            $frais->setAutres(0);
-                            $frais->setFraisInscription(0);
-                            $frais->setFraisCarnet(0);
-                            $frais->setFraisTransfert(0);
-                            $frais->setSeptembre(0);
-                            $frais->setOctobre(10000);
-                            $frais->setNovembre(10000);
-                            $frais->setDecembre(10000);
-                            $frais->setJanvier(10000);
-                            $frais->setFevrier(10000);
-                            $frais->setMars(10000);
-                            $frais->setAvril(5000);
-                            $frais->setMai(0);
-                            $frais->setJuin(0);
-                            $frais->setNiveau($niveau);
-                            $frais->setStatut($statut);
-                            $manager->persist($frais);
+                        for ($j = 1; $j <= 1; $j++) {
+                            $fraisType = new FraisType();
+                            $fraisType->setPeriode('mensuel');
+                            $fraisType->setNiveau($niveau);
+                            $fraisType->setStatut($statut);
+                            for ($a = 1; $a <= 15; $a++) {
+                                $frais = new FraisScolaires();
+                                if ($a == 1) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('Inscription');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 2) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('carnet');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 3) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('transfert');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 4) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('septembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 5) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(1, 1));
+                                    $frais->setDesignation('octobre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 6) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(2, 2));
+                                    $frais->setDesignation('novembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 7) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(3, 3));
+                                    $frais->setDesignation('decembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 8) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(4, 4));
+                                    $frais->setDesignation('janvier');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 9) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(5, 5));
+                                    $frais->setDesignation('février');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 10) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(6, 6));
+                                    $frais->setDesignation('mars');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 11) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(7, 7));
+                                    $frais->setDesignation('avril');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(5000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 12) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(8, 8));
+                                    $frais->setDesignation('mai');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 13) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('juin');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 14) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('autre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 15) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('arriérés');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                }
+                            }
+                            $manager->persist($fraisType);
                         }
                         $manager->persist($statut);
                         $this->addReference('statut5eme_' . $i, $statut);
@@ -791,25 +3881,121 @@ class Niveaux1erCycleFixtures extends Fixture implements DependentFixtureInterfa
                         $statut = new Statuts();
                         $statut->setDesignation('Redoublant');
                         $statut->setNiveau($niveau);
-                        for ($a = 1; $a <= 1; $a++) {
-                            $frais = new FraisScolaires();
-                            $frais->setAutres(0);
-                            $frais->setFraisInscription(0);
-                            $frais->setFraisCarnet(0);
-                            $frais->setFraisTransfert(0);
-                            $frais->setSeptembre(0);
-                            $frais->setOctobre(10000);
-                            $frais->setNovembre(10000);
-                            $frais->setDecembre(10000);
-                            $frais->setJanvier(10000);
-                            $frais->setFevrier(10000);
-                            $frais->setMars(10000);
-                            $frais->setAvril(5000);
-                            $frais->setMai(0);
-                            $frais->setJuin(0);
-                            $frais->setNiveau($niveau);
-                            $frais->setStatut($statut);
-                            $manager->persist($frais);
+                        for ($j = 1; $j <= 1; $j++) {
+                            $fraisType = new FraisType();
+                            $fraisType->setPeriode('mensuel');
+                            $fraisType->setNiveau($niveau);
+                            $fraisType->setStatut($statut);
+                            for ($a = 1; $a <= 15; $a++) {
+                                $frais = new FraisScolaires();
+                                if ($a == 1) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('Inscription');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 2) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('carnet');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 3) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('transfert');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 4) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('septembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 5) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(1, 1));
+                                    $frais->setDesignation('octobre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 6) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(2, 2));
+                                    $frais->setDesignation('novembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 7) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(3, 3));
+                                    $frais->setDesignation('decembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 8) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(4, 4));
+                                    $frais->setDesignation('janvier');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 9) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(5, 5));
+                                    $frais->setDesignation('février');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 10) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(6, 6));
+                                    $frais->setDesignation('mars');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 11) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(7, 7));
+                                    $frais->setDesignation('avril');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(5000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 12) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(8, 8));
+                                    $frais->setDesignation('mai');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 13) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('juin');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 14) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('autre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 15) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('arriérés');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                }
+                            }
+                            $manager->persist($fraisType);
                         }
                         $manager->persist($statut);
                         $this->addReference('statut5eme_' . $i, $statut);
@@ -817,51 +4003,245 @@ class Niveaux1erCycleFixtures extends Fixture implements DependentFixtureInterfa
                         $statut = new Statuts();
                         $statut->setDesignation('Transfert départ');
                         $statut->setNiveau($niveau);
-                        for ($a = 1; $a <= 1; $a++) {
-                            $frais = new FraisScolaires();
-                            $frais->setAutres(0);
-                            $frais->setFraisInscription(0);
-                            $frais->setFraisCarnet(0);
-                            $frais->setFraisTransfert(5000);
-                            $frais->setSeptembre(0);
-                            $frais->setOctobre(0);
-                            $frais->setNovembre(0);
-                            $frais->setDecembre(0);
-                            $frais->setJanvier(0);
-                            $frais->setFevrier(0);
-                            $frais->setMars(0);
-                            $frais->setAvril(0);
-                            $frais->setMai(0);
-                            $frais->setJuin(0);
-                            $frais->setNiveau($niveau);
-                            $frais->setStatut($statut);
-                            $manager->persist($frais);
+                        for ($j = 1; $j <= 1; $j++) {
+                            $fraisType = new FraisType();
+                            $fraisType->setPeriode('mensuel');
+                            $fraisType->setNiveau($niveau);
+                            $fraisType->setStatut($statut);
+                            for ($a = 1; $a <= 15; $a++) {
+                                $frais = new FraisScolaires();
+                                if ($a == 1) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('Inscription');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 2) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('carnet');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 3) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('transfert');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(5000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 4) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('septembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 5) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(1, 1));
+                                    $frais->setDesignation('octobre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 6) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(2, 2));
+                                    $frais->setDesignation('novembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 7) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(3, 3));
+                                    $frais->setDesignation('decembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 8) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(4, 4));
+                                    $frais->setDesignation('janvier');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 9) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(5, 5));
+                                    $frais->setDesignation('février');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 10) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(6, 6));
+                                    $frais->setDesignation('mars');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 11) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(7, 7));
+                                    $frais->setDesignation('avril');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 12) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(8, 8));
+                                    $frais->setDesignation('mai');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 13) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('juin');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 14) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('autre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 15) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('arriérés');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                }
+                            }
+                            $manager->persist($fraisType);
                         }
+
+                        $frais->setFraisType($fraisType);
                         $manager->persist($statut);
                         $this->addReference('statut5eme_' . $i, $statut);
                     } elseif ($i == 5) {
                         $statut = new Statuts();
                         $statut->setDesignation('Sans dossier');
                         $statut->setNiveau($niveau);
-                        for ($a = 1; $a <= 1; $a++) {
-                            $frais = new FraisScolaires();
-                            $frais->setAutres(0);
-                            $frais->setFraisInscription(5000);
-                            $frais->setFraisCarnet(0);
-                            $frais->setFraisTransfert(0);
-                            $frais->setSeptembre(0);
-                            $frais->setOctobre(10000);
-                            $frais->setNovembre(10000);
-                            $frais->setDecembre(10000);
-                            $frais->setJanvier(10000);
-                            $frais->setFevrier(10000);
-                            $frais->setMars(10000);
-                            $frais->setAvril(5000);
-                            $frais->setMai(0);
-                            $frais->setJuin(0);
-                            $frais->setNiveau($niveau);
-                            $frais->setStatut($statut);
-                            $manager->persist($frais);
+                        for ($j = 1; $j <= 1; $j++) {
+                            $fraisType = new FraisType();
+                            $fraisType->setPeriode('mensuel');
+                            $fraisType->setNiveau($niveau);
+                            $fraisType->setStatut($statut);
+                            for ($a = 1; $a <= 15; $a++) {
+                                $frais = new FraisScolaires();
+                                if ($a == 1) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('Inscription');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 2) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('carnet');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(1000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 3) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('transfert');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(5000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 4) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('septembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 5) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(1, 1));
+                                    $frais->setDesignation('octobre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 6) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(2, 2));
+                                    $frais->setDesignation('novembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 7) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(3, 3));
+                                    $frais->setDesignation('decembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 8) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(4, 4));
+                                    $frais->setDesignation('janvier');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 9) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(5, 5));
+                                    $frais->setDesignation('février');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 10) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(6, 6));
+                                    $frais->setDesignation('mars');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 11) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(7, 7));
+                                    $frais->setDesignation('avril');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(5000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 12) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(8, 8));
+                                    $frais->setDesignation('mai');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 13) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('juin');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 14) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('autre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 15) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('arriérés');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                }
+                            }
+                            $manager->persist($fraisType);
                         }
                         $manager->persist($statut);
                         $this->addReference('statut5eme_' . $i, $statut);
@@ -869,25 +4249,121 @@ class Niveaux1erCycleFixtures extends Fixture implements DependentFixtureInterfa
                         $statut = new Statuts();
                         $statut->setDesignation('En attente');
                         $statut->setNiveau($niveau);
-                        for ($a = 1; $a <= 1; $a++) {
-                            $frais = new FraisScolaires();
-                            $frais->setAutres(0);
-                            $frais->setFraisInscription(5000);
-                            $frais->setFraisCarnet(0);
-                            $frais->setFraisTransfert(0);
-                            $frais->setSeptembre(0);
-                            $frais->setOctobre(10000);
-                            $frais->setNovembre(10000);
-                            $frais->setDecembre(10000);
-                            $frais->setJanvier(10000);
-                            $frais->setFevrier(10000);
-                            $frais->setMars(10000);
-                            $frais->setAvril(5000);
-                            $frais->setMai(0);
-                            $frais->setJuin(0);
-                            $frais->setNiveau($niveau);
-                            $frais->setStatut($statut);
-                            $manager->persist($frais);
+                        for ($j = 1; $j <= 1; $j++) {
+                            $fraisType = new FraisType();
+                            $fraisType->setPeriode('mensuel');
+                            $fraisType->setNiveau($niveau);
+                            $fraisType->setStatut($statut);
+                            for ($a = 1; $a <= 15; $a++) {
+                                $frais = new FraisScolaires();
+                                if ($a == 1) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('Inscription');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 2) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('carnet');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 3) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('transfert');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(5000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 4) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('septembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 5) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(1, 1));
+                                    $frais->setDesignation('octobre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 6) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(2, 2));
+                                    $frais->setDesignation('novembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 7) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(3, 3));
+                                    $frais->setDesignation('decembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 8) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(4, 4));
+                                    $frais->setDesignation('janvier');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 9) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(5, 5));
+                                    $frais->setDesignation('février');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 10) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(6, 6));
+                                    $frais->setDesignation('mars');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 11) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(7, 7));
+                                    $frais->setDesignation('avril');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(5000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 12) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(8, 8));
+                                    $frais->setDesignation('mai');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 13) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('juin');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 14) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('autre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 15) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('arriérés');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                }
+                            }
+                            $manager->persist($fraisType);
                         }
                         $manager->persist($statut);
                         $this->addReference('statut5eme_' . $i, $statut);
@@ -895,6 +4371,122 @@ class Niveaux1erCycleFixtures extends Fixture implements DependentFixtureInterfa
                         $statut = new Statuts();
                         $statut->setDesignation('Abandon');
                         $statut->setNiveau($niveau);
+                        for ($j = 1; $j <= 1; $j++) {
+                            $fraisType = new FraisType();
+                            $fraisType->setPeriode('mensuel');
+                            $fraisType->setNiveau($niveau);
+                            $fraisType->setStatut($statut);
+                            for ($a = 1; $a <= 15; $a++) {
+                                $frais = new FraisScolaires();
+                                if ($a == 1) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('Inscription');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 2) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('carnet');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 3) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('Abandon');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(5000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 4) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('septembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 5) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(1, 1));
+                                    $frais->setDesignation('octobre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 6) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(2, 2));
+                                    $frais->setDesignation('novembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 7) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(3, 3));
+                                    $frais->setDesignation('decembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 8) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(4, 4));
+                                    $frais->setDesignation('janvier');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 9) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(5, 5));
+                                    $frais->setDesignation('février');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 10) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(6, 6));
+                                    $frais->setDesignation('mars');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 11) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(7, 7));
+                                    $frais->setDesignation('avril');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 12) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(8, 8));
+                                    $frais->setDesignation('mai');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 13) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('juin');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 14) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('autre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 15) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('arriérés');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                }
+                            }
+                            $manager->persist($fraisType);
+                        }
                         $manager->persist($statut);
                         $this->addReference('statut5eme_' . $i, $statut);
                     } elseif ($i == 8) {
@@ -917,25 +4509,121 @@ class Niveaux1erCycleFixtures extends Fixture implements DependentFixtureInterfa
                         $statut = new Statuts();
                         $statut->setDesignation('Transfert Arrivé');
                         $statut->setNiveau($niveau);
-                        for ($a = 1; $a <= 1; $a++) {
-                            $frais = new FraisScolaires();
-                            $frais->setAutres(0);
-                            $frais->setFraisInscription(5000);
-                            $frais->setFraisCarnet(0);
-                            $frais->setFraisTransfert(0);
-                            $frais->setSeptembre(0);
-                            $frais->setOctobre(10000);
-                            $frais->setNovembre(10000);
-                            $frais->setDecembre(10000);
-                            $frais->setJanvier(10000);
-                            $frais->setFevrier(10000);
-                            $frais->setMars(10000);
-                            $frais->setAvril(5000);
-                            $frais->setMai(0);
-                            $frais->setJuin(0);
-                            $frais->setNiveau($niveau);
-                            $frais->setStatut($statut);
-                            $manager->persist($frais);
+                        for ($j = 1; $j <= 1; $j++) {
+                            $fraisType = new FraisType();
+                            $fraisType->setPeriode('mensuel');
+                            $fraisType->setNiveau($niveau);
+                            $fraisType->setStatut($statut);
+                            for ($a = 1; $a <= 15; $a++) {
+                                $frais = new FraisScolaires();
+                                if ($a == 1) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('Inscription');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 2) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('carnet');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 3) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('transfert');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(5000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 4) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('septembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 5) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(1, 1));
+                                    $frais->setDesignation('octobre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 6) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(2, 2));
+                                    $frais->setDesignation('novembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 7) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(3, 3));
+                                    $frais->setDesignation('decembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 8) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(4, 4));
+                                    $frais->setDesignation('janvier');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 9) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(5, 5));
+                                    $frais->setDesignation('février');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 10) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(6, 6));
+                                    $frais->setDesignation('mars');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 11) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(7, 7));
+                                    $frais->setDesignation('avril');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(5000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 12) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(8, 8));
+                                    $frais->setDesignation('mai');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 13) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('juin');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 14) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('autre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 15) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('arriérés');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                }
+                            }
+                            $manager->persist($fraisType);
                         }
                         $manager->persist($statut);
                         $this->addReference('statut6eme_' . $i, $statut);
@@ -943,25 +4631,121 @@ class Niveaux1erCycleFixtures extends Fixture implements DependentFixtureInterfa
                         $statut = new Statuts();
                         $statut->setDesignation('Passant');
                         $statut->setNiveau($niveau);
-                        for ($a = 1; $a <= 1; $a++) {
-                            $frais = new FraisScolaires();
-                            $frais->setAutres(0);
-                            $frais->setFraisInscription(0);
-                            $frais->setFraisCarnet(0);
-                            $frais->setFraisTransfert(0);
-                            $frais->setSeptembre(0);
-                            $frais->setOctobre(10000);
-                            $frais->setNovembre(10000);
-                            $frais->setDecembre(10000);
-                            $frais->setJanvier(10000);
-                            $frais->setFevrier(10000);
-                            $frais->setMars(10000);
-                            $frais->setAvril(5000);
-                            $frais->setMai(0);
-                            $frais->setJuin(0);
-                            $frais->setNiveau($niveau);
-                            $frais->setStatut($statut);
-                            $manager->persist($frais);
+                        for ($j = 1; $j <= 1; $j++) {
+                            $fraisType = new FraisType();
+                            $fraisType->setPeriode('mensuel');
+                            $fraisType->setNiveau($niveau);
+                            $fraisType->setStatut($statut);
+                            for ($a = 1; $a <= 15; $a++) {
+                                $frais = new FraisScolaires();
+                                if ($a == 1) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('Inscription');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 2) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('carnet');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 3) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('transfert');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 4) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('septembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 5) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(1, 1));
+                                    $frais->setDesignation('octobre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 6) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(2, 2));
+                                    $frais->setDesignation('novembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 7) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(3, 3));
+                                    $frais->setDesignation('decembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 8) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(4, 4));
+                                    $frais->setDesignation('janvier');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 9) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(5, 5));
+                                    $frais->setDesignation('février');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 10) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(6, 6));
+                                    $frais->setDesignation('mars');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 11) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(7, 7));
+                                    $frais->setDesignation('avril');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(5000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 12) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(8, 8));
+                                    $frais->setDesignation('mai');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 13) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('juin');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 14) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('autre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 15) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('arriérés');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                }
+                            }
+                            $manager->persist($fraisType);
                         }
                         $manager->persist($statut);
                         $this->addReference('statut6eme_' . $i, $statut);
@@ -969,25 +4753,121 @@ class Niveaux1erCycleFixtures extends Fixture implements DependentFixtureInterfa
                         $statut = new Statuts();
                         $statut->setDesignation('Redoublant');
                         $statut->setNiveau($niveau);
-                        for ($a = 1; $a <= 1; $a++) {
-                            $frais = new FraisScolaires();
-                            $frais->setAutres(0);
-                            $frais->setFraisInscription(0);
-                            $frais->setFraisCarnet(0);
-                            $frais->setFraisTransfert(0);
-                            $frais->setSeptembre(0);
-                            $frais->setOctobre(10000);
-                            $frais->setNovembre(10000);
-                            $frais->setDecembre(10000);
-                            $frais->setJanvier(10000);
-                            $frais->setFevrier(10000);
-                            $frais->setMars(10000);
-                            $frais->setAvril(5000);
-                            $frais->setMai(0);
-                            $frais->setJuin(0);
-                            $frais->setNiveau($niveau);
-                            $frais->setStatut($statut);
-                            $manager->persist($frais);
+                        for ($j = 1; $j <= 1; $j++) {
+                            $fraisType = new FraisType();
+                            $fraisType->setPeriode('mensuel');
+                            $fraisType->setNiveau($niveau);
+                            $fraisType->setStatut($statut);
+                            for ($a = 1; $a <= 15; $a++) {
+                                $frais = new FraisScolaires();
+                                if ($a == 1) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('Inscription');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 2) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('carnet');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 3) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('transfert');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 4) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('septembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 5) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(1, 1));
+                                    $frais->setDesignation('octobre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 6) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(2, 2));
+                                    $frais->setDesignation('novembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 7) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(3, 3));
+                                    $frais->setDesignation('decembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 8) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(4, 4));
+                                    $frais->setDesignation('janvier');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 9) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(5, 5));
+                                    $frais->setDesignation('février');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 10) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(6, 6));
+                                    $frais->setDesignation('mars');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 11) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(7, 7));
+                                    $frais->setDesignation('avril');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(5000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 12) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(8, 8));
+                                    $frais->setDesignation('mai');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 13) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('juin');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 14) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('autre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 15) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('arriérés');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                }
+                            }
+                            $manager->persist($fraisType);
                         }
                         $manager->persist($statut);
                         $this->addReference('statut6eme_' . $i, $statut);
@@ -995,25 +4875,121 @@ class Niveaux1erCycleFixtures extends Fixture implements DependentFixtureInterfa
                         $statut = new Statuts();
                         $statut->setDesignation('Transfert départ');
                         $statut->setNiveau($niveau);
-                        for ($a = 1; $a <= 1; $a++) {
-                            $frais = new FraisScolaires();
-                            $frais->setAutres(0);
-                            $frais->setFraisInscription(0);
-                            $frais->setFraisCarnet(0);
-                            $frais->setFraisTransfert(5000);
-                            $frais->setSeptembre(0);
-                            $frais->setOctobre(0);
-                            $frais->setNovembre(0);
-                            $frais->setDecembre(0);
-                            $frais->setJanvier(0);
-                            $frais->setFevrier(0);
-                            $frais->setMars(0);
-                            $frais->setAvril(0);
-                            $frais->setMai(0);
-                            $frais->setJuin(0);
-                            $frais->setNiveau($niveau);
-                            $frais->setStatut($statut);
-                            $manager->persist($frais);
+                        for ($j = 1; $j <= 1; $j++) {
+                            $fraisType = new FraisType();
+                            $fraisType->setPeriode('mensuel');
+                            $fraisType->setNiveau($niveau);
+                            $fraisType->setStatut($statut);
+                            for ($a = 1; $a <= 15; $a++) {
+                                $frais = new FraisScolaires();
+                                if ($a == 1) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('Inscription');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 2) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('carnet');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 3) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('transfert');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(5000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 4) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('septembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 5) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(1, 1));
+                                    $frais->setDesignation('octobre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 6) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(2, 2));
+                                    $frais->setDesignation('novembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 7) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(3, 3));
+                                    $frais->setDesignation('decembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 8) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(4, 4));
+                                    $frais->setDesignation('janvier');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 9) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(5, 5));
+                                    $frais->setDesignation('février');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 10) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(6, 6));
+                                    $frais->setDesignation('mars');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 11) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(7, 7));
+                                    $frais->setDesignation('avril');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 12) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(8, 8));
+                                    $frais->setDesignation('mai');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 13) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('juin');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 14) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('autre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 15) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('arriérés');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                }
+                            }
+                            $manager->persist($fraisType);
                         }
                         $manager->persist($statut);
                         $this->addReference('statut6eme_' . $i, $statut);
@@ -1021,25 +4997,121 @@ class Niveaux1erCycleFixtures extends Fixture implements DependentFixtureInterfa
                         $statut = new Statuts();
                         $statut->setDesignation('Sans dossier');
                         $statut->setNiveau($niveau);
-                        for ($a = 1; $a <= 1; $a++) {
-                            $frais = new FraisScolaires();
-                            $frais->setAutres(0);
-                            $frais->setFraisInscription(5000);
-                            $frais->setFraisCarnet(0);
-                            $frais->setFraisTransfert(0);
-                            $frais->setSeptembre(0);
-                            $frais->setOctobre(10000);
-                            $frais->setNovembre(10000);
-                            $frais->setDecembre(10000);
-                            $frais->setJanvier(10000);
-                            $frais->setFevrier(10000);
-                            $frais->setMars(10000);
-                            $frais->setAvril(5000);
-                            $frais->setMai(0);
-                            $frais->setJuin(0);
-                            $frais->setNiveau($niveau);
-                            $frais->setStatut($statut);
-                            $manager->persist($frais);
+                        for ($j = 1; $j <= 1; $j++) {
+                            $fraisType = new FraisType();
+                            $fraisType->setPeriode('mensuel');
+                            $fraisType->setNiveau($niveau);
+                            $fraisType->setStatut($statut);
+                            for ($a = 1; $a <= 15; $a++) {
+                                $frais = new FraisScolaires();
+                                if ($a == 1) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('Inscription');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 2) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('carnet');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(1000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 3) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('transfert');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(5000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 4) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('septembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 5) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(1, 1));
+                                    $frais->setDesignation('octobre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 6) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(2, 2));
+                                    $frais->setDesignation('novembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 7) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(3, 3));
+                                    $frais->setDesignation('decembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 8) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(4, 4));
+                                    $frais->setDesignation('janvier');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 9) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(5, 5));
+                                    $frais->setDesignation('février');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 10) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(6, 6));
+                                    $frais->setDesignation('mars');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 11) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(7, 7));
+                                    $frais->setDesignation('avril');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(5000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 12) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(8, 8));
+                                    $frais->setDesignation('mai');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 13) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('juin');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 14) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('autre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 15) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('arriérés');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                }
+                            }
+                            $manager->persist($fraisType);
                         }
                         $manager->persist($statut);
                         $this->addReference('statut6eme_' . $i, $statut);
@@ -1047,25 +5119,121 @@ class Niveaux1erCycleFixtures extends Fixture implements DependentFixtureInterfa
                         $statut = new Statuts();
                         $statut->setDesignation('En attente');
                         $statut->setNiveau($niveau);
-                        for ($a = 1; $a <= 1; $a++) {
-                            $frais = new FraisScolaires();
-                            $frais->setAutres(0);
-                            $frais->setFraisInscription(5000);
-                            $frais->setFraisCarnet(0);
-                            $frais->setFraisTransfert(0);
-                            $frais->setSeptembre(0);
-                            $frais->setOctobre(10000);
-                            $frais->setNovembre(10000);
-                            $frais->setDecembre(10000);
-                            $frais->setJanvier(10000);
-                            $frais->setFevrier(10000);
-                            $frais->setMars(10000);
-                            $frais->setAvril(5000);
-                            $frais->setMai(0);
-                            $frais->setJuin(0);
-                            $frais->setNiveau($niveau);
-                            $frais->setStatut($statut);
-                            $manager->persist($frais);
+                        for ($j = 1; $j <= 1; $j++) {
+                            $fraisType = new FraisType();
+                            $fraisType->setPeriode('mensuel');
+                            $fraisType->setNiveau($niveau);
+                            $fraisType->setStatut($statut);
+                            for ($a = 1; $a <= 15; $a++) {
+                                $frais = new FraisScolaires();
+                                if ($a == 1) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('Inscription');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 2) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('carnet');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 3) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('transfert');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(5000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 4) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('septembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 5) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(1, 1));
+                                    $frais->setDesignation('octobre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 6) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(2, 2));
+                                    $frais->setDesignation('novembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 7) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(3, 3));
+                                    $frais->setDesignation('decembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 8) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(4, 4));
+                                    $frais->setDesignation('janvier');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 9) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(5, 5));
+                                    $frais->setDesignation('février');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 10) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(6, 6));
+                                    $frais->setDesignation('mars');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(10000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 11) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(7, 7));
+                                    $frais->setDesignation('avril');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(5000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 12) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(8, 8));
+                                    $frais->setDesignation('mai');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 13) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('juin');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 14) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('autre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 15) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('arriérés');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                }
+                            }
+                            $manager->persist($fraisType);
                         }
                         $manager->persist($statut);
                         $this->addReference('statut6eme_' . $i, $statut);
@@ -1073,6 +5241,123 @@ class Niveaux1erCycleFixtures extends Fixture implements DependentFixtureInterfa
                         $statut = new Statuts();
                         $statut->setDesignation('Abandon');
                         $statut->setNiveau($niveau);
+                        for ($j = 1; $j <= 1; $j++) {
+                            $fraisType = new FraisType();
+                            $fraisType->setPeriode('mensuel');
+                            $fraisType->setNiveau($niveau);
+                            $fraisType->setStatut($statut);
+                            for ($a = 1; $a <= 15; $a++) {
+                                $frais = new FraisScolaires();
+                                if ($a == 1) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('Inscription');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 2) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('carnet');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 3) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('abandon');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(5000);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 4) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('septembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 5) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(1, 1));
+                                    $frais->setDesignation('octobre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 6) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(2, 2));
+                                    $frais->setDesignation('novembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 7) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(3, 3));
+                                    $frais->setDesignation('decembre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 8) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(4, 4));
+                                    $frais->setDesignation('janvier');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 9) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(5, 5));
+                                    $frais->setDesignation('février');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 10) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(6, 6));
+                                    $frais->setDesignation('mars');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 11) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(7, 7));
+                                    $frais->setDesignation('avril');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 12) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(8, 8));
+                                    $frais->setDesignation('mai');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 13) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('juin');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 14) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(9, 9));
+                                    $frais->setDesignation('autre');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                } elseif ($a == 15) {
+                                    $echeance = $this->getReference('mensuelle_' . $faker->numberBetween(0, 0));
+                                    $frais->setDesignation('arriérés');
+                                    $frais->setEcheance($echeance);
+                                    $frais->setMontant(0);
+                                    $frais->setFraisType($fraisType);
+                                    $manager->persist($frais);
+                                }
+                            }
+                            $manager->persist($fraisType);
+                        }
+                        $frais->setFraisType($fraisType);
                         $manager->persist($statut);
                         $this->addReference('statut6eme_' . $i, $statut);
                     } elseif ($i == 8) {

@@ -134,12 +134,6 @@ class Eleves
     #[ORM\JoinColumn(nullable: false)]
     private ?Parents $parent = null;
 
-    #[ORM\OneToOne(mappedBy: 'eleve', cascade: ['persist', 'remove'])]
-    private ?FraisScolarites $fraisScolarites = null;
-
-    #[ORM\OneToOne(mappedBy: 'eleve', cascade: ['persist', 'remove'])]
-    private ?FraisScolaritesAbandon $fraisScolaritesAbandon = null;
-
     #[ORM\OneToMany(mappedBy: 'eleve', targetEntity: Santes::class, orphanRemoval: true, cascade: ['persist'])]
     #[Assert\Count(max: 3)]
 
@@ -148,11 +142,15 @@ class Eleves
     #[ORM\OneToMany(mappedBy: 'eleve', targetEntity: Departs::class, cascade: ['persist'])]
     private Collection $departs;
 
+    #[ORM\OneToMany(mappedBy: 'eleve', targetEntity: FraisScolarites::class)]
+    private Collection $fraisScolarites;
+
     public function __construct()
     {
         $this->dossier = new ArrayCollection();
         $this->santes = new ArrayCollection();
         $this->departs = new ArrayCollection();
+        $this->fraisScolarites = new ArrayCollection();
     }
 
     public function __toString()
@@ -590,45 +588,6 @@ class Eleves
         return $this->imageName;
     }
 
-    public function getFraisScolarites(): ?FraisScolarites
-    {
-        return $this->fraisScolarites;
-    }
-
-    public function setFraisScolarites(?FraisScolarites $fraisScolarites): static
-    {
-        // unset the owning side of the relation if necessary
-        if ($fraisScolarites === null && $this->fraisScolarites !== null) {
-            $this->fraisScolarites->setEleve(null);
-        }
-
-        // set the owning side of the relation if necessary
-        if ($fraisScolarites !== null && $fraisScolarites->getEleve() !== $this) {
-            $fraisScolarites->setEleve($this);
-        }
-
-        $this->fraisScolarites = $fraisScolarites;
-
-        return $this;
-    }
-
-    public function getFraisScolaritesAbandon(): ?FraisScolaritesAbandon
-    {
-        return $this->fraisScolaritesAbandon;
-    }
-
-    public function setFraisScolaritesAbandon(FraisScolaritesAbandon $fraisScolaritesAbandon): static
-    {
-        // set the owning side of the relation if necessary
-        if ($fraisScolaritesAbandon->getEleve() !== $this) {
-            $fraisScolaritesAbandon->setEleve($this);
-        }
-
-        $this->fraisScolaritesAbandon = $fraisScolaritesAbandon;
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, Santes>
      */
@@ -683,6 +642,36 @@ class Eleves
             // set the owning side to null (unless already changed)
             if ($depart->getEleve() === $this) {
                 $depart->setEleve(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, FraisScolarites>
+     */
+    public function getFraisScolarites(): Collection
+    {
+        return $this->fraisScolarites;
+    }
+
+    public function addFraisScolarite(FraisScolarites $fraisScolarite): static
+    {
+        if (!$this->fraisScolarites->contains($fraisScolarite)) {
+            $this->fraisScolarites->add($fraisScolarite);
+            $fraisScolarite->setEleve($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFraisScolarite(FraisScolarites $fraisScolarite): static
+    {
+        if ($this->fraisScolarites->removeElement($fraisScolarite)) {
+            // set the owning side to null (unless already changed)
+            if ($fraisScolarite->getEleve() === $this) {
+                $fraisScolarite->setEleve(null);
             }
         }
 

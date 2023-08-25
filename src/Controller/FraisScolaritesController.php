@@ -2,13 +2,9 @@
 
 namespace App\Controller;
 
-use App\Entity\FraisScolaires;
 use App\Entity\FraisScolarites;
-use App\Form\FraisScolaritesType;
-use App\Repository\ElevesRepository;
-use App\Repository\FraisScolairesRepository;
+use App\Form\FraisScolarites1Type;
 use App\Repository\FraisScolaritesRepository;
-use App\Service\fraisScolaritesService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,60 +15,19 @@ use Symfony\Component\Routing\Annotation\Route;
 class FraisScolaritesController extends AbstractController
 {
     #[Route('/', name: 'app_frais_scolarites_index', methods: ['GET'])]
-    public function index(fraisScolaritesService $fraisScolaritesService): Response
+    public function index(FraisScolaritesRepository $fraisScolaritesRepository): Response
     {
-        $frais = $fraisScolaritesService->getPaginatedEleves();
         return $this->render('frais_scolarites/index.html.twig', [
-            'frais_scolarites' => $frais,
+            'frais_scolarites' => $fraisScolaritesRepository->findBy([], ['id' => 'DESC']), // Tri par l'ID en ordre croissant
+
         ]);
     }
 
-
-
     #[Route('/new', name: 'app_frais_scolarites_new', methods: ['GET', 'POST'])]
-
-    public function new(Request $request, EntityManagerInterface $entityManager, ElevesRepository $elevesRepository, FraisScolairesRepository $fraisScolairesRepository): Response
+    public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $elevesNonExonoresSansFraisScolarites = $elevesRepository->findElevesNonExonoresSansFraisScolarites();
-
-        $entityManager->beginTransaction();
-
-        try {
-            foreach ($elevesNonExonoresSansFraisScolarites as $eleve) {
-                $fraisScolarite = $fraisScolairesRepository->findOneFraisScolariteByNiveauAndStatut($eleve->getClasse()->getNiveau(), $eleve->getStatut());
-
-                if ($fraisScolarite) {
-                    $nouveauFraisScolarite = new FraisScolarites();
-                    $nouveauFraisScolarite->setEleve($eleve);
-                    $nouveauFraisScolarite->setCarnet($fraisScolarite->getFraisCarnet());
-                    $nouveauFraisScolarite->setTransfert($fraisScolarite->getFraisTransfert());
-                    $nouveauFraisScolarite->setSeptembre($fraisScolarite->getSeptembre());
-                    $nouveauFraisScolarite->setOctobre($fraisScolarite->getOctobre());
-                    $nouveauFraisScolarite->setNovembre($fraisScolarite->getNovembre());
-                    $nouveauFraisScolarite->setDecembre($fraisScolarite->getDecembre());
-                    $nouveauFraisScolarite->setJanvier($fraisScolarite->getJanvier());
-                    $nouveauFraisScolarite->setFevrier($fraisScolarite->getFevrier());
-                    $nouveauFraisScolarite->setMars($fraisScolarite->getMars());
-                    $nouveauFraisScolarite->setAvril($fraisScolarite->getAvril());
-                    $nouveauFraisScolarite->setMai($fraisScolarite->getMai());
-                    $nouveauFraisScolarite->setJuin($fraisScolarite->getJuin());
-                    $nouveauFraisScolarite->setAutre($fraisScolarite->getAutres());
-                    $entityManager->persist($nouveauFraisScolarite);
-
-                    $entityManager->persist($nouveauFraisScolarite);
-                }
-            }
-
-            $entityManager->flush();
-            $entityManager->commit();
-        } catch (\Exception $exception) {
-            $entityManager->rollback();
-            throw $exception;
-        }
-
-        // Créer et gérer le formulaire
         $fraisScolarite = new FraisScolarites();
-        $form = $this->createForm(FraisScolaritesType::class, $fraisScolarite);
+        $form = $this->createForm(FraisScolarites1Type::class, $fraisScolarite);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -82,11 +37,9 @@ class FraisScolaritesController extends AbstractController
             return $this->redirectToRoute('app_frais_scolarites_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        // ... Le reste de votre code pour afficher le formulaire et la vue
-
         return $this->render('frais_scolarites/new.html.twig', [
             'frais_scolarite' => $fraisScolarite,
-            'form' => $form->createView(),
+            'form' => $form,
         ]);
     }
 
@@ -101,7 +54,7 @@ class FraisScolaritesController extends AbstractController
     #[Route('/{id}/edit', name: 'app_frais_scolarites_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, FraisScolarites $fraisScolarite, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(FraisScolaritesType::class, $fraisScolarite);
+        $form = $this->createForm(FraisScolarites1Type::class, $fraisScolarite);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

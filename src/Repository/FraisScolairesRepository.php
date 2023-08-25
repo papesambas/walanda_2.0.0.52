@@ -2,11 +2,9 @@
 
 namespace App\Repository;
 
-use App\Entity\Classes;
-use Doctrine\ORM\Query;
 use App\Entity\FraisScolaires;
-use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @extends ServiceEntityRepository<FraisScolaires>
@@ -23,19 +21,25 @@ class FraisScolairesRepository extends ServiceEntityRepository
         parent::__construct($registry, FraisScolaires::class);
     }
 
-    public function findOneFraisScolariteByNiveauAndStatut($niveau, $statut): ?FraisScolaires
+    public function findByNiveauAndStatut($niveauId, $statutId)
     {
-        $qb = $this->createQueryBuilder('f')
-            ->andWhere('f.niveau = :niveau')
-            ->andWhere('f.statut = :statut')
-            ->setParameter('niveau', $niveau)
-            ->setParameter('statut', $statut)
-            ->getQuery();
-
-        return $qb->getOneOrNullResult();
+        return $this->createQueryBuilder('fs')
+            ->where('fs.niveau = :niveauId')
+            ->andWhere('fs.statut = :statutId')
+            ->setParameter('niveauId', $niveauId)
+            ->setParameter('statutId', $statutId)
+            ->getQuery()
+            ->getResult();
     }
 
-
+    public function findByFraisType($frais)
+    {
+        return $this->createQueryBuilder('fs')
+            ->where('fs.fraisType = :fraisId')
+            ->setParameter('fraisId', $frais)
+            ->getQuery()
+            ->getResult();
+    }
 
     //    /**
     //     * @return FraisScolaires[] Returns an array of FraisScolaires objects

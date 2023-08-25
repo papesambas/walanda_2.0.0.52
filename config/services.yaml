@@ -218,6 +218,10 @@ services:
             tags:
                 - { name: 'doctrine.orm.entity_listener', event: 'prePersist', entity: 'App\Entity\FraisScolaritesAbandon'}
                 - { name: 'doctrine.orm.entity_listener', event: 'preUpdate', entity: 'App\Entity\FraisScolaritesAbandon'}    # add more service definitions when explicit configuration is needed
+    App\EventListener\fraisTypeEntityListener:
+            tags:
+                - { name: 'doctrine.orm.entity_listener', event: 'prePersist', entity: 'App\Entity\FraisType'}
+                - { name: 'doctrine.orm.entity_listener', event: 'preUpdate', entity: 'App\Entity\FraisType'}    # add more service definitions when explicit configuration is needed
 
     # please note that last definitions always *replace* previous ones
 

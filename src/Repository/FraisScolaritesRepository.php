@@ -2,11 +2,9 @@
 
 namespace App\Repository;
 
-use App\Entity\Classes;
-use Doctrine\ORM\Query;
 use App\Entity\FraisScolarites;
-use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @extends ServiceEntityRepository<FraisScolarites>
@@ -23,73 +21,28 @@ class FraisScolaritesRepository extends ServiceEntityRepository
         parent::__construct($registry, FraisScolarites::class);
     }
 
-    public function findByEleve($eleve): ?FraisScolarites
-    {
-        return $this->createQueryBuilder('f')
-            ->andWhere('f.eleve = :val')
-            ->setParameter('val', $eleve)
-            ->getQuery()
-            ->getOneOrNullResult();
-    }
+//    /**
+//     * @return FraisScolarites[] Returns an array of FraisScolarites objects
+//     */
+//    public function findByExampleField($value): array
+//    {
+//        return $this->createQueryBuilder('f')
+//            ->andWhere('f.exampleField = :val')
+//            ->setParameter('val', $value)
+//            ->orderBy('f.id', 'ASC')
+//            ->setMaxResults(10)
+//            ->getQuery()
+//            ->getResult()
+//        ;
+//    }
 
-    public function save(FraisScolarites $entity, bool $flush = false): void
-    {
-        $this->getEntityManager()->persist($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
-    }
-
-    public function remove(FraisScolarites $entity, bool $flush = false): void
-    {
-        $this->getEntityManager()->remove($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
-    }
-
-    public function findForPagination(?Classes $classes): Query
-    {
-        $qb = $this->createQueryBuilder('f')
-            ->leftJoin('f.eleve', 'e')
-            ->orderBy('e.fullname', 'ASC');
-
-        if ($classes) {
-            $qb->leftJoin('e.classe', 'c')
-                ->OrderBy('c.designation', 'ASC')
-                ->andWhere('c.id = :classeId')
-                ->setParameter('classeId', $classes->getId());
-        }
-        return $qb->getQuery();
-    }
-
-
-
-
-    //    /**
-    //     * @return FraisScolarites[] Returns an array of FraisScolarites objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('f')
-    //            ->andWhere('f.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('f.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
-
-    //    public function findOneBySomeField($value): ?FraisScolarites
-    //    {
-    //        return $this->createQueryBuilder('f')
-    //            ->andWhere('f.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+//    public function findOneBySomeField($value): ?FraisScolarites
+//    {
+//        return $this->createQueryBuilder('f')
+//            ->andWhere('f.exampleField = :val')
+//            ->setParameter('val', $value)
+//            ->getQuery()
+//            ->getOneOrNullResult()
+//        ;
+//    }
 }

@@ -4,6 +4,8 @@ namespace App\DataFixtures;
 
 use Faker;
 use App\Entity\Echeances;
+use App\Entity\FraisScolairesType;
+use App\Entity\FraisType;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 
@@ -15,43 +17,94 @@ class EcheancesFixtures extends Fixture
 
         $dateCourante = new \DateTime();
         $anneeCourante = $dateCourante->format('Y');
-        $dateDepart = new \DateTime($anneeCourante . '-08-01');
 
-        // Nombre d'échéances
-        $nombreEcheances = 9;
+        // Mois de départ pour les échéances mensuelles
+        $moisDepartMensuel = 8; // Septembre
+        $moisDepartCourant = 7; //Aouût
+        $nombreEcheancesMensuelles = 10; // Tous les mois sauf juillet et août
+
+        // Mois de départ pour les échéances trimestrielles
+        $moisDepartTrimestriel = 10; // Octobre
+        $nombreEcheancesTrimestrielles = 3; // Tous les trimestres
 
         // Liste pour stocker les dates d'échéance
         $listeEcheances = [];
 
-        for ($i = 0; $i < $nombreEcheances; $i++) {
-            // Ajouter un mois à la date de départ
-            $dateEcheance = clone $dateDepart;
-            $dateEcheance->add(new \DateInterval('P' . ($i + 1) . 'M'));
+        // Générer les échéances mensuelles
+        for ($i = 0; $i < $nombreEcheancesMensuelles; $i++) {
+            $moisActuel = ($moisDepartMensuel + $i) % 12;
+            $moisCourant = ($moisDepartCourant + $i) % 12;
 
-            // Set the day of the month for the fixed day
-            $jourFixe = 05;
-            $dateEcheance->setDate($dateEcheance->format('Y'), $dateEcheance->format('m'), $jourFixe);
+            $anneeActuelle = $anneeCourante + intdiv(($moisDepartMensuel + $i), 12);
 
-            // Add one month and set the day of the month to the fixed day
+            $dateEcheance = new \DateTime("$anneeActuelle-$moisActuel-05");
+
             if ($dateEcheance <= $dateCourante) {
-                $dateEcheance->add(new \DateInterval('P1M'));
-                $dateEcheance->setDate($dateEcheance->format('Y'), $dateEcheance->format('m'), $jourFixe);
+                $moisActuel = ($moisActuel + 1) % 12;
+                $anneeActuelle = $anneeCourante + intdiv(($moisDepartMensuel + $i + 1), 12);
+                $dateEcheance = new \DateTime("$anneeActuelle-$moisActuel-05");
             }
 
             $echeance = new Echeances();
+            $echeance->setPeriode($this->getMonthName($moisCourant + 1));
+
+            //$fraisType = new FraisType();
+            //$fraisType->setPeriode('mensuel');
+            //$manager->persist($fraisType);
+            //$this->addReference('fraisType_' . $i, $fraisType);
             $echeance->setEcheance($dateEcheance);
-
             $manager->persist($echeance);
+            $this->addReference('mensuelle_' . $i, $echeance);
 
-            // Ajouter la date d'échéance à la liste
             $listeEcheances[] = $dateEcheance->format('Y-m-d');
         }
 
-        // Afficher la liste des dates d'échéance
-        foreach ($listeEcheances as $echeance) {
-            echo $echeance . "\n";
+        // Générer les échéances trimestrielles
+        for ($i = 0; $i < $nombreEcheancesTrimestrielles; $i++) {
+            $moisActuel = ($moisDepartTrimestriel + ($i * 3)) % 12;
+            $anneeActuelle = $anneeCourante + intdiv(($moisDepartTrimestriel + ($i * 3)), 12);
+
+            $dateEcheance = new \DateTime("$anneeActuelle-$moisActuel-05");
+
+            if ($dateEcheance <= $dateCourante) {
+                $moisActuel = ($moisActuel + 1) % 12;
+                $anneeActuelle = $anneeCourante + intdiv(($moisDepartTrimestriel + ($i * 3) + 1), 12);
+                $dateEcheance = new \DateTime("$anneeActuelle-$moisActuel-05");
+            }
+
+            $echeance = new Echeances();
+            $echeance->setPeriode($this->getTrimesterName($i + 1));
+            $echeance->setEcheance($dateEcheance);
+
+            //$fraisType = new FraisType();
+            //$fraisType->setPeriode('trimestriel');
+            //$manager->persist($fraisType);
+            //$this->addReference('fraisType_' . $i + 11, $fraisType);
+            $echeance->setEcheance($dateEcheance);
+
+            $manager->persist($echeance);
+            $this->addReference('trimestrielle_' . $i, $echeance);
+
+            $listeEcheances[] = $dateEcheance->format('Y-m-d');
         }
 
         $manager->flush();
+    }
+
+    private function getMonthName($monthNumber)
+    {
+        $monthNames = [
+            'janvier', 'février', 'mars', 'avril', 'mai', 'juin',
+            'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'
+        ];
+
+        return $monthNames[$monthNumber - 1];
+    }
+
+    private function getTrimesterName($trimesterNumber)
+    {
+        $trimesterNames = ['1er trimestre', '2e trimestre', '3e trimestre', '4e trimestre'];
+
+        return $trimesterNames[$trimesterNumber - 1];
     }
 }

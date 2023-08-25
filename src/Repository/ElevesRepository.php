@@ -181,7 +181,7 @@ class ElevesRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function findElevesActifSansFraisScolarites()
+    /*public function findElevesActifSansFraisScolarites()
     {
         return $this->createQueryBuilder('e')
             ->leftJoin('e.fraisScolaritesAbandon', 'f')
@@ -194,7 +194,7 @@ class ElevesRepository extends ServiceEntityRepository
             ->setParameter('isAdmis', true)
             ->getQuery()
             ->getResult();
-    }
+    }*/
 
 
 

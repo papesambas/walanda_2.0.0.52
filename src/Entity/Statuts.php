@@ -29,13 +29,13 @@ class Statuts
     #[ORM\OneToMany(mappedBy: 'statut', targetEntity: Eleves::class)]
     private Collection $eleves;
 
-    #[ORM\OneToMany(mappedBy: 'statut', targetEntity: FraisScolaires::class)]
-    private Collection $fraisScolaires;
+    #[ORM\OneToMany(mappedBy: 'statut', targetEntity: FraisType::class)]
+    private Collection $fraisTypes;
 
     public function __construct()
     {
         $this->eleves = new ArrayCollection();
-        $this->fraisScolaires = new ArrayCollection();
+        $this->fraisTypes = new ArrayCollection();
     }
 
     public function __toString()
@@ -103,29 +103,29 @@ class Statuts
     }
 
     /**
-     * @return Collection<int, FraisScolaires>
+     * @return Collection<int, FraisType>
      */
-    public function getFraisScolaires(): Collection
+    public function getFraisTypes(): Collection
     {
-        return $this->fraisScolaires;
+        return $this->fraisTypes;
     }
 
-    public function addFraisScolaire(FraisScolaires $fraisScolaire): static
+    public function addFraisType(FraisType $fraisType): static
     {
-        if (!$this->fraisScolaires->contains($fraisScolaire)) {
-            $this->fraisScolaires->add($fraisScolaire);
-            $fraisScolaire->setStatut($this);
+        if (!$this->fraisTypes->contains($fraisType)) {
+            $this->fraisTypes->add($fraisType);
+            $fraisType->setStatut($this);
         }
 
         return $this;
     }
 
-    public function removeFraisScolaire(FraisScolaires $fraisScolaire): static
+    public function removeFraisType(FraisType $fraisType): static
     {
-        if ($this->fraisScolaires->removeElement($fraisScolaire)) {
+        if ($this->fraisTypes->removeElement($fraisType)) {
             // set the owning side to null (unless already changed)
-            if ($fraisScolaire->getStatut() === $this) {
-                $fraisScolaire->setStatut(null);
+            if ($fraisType->getStatut() === $this) {
+                $fraisType->setStatut(null);
             }
         }
 

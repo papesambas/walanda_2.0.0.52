@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Entity\Trait\CreatedAtTrait;
 use App\Repository\FraisScolairesRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: FraisScolairesRepository::class)]
@@ -15,249 +17,108 @@ class FraisScolaires
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?int $fraisInscription = null;
-
-    #[ORM\Column(nullable: true)]
-    private ?int $fraisCarnet = null;
-
-    #[ORM\Column(nullable: true)]
-    private ?int $fraisTransfert = null;
-
-    #[ORM\Column(nullable: true)]
-    private ?int $septembre = null;
+    #[ORM\Column(length: 150)]
+    private ?string $designation = null;
 
     #[ORM\Column]
-    private ?int $octobre = null;
-
-    #[ORM\Column]
-    private ?int $novembre = null;
-
-    #[ORM\Column]
-    private ?int $decembre = null;
-
-    #[ORM\Column]
-    private ?int $janvier = null;
-
-    #[ORM\Column]
-    private ?int $fevrier = null;
-
-    #[ORM\Column]
-    private ?int $mars = null;
-
-    #[ORM\Column]
-    private ?int $avril = null;
-
-    #[ORM\Column]
-    private ?int $mai = null;
-
-    #[ORM\Column(nullable: true)]
-    private ?int $juin = null;
-
-    #[ORM\Column(nullable: true)]
-    private ?int $autres = null;
+    private ?int $montant = null;
 
     #[ORM\ManyToOne(inversedBy: 'fraisScolaires')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Niveaux $niveau = null;
+    private ?Echeances $echeance = null;
 
     #[ORM\ManyToOne(inversedBy: 'fraisScolaires')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Statuts $statut = null;
+    private ?FraisType $fraisType = null;
+
+    #[ORM\OneToMany(mappedBy: 'fraisScolaires', targetEntity: FraisScolarites::class)]
+    private Collection $fraisScolarites;
+
+    public function __construct()
+    {
+        $this->fraisScolarites = new ArrayCollection();
+    }
+
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getFraisInscription(): ?int
+    public function getDesignation(): ?string
     {
-        return $this->fraisInscription;
+        return $this->designation;
     }
 
-    public function setFraisInscription(?int $fraisInscription): static
+    public function setDesignation(string $designation): static
     {
-        $this->fraisInscription = $fraisInscription;
+        $this->designation = $designation;
 
         return $this;
     }
 
-    public function getFraisCarnet(): ?int
+    public function getMontant(): ?int
     {
-        return $this->fraisCarnet;
+        return $this->montant;
     }
 
-    public function setFraisCarnet(?int $fraisCarnet): static
+    public function setMontant(int $montant): static
     {
-        $this->fraisCarnet = $fraisCarnet;
+        $this->montant = $montant;
 
         return $this;
     }
 
-    public function getFraisTransfert(): ?int
+    public function getEcheance(): ?Echeances
     {
-        return $this->fraisTransfert;
+        return $this->echeance;
     }
 
-    public function setFraisTransfert(?int $fraisTransfert): static
+    public function setEcheance(?Echeances $echeance): static
     {
-        $this->fraisTransfert = $fraisTransfert;
+        $this->echeance = $echeance;
 
         return $this;
     }
 
-    public function getSeptembre(): ?int
+    public function getFraisType(): ?FraisType
     {
-        return $this->septembre;
+        return $this->fraisType;
     }
 
-    public function setSeptembre(?int $septembre): static
+    public function setFraisType(?FraisType $fraisType): static
     {
-        $this->septembre = $septembre;
+        $this->fraisType = $fraisType;
 
         return $this;
     }
 
-    public function getOctobre(): ?int
+    /**
+     * @return Collection<int, FraisScolarites>
+     */
+    public function getFraisScolarites(): Collection
     {
-        return $this->octobre;
+        return $this->fraisScolarites;
     }
 
-    public function setOctobre(int $octobre): static
+    public function addFraisScolarite(FraisScolarites $fraisScolarite): static
     {
-        $this->octobre = $octobre;
+        if (!$this->fraisScolarites->contains($fraisScolarite)) {
+            $this->fraisScolarites->add($fraisScolarite);
+            $fraisScolarite->setFraisScolaires($this);
+        }
 
         return $this;
     }
 
-    public function getNovembre(): ?int
+    public function removeFraisScolarite(FraisScolarites $fraisScolarite): static
     {
-        return $this->novembre;
-    }
-
-    public function setNovembre(int $novembre): static
-    {
-        $this->novembre = $novembre;
-
-        return $this;
-    }
-
-    public function getDecembre(): ?int
-    {
-        return $this->decembre;
-    }
-
-    public function setDecembre(int $decembre): static
-    {
-        $this->decembre = $decembre;
-
-        return $this;
-    }
-
-    public function getJanvier(): ?int
-    {
-        return $this->janvier;
-    }
-
-    public function setJanvier(int $janvier): static
-    {
-        $this->janvier = $janvier;
-
-        return $this;
-    }
-
-    public function getFevrier(): ?int
-    {
-        return $this->fevrier;
-    }
-
-    public function setFevrier(int $fevrier): static
-    {
-        $this->fevrier = $fevrier;
-
-        return $this;
-    }
-
-    public function getMars(): ?int
-    {
-        return $this->mars;
-    }
-
-    public function setMars(int $mars): static
-    {
-        $this->mars = $mars;
-
-        return $this;
-    }
-
-    public function getAvril(): ?int
-    {
-        return $this->avril;
-    }
-
-    public function setAvril(int $avril): static
-    {
-        $this->avril = $avril;
-
-        return $this;
-    }
-
-    public function getMai(): ?int
-    {
-        return $this->mai;
-    }
-
-    public function setMai(int $mai): static
-    {
-        $this->mai = $mai;
-
-        return $this;
-    }
-
-    public function getJuin(): ?int
-    {
-        return $this->juin;
-    }
-
-    public function setJuin(?int $juin): static
-    {
-        $this->juin = $juin;
-
-        return $this;
-    }
-
-    public function getAutres(): ?int
-    {
-        return $this->autres;
-    }
-
-    public function setAutres(?int $autres): static
-    {
-        $this->autres = $autres;
-
-        return $this;
-    }
-
-    public function getNiveau(): ?Niveaux
-    {
-        return $this->niveau;
-    }
-
-    public function setNiveau(?Niveaux $niveau): static
-    {
-        $this->niveau = $niveau;
-
-        return $this;
-    }
-
-    public function getStatut(): ?Statuts
-    {
-        return $this->statut;
-    }
-
-    public function setStatut(?Statuts $statut): static
-    {
-        $this->statut = $statut;
+        if ($this->fraisScolarites->removeElement($fraisScolarite)) {
+            // set the owning side to null (unless already changed)
+            if ($fraisScolarite->getFraisScolaires() === $this) {
+                $fraisScolarite->setFraisScolaires(null);
+            }
+        }
 
         return $this;
     }

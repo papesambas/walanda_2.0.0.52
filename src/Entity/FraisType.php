@@ -3,14 +3,13 @@
 namespace App\Entity;
 
 use App\Entity\Trait\CreatedAtTrait;
-use App\Repository\EcheancesRepository;
+use App\Repository\FraisTypeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: EcheancesRepository::class)]
-class Echeances
+#[ORM\Entity(repositoryClass: FraisTypeRepository::class)]
+class FraisType
 {
     use CreatedAtTrait;
     #[ORM\Id]
@@ -18,14 +17,19 @@ class Echeances
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $echeance = null;
-
     #[ORM\Column(length: 50)]
     private ?string $periode = null;
 
-    #[ORM\OneToMany(mappedBy: 'echeance', targetEntity: FraisScolaires::class)]
+    #[ORM\OneToMany(mappedBy: 'fraisType', targetEntity: FraisScolaires::class)]
     private Collection $fraisScolaires;
+
+    #[ORM\ManyToOne(inversedBy: 'fraisTypes')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Statuts $statut = null;
+
+    #[ORM\ManyToOne(inversedBy: 'fraisTypes')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Niveaux $niveau = null;
 
     public function __construct()
     {
@@ -35,18 +39,6 @@ class Echeances
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getEcheance(): ?\DateTimeInterface
-    {
-        return $this->echeance;
-    }
-
-    public function setEcheance(\DateTimeInterface $echeance): static
-    {
-        $this->echeance = $echeance;
-
-        return $this;
     }
 
     public function getPeriode(): ?string
@@ -73,7 +65,7 @@ class Echeances
     {
         if (!$this->fraisScolaires->contains($fraisScolaire)) {
             $this->fraisScolaires->add($fraisScolaire);
-            $fraisScolaire->setEcheance($this);
+            $fraisScolaire->setFraisType($this);
         }
 
         return $this;
@@ -83,10 +75,34 @@ class Echeances
     {
         if ($this->fraisScolaires->removeElement($fraisScolaire)) {
             // set the owning side to null (unless already changed)
-            if ($fraisScolaire->getEcheance() === $this) {
-                $fraisScolaire->setEcheance(null);
+            if ($fraisScolaire->getFraisType() === $this) {
+                $fraisScolaire->setFraisType(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getStatut(): ?Statuts
+    {
+        return $this->statut;
+    }
+
+    public function setStatut(?Statuts $statut): static
+    {
+        $this->statut = $statut;
+
+        return $this;
+    }
+
+    public function getNiveau(): ?Niveaux
+    {
+        return $this->niveau;
+    }
+
+    public function setNiveau(?Niveaux $niveau): static
+    {
+        $this->niveau = $niveau;
 
         return $this;
     }
